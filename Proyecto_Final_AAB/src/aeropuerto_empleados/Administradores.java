@@ -1,0 +1,184 @@
+package aeropuerto_empleados;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import com.google.gson.Gson;
+
+
+import data_access_object.ConexionAeropuerto;
+
+
+@Path("/administradores")
+public class Administradores {
+	
+	//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
+	@GET
+	@Path("/addAdministradores")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String insertarAdministrador(@QueryParam("nombre") String nombre , @QueryParam("apellido") String apellido, @QueryParam("usuario") String usuario, @QueryParam("pass") String pass, @QueryParam("email") String email, @QueryParam("direccion") String direccion){
+		
+	String numerosLetras= new String("[^a-zA-Z0-9]+");
+	String soloLetras= new String("[^a-zA-Z]+");
+	String soloEmail= new String("[^a-zA-Z0-9@._-]");
+		
+		try
+			{
+			//Probamos conectarnos
+			ConexionAeropuerto c= new ConexionAeropuerto();
+			Connection con= c.connectarAhora();
+			
+			//Si la conexión no es nula entonces realizar una consulta de insercción de datos
+			if(con!=null)
+					{
+						Statement st;
+						st=con.createStatement();
+						st.executeUpdate("INSERT INTO administradores(nombre,apellido,usuario,pass,email,direccion) VALUES('"+nombre.trim().replaceAll(soloLetras, "")+"','"+apellido.trim().replaceAll(soloLetras, "")+"','"+usuario.trim().replaceAll(numerosLetras, "")+"','"+pass.trim().replaceAll(numerosLetras, "")+"','"+email.trim().replaceAll(soloEmail, "")+"','"+direccion.trim().replaceAll(numerosLetras, "")+"')");
+						st.close();
+						System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB 'administradores'");
+					} 
+			else
+					{
+						System.out.println("Algo Salió mal no se pudo insertar los datos");
+					}
+			}
+			catch (SQLException e) 
+		
+					{
+						e.printStackTrace();
+					}
+		
+		//Creamos la lista y le ponemos las variables que a su vez están conectadas al construcctor de la Case Empleados
+		List<Empleado> lista= new ArrayList<>();
+			lista.add(new Empleado(nombre.trim().replaceAll(soloLetras, ""), apellido.trim().replaceAll(soloLetras, ""), usuario.trim().replaceAll(numerosLetras, ""), pass.trim().replaceAll(numerosLetras, ""), email.trim().replaceAll(soloEmail, ""), direccion.trim().replaceAll(numerosLetras, "") ));
+			
+				//Creamos un object Gson() que nos permite usar el toJson()
+				Gson gson = new Gson();
+			
+				//Creamos un String y al mismo le aplicamos el toJson(objeto list)
+				String JsonToString= gson.toJson(lista);
+				
+				//Retornamos el String anterior
+				return JsonToString;
+		}
+	
+	
+	
+	//Consulta de todos los administradores de la DB
+	@GET
+	@Path("/loginAdministrador")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String loginAdministrador(@QueryParam("usuario") String usuario, @QueryParam("pass") String pass){
+		
+		//Este grupo de variables transforman a JSON y con el while de abajo itera a todos los elementos del ArrayList
+		Gson gson= new Gson();
+		List<Empleado> listado= new ArrayList<>();
+		String stringJson= gson.toJson(listado);
+		
+		
+		try
+			{
+		
+			ConexionAeropuerto c= new ConexionAeropuerto();
+			Connection con= c.connectarAhora();
+			
+			if(con!=null /* && usuario.equalsIgnoreCase("") && pass.equalsIgnoreCase("") */ && usuario.equals("admin") && pass.equals("admin"))
+					{
+						System.out.println("Funciona el try and catch");
+						
+						String sql="select * from administradores";
+						
+						Statement st= con.createStatement();
+						
+						ResultSet rs= st.executeQuery(sql);
+						
+						
+						while(rs.next())
+						{
+							String nombre= rs.getString("nombre");
+							String apellido= rs.getString("apellido");
+							String usuario1= rs.getString("usuario");
+							String pass1= rs.getString("pass");
+							String email= rs.getString("email");
+							String direccion= rs.getString("direccion");
+							
+							//Esta línea es sólo demostrativa de que funcionan las variables que toman datos de la DB
+							System.out.println(nombre+" "+apellido+" "+usuario1+" "+pass1+" "+email+" "+direccion);
+							
+							
+							
+							//Adherimos a la lista una fila nueva con una columna nueva.
+							listado.add(new Empleado(nombre,apellido,usuario1,pass1,email,direccion));
+							
+							//Actualizamos el String del Json sin crearlo nuevamente.
+							stringJson= gson.toJson(listado);
+						}
+						
+					} 
+			else
+					{
+						System.out.println("Algo Salió mal no se pueden ver los datos");
+					}
+			}
+			catch (Exception e) 
+		
+					{
+						e.printStackTrace();
+					}
+		return stringJson;
+		}
+	
+	
+	//Consulta de administradores en la base de datos
+	@GET
+	@Path("/deleteAdministrador")
+	@Produces(MediaType.TEXT_HTML)
+	public String deleteAdministrador(@QueryParam("usuario") String usuario){
+		
+		try
+			{
+		
+			ConexionAeropuerto c= new ConexionAeropuerto();
+			Connection con= c.connectarAhora();
+			
+			if(con!=null /*&& usuario.equalsIgnoreCase("") && pass.equalsIgnoreCase("")*/)
+					{
+				Statement st;
+				st=con.createStatement();
+				st.executeUpdate("DELETE FROM administradores WHERE usuario='"+usuario+"'");
+				st.close();
+				
+						System.out.println("Funciona el try and catch, revisar la DB si se eleminó");
+						
+					} 
+			else
+					{
+				
+						System.out.println("Algo Salió mal no se pueden ver los datos");
+					}
+			}
+			catch (Exception e) 
+		
+					{
+						e.printStackTrace();
+					}
+		
+		return "Se borró el usuario: "+ usuario;
+		}
+	
+}
