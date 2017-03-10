@@ -1,3 +1,6 @@
+
+
+/*Esta Clase está en completo deshuso en este proyecto, pero su código funciona bien*/
 package data_access_object;
 
 import java.sql.Connection;
