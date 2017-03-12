@@ -14,6 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import data_access_object.ConexionAeropuerto;
 import data_access_object.Insertar_Empleados;
@@ -95,5 +97,53 @@ public class Empleados {
 			
 				return "<html>" + "<body><h3>" + "El nombre del empleado es: "  + usuario + usuario + "<br>"+ "El apellido del empleado es: " + pass + "</h3></body>" + "</html>";
 			}
+		
+		
+		
+		
+		//Pruebas beta
+		
+		@GET
+		@Path("/insertarEmpleado")
+		@Produces(MediaType.TEXT_HTML)
+		public boolean insertarEmpleadoBoolean(@QueryParam("usuario") String usuario , @QueryParam("pass") String pass, Empleado datos, ValidarUsuario datosDB){
+			
+			boolean insertado= false;
+			
+			try
+				{
+			
+				ConexionAeropuerto c= new ConexionAeropuerto();
+				Connection con= c.connectarAhora();
+				
+				if(con!=null)
+						{
+					 		ValidarUsuario.validarUsuario(datos);
+							System.out.println("La validación se realizó correctamente");
+							insertado= true;
+							ACCEPTED();
+							
+						} 
+				else
+						{
+							System.out.println("Algo Salió mal no se pudo insertar los datos");
+							//insertado= false;
+						}
+				}
+				catch (Exception e) 
+			
+						{
+							e.printStackTrace();
+						}
+			
+			
+				return insertado;
+			}
+		
+		
+		public static final ResponseBuilder ACCEPTED(){
+			
+			return Response.status(200);
+		}
 		
 		}
