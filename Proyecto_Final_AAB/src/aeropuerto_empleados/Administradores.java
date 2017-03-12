@@ -28,18 +28,18 @@ import data_access_object.ConexionAeropuerto;
 
 @Path("/administradores")
 public class Administradores {
-	
-//Al final están desarrolados los métodos ResponseBuilder.
-//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
-//Crea una tabla de empleados nueva por cada administrador nuevo ingresado.
-//Controlar los métodos de respuesta.
-//Revisar: En la primer anotación @GET de insercción de administradores a la DB, hay un error que genera 'doble' insercción a la DB pero un sólo JSON.
-//Para validar usuarios terminar 'AutenticarUsuario.java', definir si convertirlo en estático y/o booleano.
-//Investigar token.
+
+//Recordatorio:
+// Al final están desarrolados los métodos ResponseBuilder, controlar.
+// Inserta 'un' administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo.
+// Crea una tabla de empleados nueva por cada administrador nuevo ingresado.
+// Revisar: En la primer anotación @GET de insercción de administradores a la DB, hay un error que genera 'doble insercción' a la DB, pero correctamente un sólo JSON.
+// Para validar usuarios terminar 'AutenticarUsuario.java', definir si convertirlo en estático y/o booleano.
+// Investigar token.
 	
 	@GET
 	@Path("/addAdministrador")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String insertarAdministrador(@QueryParam("nombre") String nombre , @QueryParam("apellido") String apellido, @QueryParam("usuario") String usuario, @QueryParam("pass") String pass, @QueryParam("email") String email, @QueryParam("direccion") String direccion){
 		
 	String numerosLetras= new String("[^a-zA-Z0-9]+");
@@ -165,7 +165,7 @@ public class Administradores {
 		}
 	
 	
-	//Consulta de administradores en la base de datos
+	//Borra una fila de datos de 'administradores' en la base de datos, pasando como parámetro el 'usuario', cambiar a 'id'
 	@GET
 	@Path("/deleteAdministrador")
 	@Produces(MediaType.TEXT_HTML)
