@@ -29,8 +29,13 @@ import data_access_object.ConexionAeropuerto;
 @Path("/administradores")
 public class Administradores {
 	
-	//Al final est·n los mÈtodos Response declarados.
-	//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
+//Al final est√°n desarrolados los m√©todos ResponseBuilder.
+//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
+//Crea una tabla de empleados nueva por cada administrador nuevo ingresado.
+//Controlar los m√©todos de respuesta.
+//Revisar: En la primer anotaci√≥n @GET de insercci√≥n de administradores a la DB, hay un error que genera 'doble' insercci√≥n a la DB pero un s√≥lo JSON.
+//Investigar token.
+	
 	@GET
 	@Path("/addAdministrador")
 	@Produces(MediaType.TEXT_HTML)
@@ -46,26 +51,26 @@ public class Administradores {
 			ConexionAeropuerto c= new ConexionAeropuerto();
 			Connection con= c.connectarAhora();
 			
-			//Si la conexiÛn no es nula entonces realizar dos consultaa de insercciÛn de datos y creaciÛn de tabla
+			//Si la conexi√≥n no es nula entonces realizar dos consultaa de insercci√≥n de datos y creaci√≥n de tabla
 			if(con!=null)
 					{
 						Statement st;
 						st=con.createStatement();
 						st.executeUpdate("INSERT INTO administradores(nombre,apellido,usuario,pass,email,direccion) VALUES('"+nombre.trim().replaceAll(soloLetras, "")+"','"+apellido.trim().replaceAll(soloLetras, "")+"','"+usuario.trim().replaceAll(numerosLetras, "")+"','"+pass.trim().replaceAll(numerosLetras, "")+"','"+email.trim().replaceAll(soloEmail, "")+"','"+direccion.trim().replaceAll(numerosLetras, "")+"')");
 						st.close();
-						System.out.println("Funciona el try and catch, los deberÌan haberse ingresado a la DB 'administradores'");
+						System.out.println("Funciona el try and catch, los deber√≠an haberse ingresado a la DB 'administradores'");
 						
 						Statement createSt;
 						createSt=con.createStatement();
 						createSt.executeUpdate("CREATE TABLE IF NOT EXISTS empleados_"+usuario+"(personaId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre text(11), apellido text(11), direccion text(20), cargo text(20), sueldo_bruto double, cargas_sociales double, vacaciones double, sueldo_neto double)");
 						createSt.close();
-						System.out.println("Funciona el try and catch y deberÌa haberse creado una tabla nueva");
+						System.out.println("Funciona el try and catch y deber√≠a haberse creado una tabla nueva");
 						
 						CREADO();	//ResponseBuilder 200
 					} 
 			else
 					{
-						System.out.println("Algo SaliÛ mal no se pudo insertar los datos");
+						System.out.println("Algo Sali√≥ mal no se pudo insertar los datos");
 						UNAUTHORIZED();	//ResponseBuilder 401
 					}
 			}
@@ -75,7 +80,7 @@ public class Administradores {
 						e.printStackTrace();
 					}
 		
-		//Creamos la lista y le ponemos las variables que a su vez est·n conectadas al construcctor de la Case Empleados
+		//Creamos la lista y le ponemos las variables que a su vez est√°n conectadas al construcctor de la Case Empleados
 		List<Empleado> lista= new ArrayList<>();
 			lista.add(new Empleado(nombre.trim().replaceAll(soloLetras, ""), apellido.trim().replaceAll(soloLetras, ""), usuario.trim().replaceAll(numerosLetras, ""), pass.trim().replaceAll(numerosLetras, ""), email.trim().replaceAll(soloEmail, ""), direccion.trim().replaceAll(numerosLetras, "") ));
 			
@@ -129,7 +134,7 @@ public class Administradores {
 							String email= rs.getString("email");
 							String direccion= rs.getString("direccion");
 							
-							//Esta lÌnea es sÛlo demostrativa de que funcionan las variables que toman datos de la DB
+							//Esta l√≠nea es s√≥lo demostrativa de que funcionan las variables que toman datos de la DB
 							System.out.println(nombre+" "+apellido+" "+usuario1+" "+pass1+" "+email+" "+direccion);
 							
 							
@@ -146,7 +151,7 @@ public class Administradores {
 					} 
 			else
 					{
-						System.out.println("Algo SaliÛ mal no se pueden ver los datos");
+						System.out.println("Algo Sali√≥ mal no se pueden ver los datos");
 						UNAUTHORIZED();	//ResponseBuilder 401
 					}
 			}
@@ -178,13 +183,13 @@ public class Administradores {
 				st.executeUpdate("DELETE FROM administradores WHERE usuario='"+usuario+"'");
 				st.close();
 				
-						System.out.println("Funciona el try and catch, revisar la DB si se eleminÛ");
+						System.out.println("Funciona el try and catch, revisar la DB si se elemin√≥");
 						CREADO();	//ResponseBuilder 200
 					
 					} 
 			else
 					{
-						System.out.println("Algo SaliÛ mal no se pueden ver los datos");
+						System.out.println("Algo Sali√≥ mal no se pueden ver los datos");
 						UNAUTHORIZED();	  //ResponseBuilder 401
 					}
 			}
@@ -195,7 +200,7 @@ public class Administradores {
 						
 					}
 		
-		return "Se borrÛ el usuario: "+ usuario;
+		return "Se borr√≥ el usuario: "+ usuario;
 		}
 	
 	
