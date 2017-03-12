@@ -17,6 +17,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.google.gson.Gson;
 
@@ -27,10 +29,11 @@ import data_access_object.ConexionAeropuerto;
 @Path("/administradores")
 public class Administradores {
 	
+	//Al final están los métodos Response declarados.
 	//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
 	@GET
-	@Path("/addAdministradores")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addAdministrador")
+	@Produces(MediaType.TEXT_HTML)
 	public String insertarAdministrador(@QueryParam("nombre") String nombre , @QueryParam("apellido") String apellido, @QueryParam("usuario") String usuario, @QueryParam("pass") String pass, @QueryParam("email") String email, @QueryParam("direccion") String direccion){
 		
 	String numerosLetras= new String("[^a-zA-Z0-9]+");
@@ -43,7 +46,7 @@ public class Administradores {
 			ConexionAeropuerto c= new ConexionAeropuerto();
 			Connection con= c.connectarAhora();
 			
-			//Si la conexión no es nula entonces realizar una consulta de insercción de datos
+			//Si la conexión no es nula entonces realizar dos consultaa de insercción de datos y creación de tabla
 			if(con!=null)
 					{
 						Statement st;
@@ -51,10 +54,19 @@ public class Administradores {
 						st.executeUpdate("INSERT INTO administradores(nombre,apellido,usuario,pass,email,direccion) VALUES('"+nombre.trim().replaceAll(soloLetras, "")+"','"+apellido.trim().replaceAll(soloLetras, "")+"','"+usuario.trim().replaceAll(numerosLetras, "")+"','"+pass.trim().replaceAll(numerosLetras, "")+"','"+email.trim().replaceAll(soloEmail, "")+"','"+direccion.trim().replaceAll(numerosLetras, "")+"')");
 						st.close();
 						System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB 'administradores'");
+						
+						Statement createSt;
+						createSt=con.createStatement();
+						createSt.executeUpdate("CREATE TABLE IF NOT EXISTS empleados_"+usuario+"(personaId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre text(11), apellido text(11), direccion text(20), cargo text(20), sueldo_bruto double, cargas_sociales double, vacaciones double, sueldo_neto double)");
+						createSt.close();
+						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
+						
+						CREADO();	//ResponseBuilder 200
 					} 
 			else
 					{
 						System.out.println("Algo Salió mal no se pudo insertar los datos");
+						UNAUTHORIZED();	//ResponseBuilder 401
 					}
 			}
 			catch (SQLException e) 
@@ -127,12 +139,15 @@ public class Administradores {
 							
 							//Actualizamos el String del Json sin crearlo nuevamente.
 							stringJson= gson.toJson(listado);
+							
+							ACCEPTED();	//ResponseBuilder 200
 						}
 						
 					} 
 			else
 					{
 						System.out.println("Algo Salió mal no se pueden ver los datos");
+						UNAUTHORIZED();	//ResponseBuilder 401
 					}
 			}
 			catch (Exception e) 
@@ -164,21 +179,42 @@ public class Administradores {
 				st.close();
 				
 						System.out.println("Funciona el try and catch, revisar la DB si se eleminó");
-						
+						CREADO();	//ResponseBuilder 200
+					
 					} 
 			else
 					{
-				
 						System.out.println("Algo Salió mal no se pueden ver los datos");
+						UNAUTHORIZED();	  //ResponseBuilder 401
 					}
 			}
 			catch (Exception e) 
 		
 					{
 						e.printStackTrace();
+						
 					}
 		
 		return "Se borró el usuario: "+ usuario;
 		}
 	
+	
+	
+	public static final ResponseBuilder ACCEPTED(){
+		
+		return Response.status(200);
+	}
+	
+	
+	public static final ResponseBuilder CREADO(){
+		
+		return Response.status(201);
+	}
+	
+	public static final ResponseBuilder UNAUTHORIZED(){
+		
+		return Response.status(401);
+	}
+
+
 }

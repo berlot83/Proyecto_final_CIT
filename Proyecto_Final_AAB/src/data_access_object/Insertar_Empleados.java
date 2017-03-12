@@ -1,3 +1,5 @@
+//Esta clase está en deshuso en este proyecto, sólo sirve de ejemplo.
+
 package data_access_object;
 
 import java.sql.Connection;

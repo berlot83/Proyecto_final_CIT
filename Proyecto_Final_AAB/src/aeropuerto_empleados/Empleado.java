@@ -19,8 +19,6 @@ public class Empleado {
 				this.pass=pass;
 				this.email=email;
 				this.direccion=direccion;
-				
-				
 			}
 			
 		
@@ -72,7 +70,9 @@ public class Empleado {
 				this.direccion = direccion;
 			}
 
-/*
+			
+			//Por ahora el 'id' va a quedar inactivo hasta que se asigne a alguna consulta como parámetro para borrar datos.
+		/*
 			public int getId() {
 				return id;
 			}
@@ -82,6 +82,5 @@ public class Empleado {
 				this.id = id;
 			}
 	
-	*/
-
+		 */
 }
