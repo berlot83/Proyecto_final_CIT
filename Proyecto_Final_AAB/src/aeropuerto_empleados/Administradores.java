@@ -34,6 +34,7 @@ public class Administradores {
 //Crea una tabla de empleados nueva por cada administrador nuevo ingresado.
 //Controlar los métodos de respuesta.
 //Revisar: En la primer anotación @GET de insercción de administradores a la DB, hay un error que genera 'doble' insercción a la DB pero un sólo JSON.
+//Para validar usuarios terminar 'AutenticarUsuario.java', definir si convertirlo en estático y/o booleano.
 //Investigar token.
 	
 	@GET
