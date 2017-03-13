@@ -5,12 +5,12 @@ package data_access_object;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import aeropuerto_empleados.Empleado;
+import aeropuerto_empleados.Administrador;
 
 public class Insertar_Empleados {
 
 	
-	public static boolean insertarEmpleado(Empleado datos){
+	public static boolean insertarEmpleado(Administrador datos){
 		
 		boolean insertado= false;
 		

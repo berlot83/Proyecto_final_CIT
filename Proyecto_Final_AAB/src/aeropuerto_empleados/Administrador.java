@@ -1,7 +1,8 @@
 package aeropuerto_empleados;
 
-public class Empleado {
+public class Administrador {
 	
+	// Sobrecarga de constructores para insercción a DB de todos los datos y para validación de datos usuario y pass
 	/*protected int id;*/
 	protected String nombre;
 	protected String apellido;
@@ -11,7 +12,7 @@ public class Empleado {
 	protected String direccion;
 	
 	
-			public Empleado( String nombre, String apellido, String usuario, String pass, String email, String direccion){
+			public Administrador( String nombre, String apellido, String usuario, String pass, String email, String direccion){
 			
 				this.nombre=nombre;
 				this.apellido=apellido;
@@ -19,6 +20,11 @@ public class Empleado {
 				this.pass=pass;
 				this.email=email;
 				this.direccion=direccion;
+			}
+			
+			public Administrador(String usuario, String pass){
+				this.usuario= usuario;
+				this.pass= pass;
 			}
 			
 		

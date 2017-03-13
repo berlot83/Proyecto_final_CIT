@@ -31,10 +31,10 @@ public class Administradores {
 	
 	//Al final están los métodos Response declarados.
 	//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
-	@GET
+	@POST
 	@Path("/addAdministrador")
 	@Produces(MediaType.TEXT_HTML)
-	public String insertarAdministrador(@QueryParam("nombre") String nombre , @QueryParam("apellido") String apellido, @QueryParam("usuario") String usuario, @QueryParam("pass") String pass, @QueryParam("email") String email, @QueryParam("direccion") String direccion){
+	public String insertarAdministrador(@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
 	String numerosLetras= new String("[^a-zA-Z0-9]+");
 	String soloLetras= new String("[^a-zA-Z]+");
@@ -76,8 +76,8 @@ public class Administradores {
 					}
 		
 		//Creamos la lista y le ponemos las variables que a su vez están conectadas al construcctor de la Case Empleados
-		List<Empleado> lista= new ArrayList<>();
-			lista.add(new Empleado(nombre.trim().replaceAll(soloLetras, ""), apellido.trim().replaceAll(soloLetras, ""), usuario.trim().replaceAll(numerosLetras, ""), pass.trim().replaceAll(numerosLetras, ""), email.trim().replaceAll(soloEmail, ""), direccion.trim().replaceAll(numerosLetras, "") ));
+		List<Administrador> lista= new ArrayList<>();
+			lista.add(new Administrador(nombre.trim().replaceAll(soloLetras, ""), apellido.trim().replaceAll(soloLetras, ""), usuario.trim().replaceAll(numerosLetras, ""), pass.trim().replaceAll(numerosLetras, ""), email.trim().replaceAll(soloEmail, ""), direccion.trim().replaceAll(numerosLetras, "") ));
 			
 				//Creamos un object Gson() que nos permite usar el toJson()
 				Gson gson = new Gson();
@@ -93,13 +93,13 @@ public class Administradores {
 	
 	//Consulta de todos los administradores de la DB
 	@GET
-	@Path("/loginAdministrador")
+	@Path("/consultaAdministrador")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String loginAdministrador(@QueryParam("usuario") String usuario, @QueryParam("pass") String pass){
 		
 		//Este grupo de variables transforman a JSON y con el while de abajo itera a todos los elementos del ArrayList
 		Gson gson= new Gson();
-		List<Empleado> listado= new ArrayList<>();
+		List<Administrador> listado= new ArrayList<>();
 		String stringJson= gson.toJson(listado);
 		
 		
@@ -135,7 +135,7 @@ public class Administradores {
 							
 							
 							//Adherimos a la lista una fila nueva con una columna nueva.
-							listado.add(new Empleado(nombre,apellido,usuario1,pass1,email,direccion));
+							listado.add(new Administrador(nombre,apellido,usuario1,pass1,email,direccion));
 							
 							//Actualizamos el String del Json sin crearlo nuevamente.
 							stringJson= gson.toJson(listado);
@@ -160,10 +160,10 @@ public class Administradores {
 	
 	
 	//Consulta de administradores en la base de datos
-	@GET
+	@POST
 	@Path("/deleteAdministrador")
 	@Produces(MediaType.TEXT_HTML)
-	public String deleteAdministrador(@QueryParam("usuario") String usuario){
+	public String deleteAdministrador(@FormParam("usuario") String usuario){
 		
 		try
 			{

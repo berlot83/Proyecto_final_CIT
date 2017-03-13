@@ -106,7 +106,7 @@ public class Empleados {
 		@GET
 		@Path("/insertarEmpleado")
 		@Produces(MediaType.TEXT_HTML)
-		public boolean insertarEmpleadoBoolean(@QueryParam("usuario") String usuario , @QueryParam("pass") String pass, Empleado datos, ValidarUsuario datosDB){
+		public boolean insertarEmpleadoBoolean(@QueryParam("usuario") String usuario , @QueryParam("pass") String pass, Administrador datos, ValidarUsuario datosDB){
 			
 			boolean insertado= false;
 			

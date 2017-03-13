@@ -10,7 +10,7 @@ import data_access_object.ConexionAeropuerto;
 
 public class ValidarUsuario {
 
-	public static boolean validarUsuario(Empleado datos){
+	public static boolean validarUsuario(Administrador datos){
 		
 		boolean validado= false;
 
