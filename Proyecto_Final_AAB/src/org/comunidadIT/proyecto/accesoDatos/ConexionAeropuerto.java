@@ -1,4 +1,4 @@
-package data_access_object;
+package org.comunidadIT.proyecto.accesoDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

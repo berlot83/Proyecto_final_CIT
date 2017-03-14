@@ -1,4 +1,4 @@
-package aeropuerto_empleados;
+package org.comunidadIT.proyecto.controladores;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,14 +20,20 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.comunidadIT.proyecto.accesoDatos.AutenticarUsuario;
+import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
+import org.comunidadIT.proyecto.entidades.Administrador;
+import org.comunidadIT.proyecto.entidades.Empleado;
+
 import com.google.gson.Gson;
-
-
-import data_access_object.ConexionAeropuerto;
 
 
 @Path("/administradores")
 public class Administradores {
+	
+	String numerosLetras= new String("[^a-zA-Z0-9]+");
+	String soloLetras= new String("[^a-zA-Z]+");
+	String soloEmail= new String("[^a-zA-Z0-9@._-]");
 	
 	//Al final están los métodos Response declarados.
 	//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
@@ -36,9 +42,6 @@ public class Administradores {
 	@Produces(MediaType.TEXT_HTML)
 	public String insertarAdministrador(@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
-	String numerosLetras= new String("[^a-zA-Z0-9]+");
-	String soloLetras= new String("[^a-zA-Z]+");
-	String soloEmail= new String("[^a-zA-Z0-9@._-]");
 		
 		try
 			{
@@ -57,16 +60,17 @@ public class Administradores {
 						
 						Statement createSt;
 						createSt=con.createStatement();
-						createSt.executeUpdate("CREATE TABLE IF NOT EXISTS empleados_"+usuario+"(personaId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre text(11), apellido text(11), direccion text(20), cargo text(20), sueldo_bruto double, cargas_sociales double, vacaciones double, sueldo_neto double)");
+						createSt.executeUpdate("CREATE TABLE IF NOT EXISTS empleados_"+usuario+"(personaId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre text(11) NOT NULL, apellido text(11) NOT NULL, direccion text(20) NOT NULL, cargo text(20) NOT NULL, sueldo_cargo float NOT NULL, cargas_sociales float NOT NULL, vacaciones float NOT NULL, sueldo_neto float NOT NULL)");
 						createSt.close();
-						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
 						
-						CREADO();	//ResponseBuilder 200
+						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
+						MetodosResponse.CREADO();	//ResponseBuilder 200
 					} 
 			else
 					{
 						System.out.println("Algo Salió mal no se pudo insertar los datos");
-						UNAUTHORIZED();	//ResponseBuilder 401
+						MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
+						return "Algo Salió mal no se pudo insertar los datos";
 					}
 			}
 			catch (SQLException e) 
@@ -88,7 +92,6 @@ public class Administradores {
 				//Retornamos el String anterior
 				return JsonToString;
 		}
-	
 	
 	
 	//Consulta de todos los administradores de la DB
@@ -132,22 +135,21 @@ public class Administradores {
 							//Esta línea es sólo demostrativa de que funcionan las variables que toman datos de la DB
 							System.out.println(nombre+" "+apellido+" "+usuario1+" "+pass1+" "+email+" "+direccion);
 							
-							
-							
 							//Adherimos a la lista una fila nueva con una columna nueva.
 							listado.add(new Administrador(nombre,apellido,usuario1,pass1,email,direccion));
 							
 							//Actualizamos el String del Json sin crearlo nuevamente.
 							stringJson= gson.toJson(listado);
 							
-							ACCEPTED();	//ResponseBuilder 200
+							MetodosResponse.ACCEPTED();	//ResponseBuilder 200
 						}
 						
 					} 
 			else
 					{
-						System.out.println("Algo Salió mal no se pueden ver los datos");
-						UNAUTHORIZED();	//ResponseBuilder 401
+						System.out.println("Algo Salió mal no se pueden ver los datos o no tiene acceso a ellos");
+						MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
+						return "Algo Salió mal no se pueden ver los datos o no tiene acceso a ellos";
 					}
 			}
 			catch (Exception e) 
@@ -163,7 +165,7 @@ public class Administradores {
 	@POST
 	@Path("/deleteAdministrador")
 	@Produces(MediaType.TEXT_HTML)
-	public String deleteAdministrador(@FormParam("usuario") String usuario){
+	public String deleteAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("borrarUsuario") String borrarUsuario){
 		
 		try
 			{
@@ -171,21 +173,22 @@ public class Administradores {
 			ConexionAeropuerto c= new ConexionAeropuerto();
 			Connection con= c.connectarAhora();
 			
-			if(con!=null /*&& usuario.equalsIgnoreCase("") && pass.equalsIgnoreCase("")*/)
+			if(con!=null && AutenticarUsuario.autenticarUsuario(usuario, pass)==true)
 					{
-				Statement st;
-				st=con.createStatement();
-				st.executeUpdate("DELETE FROM administradores WHERE usuario='"+usuario+"'");
-				st.close();
-				
-						System.out.println("Funciona el try and catch, revisar la DB si se eleminó");
-						CREADO();	//ResponseBuilder 200
+						Statement st;
+						st=con.createStatement();
+						st.executeUpdate("DELETE FROM administradores WHERE usuario='"+ borrarUsuario +"'");
+						st.close();
+						
+						System.out.println("Funciona el try and catch, admin: revisar la DB si se eleminó");
+						MetodosResponse.CREADO();	//ResponseBuilder 200
 					
 					} 
 			else
 					{
-						System.out.println("Algo Salió mal no se pueden ver los datos");
-						UNAUTHORIZED();	  //ResponseBuilder 401
+						System.out.println("Algo Salió mal no se pueden ver los datos, pue que el registro a borrar no exista o que no tenga acceso");
+						MetodosResponse.UNAUTHORIZED();	  //ResponseBuilder 401
+						return "No se pudo borrar el registro seleccionado";
 					}
 			}
 			catch (Exception e) 
@@ -195,26 +198,8 @@ public class Administradores {
 						
 					}
 		
-		return "Se borró el usuario: "+ usuario;
+		return "Se borró el usuario: "+ borrarUsuario +" se borró exitosamente.";
 		}
 	
 	
-	
-	public static final ResponseBuilder ACCEPTED(){
-		
-		return Response.status(200);
-	}
-	
-	
-	public static final ResponseBuilder CREADO(){
-		
-		return Response.status(201);
-	}
-	
-	public static final ResponseBuilder UNAUTHORIZED(){
-		
-		return Response.status(401);
-	}
-
-
 }

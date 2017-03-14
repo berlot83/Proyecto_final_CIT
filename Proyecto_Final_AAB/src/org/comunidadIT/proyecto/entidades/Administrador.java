@@ -1,9 +1,9 @@
-package aeropuerto_empleados;
+package org.comunidadIT.proyecto.entidades;
 
-public class Administrador {
+public class Administrador{
 	
 	// Sobrecarga de constructores para insercción a DB de todos los datos y para validación de datos usuario y pass
-	/*protected int id;*/
+	//protected int id;
 	protected String nombre;
 	protected String apellido;
 	protected String usuario;
@@ -87,6 +87,7 @@ public class Administrador {
 			public void setId(int id) {
 				this.id = id;
 			}
-	
+			
 		 */
+		 
 }

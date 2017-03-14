@@ -1,4 +1,4 @@
-package data_access_object;
+package org.comunidadIT.proyecto.accesoDatos;
 
 
 import java.sql.Connection;
@@ -14,23 +14,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import com.sun.research.ws.wadl.Request;
+import org.comunidadIT.proyecto.entidades.Administrador;
 
-import aeropuerto_empleados.Administrador;
+import com.sun.research.ws.wadl.Request;
 
 @Path("/validacion")
 public class AutenticarUsuario {
 
 		//Esta clase debería ser estática y ser llamada antes del pedido de token.
 		//En este caso será necesario un .html o .jsp con formulario>, si no se tiene cambiar anotación a @GET
-	    @GET
+	    @POST
 	    @Produces("application/json")
 	    @Consumes("application/x-www-form-urlencoded")
-	    public Response autenticarUsuario(@QueryParam("usuario") String usuario, @QueryParam("pass") String pass){
+	    public static boolean autenticarUsuario(@FormParam("usuario") String usuario, @FormParam("pass") String pass){
 	    	
-	    	Response resp= null;
+	    	//Response resp= null;
 	    	String str_usuario= null;
 	    	String str_pass= null;
+	    	boolean autorizado= false;
 	    	
 		    	try{
 		    		
@@ -41,7 +42,7 @@ public class AutenticarUsuario {
 					{
 						Statement st;
 						st=con.createStatement();
-						ResultSet rs= st.executeQuery("select usuario, pass from administradores where id=89");
+						ResultSet rs= st.executeQuery("select usuario, pass from administradores where usuario= '" + usuario + "' and pass= '" + pass + "' ");
 						
 						while(rs.next())
 						{
@@ -54,6 +55,7 @@ public class AutenticarUsuario {
 								{
 									System.out.println("Usuario: " + usuario + " Correcto.");
 									System.out.println("Password: " + pass + " Correcta.");
+									autorizado= true;
 								}
 					 }
 		    		
@@ -63,20 +65,15 @@ public class AutenticarUsuario {
 		    		//Falta código de Token
 		    		//Falta código de retorno Response.builter del Token
 		    		
-						resp = Response.status(200).build();
+						Response.status(200).build();
 		    	}
 		    	catch(Exception e)
 		    	{
 		    		System.out.println("No tiene autorización para ingresar.");
-		    		resp= Response.status(401).build();
+		    		Response.status(401).build();
 		    	}
 	    	
-	    	return resp;
+	    	return autorizado;
 	    }
 	    
-	    
-	    public void autenticar(String usuario, String pass){
-	    	
-	    }
-	
 }

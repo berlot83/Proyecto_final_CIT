@@ -12,7 +12,7 @@
 <h1>Registro de usuarios Administradores de Aeropuertos.</h1>
 		<br>
 		<br>
-		<form action="http://localhost:8091/Proyecto_Final_AAB/rest/administradores/addAdministradores" method="post" >
+		<form action="http://localhost:8091/Proyecto_Final_AAB/rest/administradores/addAdministrador" method="post" >
 			<table>
 				<tr>
 					<td>	
@@ -102,7 +102,6 @@
 					<td>
 						<input type="submit" value="Enviar">
 					
-						<a href="index.jsp">Ya tiene cuenta?</a>
 					</td>
 				</tr>
 			</table>
