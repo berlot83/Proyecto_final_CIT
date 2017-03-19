@@ -1,18 +1,19 @@
 package org.comunidadIT.proyecto.entidades;
 
-public class Administrador{
+public class Administrador {
 	
 	// Sobrecarga de constructores para insercción a DB de todos los datos y para validación de datos usuario y pass
 	//protected int id;
-	protected String nombre;
-	protected String apellido;
+	
+	protected String nombre;	//Para llamarlo desde la instancia Empleado
+	protected String apellido;	//Para llamarlo desde la instancia Empleado
 	protected String usuario;
 	protected String pass;
 	protected String email;
 	protected String direccion;
 	
 	
-			public Administrador( String nombre, String apellido, String usuario, String pass, String email, String direccion){
+			public Administrador(String nombre, String apellido, String usuario, String pass, String email, String direccion){
 			
 				this.nombre=nombre;
 				this.apellido=apellido;
@@ -22,7 +23,9 @@ public class Administrador{
 				this.direccion=direccion;
 			}
 			
-			public Administrador(String usuario, String pass){
+			
+			public Administrador( String usuario, String pass){
+				
 				this.usuario= usuario;
 				this.pass= pass;
 			}

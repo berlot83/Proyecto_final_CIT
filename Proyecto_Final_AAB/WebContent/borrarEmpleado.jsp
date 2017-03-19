@@ -9,7 +9,7 @@
 <body>
 
 
-			<form action= "http://localhost:8091/Proyecto_Final_AAB/rest/superAdministrador/deleteAdministrador" method="post" >
+			<form action= "http://localhost:8091/Proyecto_Final_AAB/rest/empleados/deleteEmpleado" method="post" >
 				<table>
 					<tr>
 						<td>
@@ -25,6 +25,7 @@
 				
 					<tr>
 						<td>
+						
 					<tr>
 						<td>
 							<label name="pass">Pass del administrador:</label>
@@ -40,15 +41,28 @@
 				
 					<tr>
 						<td>
-							<label name="usuarioAdmin">Indique usuario a borrar:</label>
+							<label name="borrarNombre">Indique el nombre del registro borrar:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="usuarioAdmin" type="text"><br/>
+							<input name="borrarNombre" type="text"><br/>
 						</td>
 					</tr>
+					
+					<tr>
+						<td>
+							<label name="borrarApellido">Indique el apellido del registro borrar:</label>
+						</td>
+					</tr>
+				
+					<tr>
+						<td>
+							<input name="borrarApellido" type="text"><br/>
+						</td>
+					</tr>
+					
 					
 					<tr>
 						<td>
@@ -59,5 +73,6 @@
 				
 			</table>
 		</form>
+
 </body>
 </html>

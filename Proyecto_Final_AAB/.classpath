@@ -42,7 +42,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/metrics-jersey-2.2.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/metrics-servlet-2.2.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.2-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax-api-1.0-2-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-annotations-2.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="WebContent/WEB-INF/lib/jackson-mapper-asl-1.2.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-all-1.9.0.jar"/>

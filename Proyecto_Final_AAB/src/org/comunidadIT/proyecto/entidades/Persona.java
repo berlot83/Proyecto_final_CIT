@@ -1,9 +1,14 @@
 package org.comunidadIT.proyecto.entidades;
 
-public class Persona {
+public abstract class Persona {
 	
 	protected String nombre;
 	protected String apellido;
+	
+	public Persona(String nombre, String apellido){
+		this.nombre=nombre;
+		this.apellido=nombre;
+	}
 	
 			public String getNombre() {
 				return nombre;
@@ -18,6 +23,7 @@ public class Persona {
 				this.apellido = apellido;
 			}
 	
-	
-
+			
+			
+			 
 }

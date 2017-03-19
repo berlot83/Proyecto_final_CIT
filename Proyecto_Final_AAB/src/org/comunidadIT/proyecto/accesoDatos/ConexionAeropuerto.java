@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.comunidadIT.proyecto.entidades.Empleado;
+import org.comunidadIT.proyecto.entidades.Persona;
+
 
 //Forma de conexion sin clase estática ni métodos booleanos.
 public class ConexionAeropuerto {
@@ -12,6 +15,7 @@ public class ConexionAeropuerto {
 
 	//Creamos el contructor para conectarnos.
 	public ConexionAeropuerto(){
+		
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();

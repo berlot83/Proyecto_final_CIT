@@ -97,7 +97,7 @@ public class Administradores {
 	//Consulta de todos los administradores de la DB
 	@GET
 	@Path("/consultaAdministrador")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
 	public String loginAdministrador(@QueryParam("usuario") String usuario, @QueryParam("pass") String pass){
 		
 		//Este grupo de variables transforman a JSON y con el while de abajo itera a todos los elementos del ArrayList
@@ -112,7 +112,7 @@ public class Administradores {
 			ConexionAeropuerto c= new ConexionAeropuerto();
 			Connection con= c.connectarAhora();
 			
-			if(con!=null /* && usuario.equalsIgnoreCase("") && pass.equalsIgnoreCase("") */ && usuario.equals("admin") && pass.equals("admin"))
+			if(con!=null && usuario.equals("admin") && pass.equals("admin"))
 					{
 						System.out.println("Funciona el try and catch");
 						
@@ -159,47 +159,5 @@ public class Administradores {
 					}
 		return stringJson;
 		}
-	
-	
-	//Consulta de administradores en la base de datos
-	@POST
-	@Path("/deleteAdministrador")
-	@Produces(MediaType.TEXT_HTML)
-	public String deleteAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("borrarUsuario") String borrarUsuario){
-		
-		try
-			{
-		
-			ConexionAeropuerto c= new ConexionAeropuerto();
-			Connection con= c.connectarAhora();
-			
-			if(con!=null && AutenticarUsuario.autenticarUsuario(usuario, pass)==true)
-					{
-						Statement st;
-						st=con.createStatement();
-						st.executeUpdate("DELETE FROM administradores WHERE usuario='"+ borrarUsuario +"'");
-						st.close();
-						
-						System.out.println("Funciona el try and catch, admin: revisar la DB si se eleminó");
-						MetodosResponse.CREADO();	//ResponseBuilder 200
-					
-					} 
-			else
-					{
-						System.out.println("Algo Salió mal no se pueden ver los datos, pue que el registro a borrar no exista o que no tenga acceso");
-						MetodosResponse.UNAUTHORIZED();	  //ResponseBuilder 401
-						return "No se pudo borrar el registro seleccionado";
-					}
-			}
-			catch (Exception e) 
-		
-					{
-						e.printStackTrace();
-						
-					}
-		
-		return "Se borró el usuario: "+ borrarUsuario +" se borró exitosamente.";
-		}
-	
 	
 }
