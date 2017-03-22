@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -39,7 +40,8 @@ public class Administradores {
 	//Inserta administrador en mysql table 'administradores' y genera un dato JSON en texto o archivo
 	@POST
 	@Path("/addAdministrador")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String insertarAdministrador(@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
 		

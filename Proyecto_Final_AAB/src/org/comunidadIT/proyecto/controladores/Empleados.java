@@ -40,7 +40,7 @@ public class Empleados {
 		//falta crear un jsp y prbarlo
 		@POST
 		@Path("/insertarEmpleado")
-		@Produces(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.TEXT_HTML)
 		public String insertarEmpleado(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("direccion") String direccion, @FormParam("cargo") String cargo, @FormParam("sueldo_cargo") float sueldo_cargo, @FormParam("cargas_sociales") float cargas_sociales, @FormParam("vacaciones") float vacaciones,  @FormParam("sueldo_neto") float sueldo_neto){
 			
 			try
@@ -102,7 +102,7 @@ public class Empleados {
 		//Consulta de empleados de la DB con nombre y apellido como parámetros
 		@POST
 		@Path("/consultaNombreEmpleado")
-		@Produces(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.TEXT_HTML)
 		public String consultaNombreEmpleado(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido){
 		
 			//Para los Resultset

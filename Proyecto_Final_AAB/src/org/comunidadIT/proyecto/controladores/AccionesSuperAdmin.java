@@ -17,6 +17,7 @@ import org.comunidadIT.proyecto.accesoDatos.AutenticarSuperAdministrador;
 import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
 /*import org.comunidadIT.proyecto.accesoDatos.SeguridadToken;*/
 import org.comunidadIT.proyecto.entidades.Administrador;
+import org.comunidadIT.proyecto.entidades.SuperAdministrador;
 
 import com.google.gson.Gson;
 
@@ -29,7 +30,7 @@ public class AccionesSuperAdmin {
 	public String deleteAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("usuarioAdmin") String usuarioAdmin){
 		
 		Gson gson= new Gson();
-		ArrayList<Administrador> listado= new ArrayList<>();
+		ArrayList<SuperAdministrador> listado= new ArrayList<>();
 		String index= "index.jsp";
 		String JsonToString= null;
 		
@@ -40,7 +41,6 @@ public class AccionesSuperAdmin {
 			if(con!= null && AutenticarSuperAdministrador.autenticarSuperAdministrador(usuario, pass))
 		
 			{
-				
 				PreparedStatement ps;
 				String sql= "delete from administradores where usuario=?";
 				ps= con.prepareStatement(sql);
@@ -48,30 +48,16 @@ public class AccionesSuperAdmin {
 				ps.executeUpdate();
 				ps.close();
 				
-				/*
-				Statement st;
-				String borrarTablaSql="drop table if exists empleados_"+usuarioAdmin;
-				st= con.createStatement();
-				st.executeQuery(borrarTablaSql);
-				st.close();
-				*/
-				
-				/*
-				PreparedStatement pst;
-				String borrarTablaSql= "drop table empleados_?";
-				pst= con.prepareStatement(borrarTablaSql);
-				pst.setString(1, usuarioAdmin);
-				pst.executeUpdate();
-				pst.close();
-				*/
-				
+				PreparedStatement dropTable = con.prepareStatement(
+				String.format("DROP TABLE IF EXISTS empleados_"+usuarioAdmin, "features"));
+				dropTable.execute();
+		
 				System.out.println("Los datos del admin seleccionado junto con su BD se han borrado con éxito.");
 				
 				
-				listado.add(new Administrador(usuarioAdmin,index));
+				listado.add(new SuperAdministrador(usuarioAdmin,index));
 				JsonToString=  gson.toJson(listado);
 				Response.status(200).build();
-				
 			}
 			else
 			{

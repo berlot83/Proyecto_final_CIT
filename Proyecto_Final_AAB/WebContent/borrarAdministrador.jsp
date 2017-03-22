@@ -8,7 +8,6 @@
 </head>
 <body>
 
-
 			<form action= "http://localhost:8091/Proyecto_Final_AAB/rest/superAdministrador/deleteAdministrador" method="post" >
 				<table>
 					<tr>

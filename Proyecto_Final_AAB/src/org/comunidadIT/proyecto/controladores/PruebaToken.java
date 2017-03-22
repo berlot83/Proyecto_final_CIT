@@ -18,5 +18,4 @@ public class PruebaToken {
 		return v.token();
 	}
 	
-	
 }

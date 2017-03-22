@@ -2,4 +2,18 @@
 
 body{
 	background-image: url("../img/adminFondo.jpg");
+
+	background-repeat:no-repeat;
+	background-attachment: fixed;	
+}
+
+#div1{
+	width:50%;
+	float:left;
+
+}
+
+#div2{
+	width:50%;
+	float:right;
 }

@@ -66,7 +66,7 @@
 					
 					<tr>
 						<td>
-							<input type="submit" value="Borrar registro">
+							<input type="submit" value="Borrar registro" onclick="borrar()">
 						
 						</td>
 					</tr>

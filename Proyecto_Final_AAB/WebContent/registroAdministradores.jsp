@@ -6,35 +6,38 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Página de registro de Administrador de Aeropuertos 1.0</title>
 		<link rel="stylesheet" type="text/css" href="src/css/registro.css">
+		<script type="text/javascript" src="src/js/javascript.js"></script>
 </head>
 <body>
 
 <h1>Registro de usuarios Administradores de Aeropuertos.</h1>
 		<br>
 		<br>
+		<div id="div1">
+	
 		<form action="http://localhost:8091/Proyecto_Final_AAB/rest/administradores/addAdministrador" method="post" >
 			<table>
 				<tr>
 					<td>	
-						<label name="nombre">Nombre:</label>
+						<label id="labelNombre" name="nombre">Nombre:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="nombre" type="text"><br/>
+						<input id="inputNombre" name="nombre" type="text"><br/>
 					</td>
 				</tr>
 				
 					<tr>
 					<td>	
-						<label name="apellido">Apellido:</label>
+						<label id="labelApellido" name="apellido">Apellido:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="apellido" type="text"><br/>
+						<input id="inputApellido" name="apellido" type="text"><br/>
 					</td>
 				</tr>
 			<!--  
@@ -52,60 +55,68 @@
 			-->	
 				<tr>
 					<td>
-						<label name="usuario">Usuario:</label>
+						<label id="labelUsuario" name="usuario">Usuario:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="usuario" type="text"><br/>
+						<input id="inputUsuario" name="usuario" type="text"><br/>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<label name="pass">Pass:</label>
+						<label id="labelPass" name="pass">Pass:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="pass" type="text"><br/>
+						<input id="inputPass" name="pass" type="text"><br/>
 					</td>
 				</tr>
 				
 				<tr>
 					<td>	
-						<label name="email">E-mail:</label>
+						<label id="labelEmail" name="email">E-mail:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="email" type="text"><br/>
+						<input id="inputEmail" name="email" type="text"><br/>
 					</td>
 				</tr>
 				
 				<tr>
 					<td>	
-						<label name="direccion">Direccion:</label>
+						<label id="labelDireccion" name="direccion">Direccion:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="direccion" type="text"><br/>
+						<input id="inputDireccion" name="direccion" type="text"><br/>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input type="submit" value="Enviar">
+						<input type="submit" value="Enviar" onclick="captarJson()">
 					
 					</td>
 				</tr>
 			</table>
 		</form>
+		</div>
+		
+		<div id="div2">
+		
+			<ul id="ul1"></ul>
+		
+		</div>
+		
 
 </body>
 </html>
