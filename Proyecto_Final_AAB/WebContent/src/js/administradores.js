@@ -25,7 +25,7 @@ function regAdminReq(){
 		
 		var datos= xmlhttp.responseText;
 		
-		newul.innerHTML="Los datos fueron ingresados con éxito para realizar insercciones a su base de datos ingrese a: <br> <a href= 'insertarEmpleado.jsp'>Insertar Empleados</a>";
+		newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href= 'adminRH.jsp'>Insertar Empleados</a>";
 		
 	    
 	    }
@@ -153,47 +153,205 @@ function verEmpleados(){
 	else
 		{
 		
+		
+		//Elegimos el elemento donde Totos los 'td' van a ser adheridos
+		var	ulElegido= document.getElementById("ulTabla");
+		
+		
+		//Títulos creación
+		var hileraTitulos= document.createElement("tr");
+		var	tablaElegidaTitulos= document.getElementById("ulTabla");
+			tablaElegidaTitulos.appendChild(hileraTitulos);
+			
+			var tdTituloNombre= document.createElement("td");
+			var tdTituloApellido= document.createElement("td");
+			var tdTituloDireccion= document.createElement("td");
+			var tdTituloCargo= document.createElement("td");
+			var tdTituloSueldo_cargo= document.createElement("td");
+			var tdTituloCargas_sociales= document.createElement("td");
+			var tdTituloVacaciones= document.createElement("td");
+			var tdTituloSueldo_neto= document.createElement("td");
+			
+			var textoNombre= document.createTextNode("Nombre");
+			var textoApellido= document.createTextNode("Apellido");
+			var textoDireccion= document.createTextNode("Direccion");
+			var textoCargo= document.createTextNode("Cargo");
+			var textoSueldo_cargo= document.createTextNode("Sueldo bruto");
+			var textoCargas_sociales= document.createTextNode("Cargas sociales");
+			var textoVacaciones= document.createTextNode("Vacaciones");
+			var textoSueldo_neto= document.createTextNode("Sueldo neto");
+			
+				tdTituloNombre.appendChild(textoNombre);
+				tdTituloApellido.appendChild(textoApellido);
+				tdTituloDireccion.appendChild(textoDireccion);
+				tdTituloCargo.appendChild(textoCargo);
+				tdTituloSueldo_cargo.appendChild(textoSueldo_cargo);
+				tdTituloCargas_sociales.appendChild(textoCargas_sociales);
+				tdTituloVacaciones.appendChild(textoVacaciones);
+				tdTituloSueldo_neto.appendChild(textoSueldo_neto);
+				
+				ulElegido.appendChild(tdTituloNombre).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloApellido).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloDireccion).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloCargo).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloSueldo_cargo).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloCargas_sociales).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloVacaciones).style.border = "thin solid white";
+				ulElegido.appendChild(tdTituloSueldo_neto).style.border = "thin solid white";
+				
+				//Esta es la respuesta del servidor, sobre esta recaen todas las acciones.
+				var datos= xhr.responseText;
+				
+				//Parseamos los datos
+				var parseDatos= JSON.parse(datos);
+				
+		
 		//Iteramos sobre la respuesta del JSON
 		for(var i=0; i < xhr.responseText.length; i++){
 			
-			//Creamos un renglon por cada elemento
+			//Creamos un renglon por cada elemento que iteramos
 			var hilera= document.createElement("tr");
 			var	tablaElegida= document.getElementById("ulTabla");
 				tablaElegida.appendChild(hilera);
 				
-						
-						var datos= xhr.responseText;
 				
-						//Parseamos los datos
-						var parseDatos= JSON.parse(datos);
-						
-						//Elegimos el elemento donde vamos a adherir los td nuevos
-						var	ulElegido= document.getElementById("ulTabla");
-						
+					//Nombre
 						//Creamos los td  que contendrán los resultados
-						var newtd= document.createElement("td");
+						var newtdNombre= document.createElement("td");
 						
 						//Adherimos los td a la tabla ya existente
-						ulElegido.appendChild(newtd);
+						ulElegido.appendChild(newtdNombre).style.border = "thin solid white";
 						
 						//Creamos el texto y aherimos las columnas parseadas
-						var texto= document.createTextNode("Empleado:   "+parseDatos[i].nombre+  "  " + parseDatos[i].apellido +"    Direccion: "+ parseDatos[i].direccion + "    Cargo: "+ parseDatos[i].cargo +"    Sueldo bruto: "+ parseDatos[i].sueldo_cargo +"    Cargas sociales: "+ parseDatos[i].cargas_sociales + "    Vacaciones: "+ parseDatos[i].vacaciones + "    Sueldo neto: "+ parseDatos[i].sueldo_neto );
+						var textoNombre= document.createTextNode(parseDatos[i].nombre);
 						
 						//Adherimos el texto ya creado a los td
-						newtd.appendChild(texto);
+						newtdNombre.appendChild(textoNombre);
 						
-						//Crea los checkbox
-						var chck= document.createElement("input");
-							chck.type="checkbox";
-							chck.id= "checkbox";
-									
-							newtd.appendChild(chck);
+						
+					//Apellido
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdApellido= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdApellido).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoApellido= document.createTextNode(parseDatos[i].apellido);
+						
+						//Adherimos el texto ya creado a los td
+						newtdApellido.appendChild(textoApellido);
+						
+						
+					//Direccion
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdDireccion= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdDireccion).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoDireccion= document.createTextNode(parseDatos[i].direccion);
+						
+						//Adherimos el texto ya creado a los td
+						newtdDireccion.appendChild(textoDireccion);
 										
+						
+					//Cargo
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdCargo= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdCargo).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoCargo= document.createTextNode(parseDatos[i].cargo);
+						
+						//Adherimos el texto ya creado a los td
+						newtdCargo.appendChild(textoCargo);
+						
+						
+					//Sueldo_cargo
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdSueldo_cargo= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdSueldo_cargo).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoSueldo_cargo= document.createTextNode(parseDatos[i].sueldo_cargo);
+						
+						//Adherimos el texto ya creado a los td
+						newtdSueldo_cargo.appendChild(textoSueldo_cargo);
+						
+						
+					//Cargas sociales
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdCargas_sociales= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdCargas_sociales).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoCargas_sociales= document.createTextNode(parseDatos[i].cargas_sociales);
+						
+						//Adherimos el texto ya creado a los td
+						newtdCargas_sociales.appendChild(textoCargas_sociales);
+						
+						
+					//Vacaciones
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdVacaciones= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdVacaciones).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoVacaciones= document.createTextNode(parseDatos[i].vacaciones);
+						
+						//Adherimos el texto ya creado a los td
+						newtdVacaciones.appendChild(textoVacaciones);
+						
+						
+					//Sueldo_neto
+						//Elegimos el elemento donde vamos a adherir los td nuevos
+						
+						//Creamos los td  que contendrán los resultados
+						var newtdSueldo_neto= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdSueldo_neto).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoSueldo_neto= document.createTextNode(parseDatos[i].sueldo_neto);
+						
+						//Adherimos el texto ya creado a los td
+						newtdSueldo_neto.appendChild(textoSueldo_neto);
+						
 						
 						//Reseteamos los campos
 						document.getElementById("usuario").value="";
 						document.getElementById("pass").value="";
 					
+						
+						/*Crea los checkbox
+						var chck= document.createElement("input");
+							chck.type="checkbox";
+							chck.id= "checkbox";
+									
+							newtdnombre.appendChild(chck);*/
 				}
 			}
 		

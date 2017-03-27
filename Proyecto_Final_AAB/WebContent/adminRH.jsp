@@ -3,12 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+		<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="src/css/adminHR.css">
 		<script type="text/javascript" src="src/js/administradores.js"></script>
 <title>Agregar Empleados a la BD</title>
 </head>
 <body>
+
+<a href="index.jsp">Inicio</a>
+
 	<div id="div1"></div>
 		<h3>Valide sus datos como admin:</h3>
 		
@@ -174,7 +178,7 @@
 				</tr>
 			</table>
 			
-			<a href="registroAdministradores.jsp">No tengo cuenta de Administrador todavía</a>
+			<a href="regAdmin.jsp">No tengo cuenta de Administrador todavía</a>		
 	<div id="div2"></div>
 	
 	<br>

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-			<form action= "http://localhost:8091/Proyecto_Final_AAB/rest/empleados/consultaNombreEmpleado" method="post" >
+			<form action= "/Proyecto_Final_AAB/rest/empleados/consultaNombreEmpleado" method="post" >
 				<table>
 					<tr>
 						<td>

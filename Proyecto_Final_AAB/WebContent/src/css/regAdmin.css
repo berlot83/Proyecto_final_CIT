@@ -1,0 +1,33 @@
+
+
+body{
+	background-image: url("../img/adminFondo.jpg");
+	background-repeat:no-repeat;
+	background-attachment: fixed;
+	color: white;
+	text-shadow: 0px 0px 5px black;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+#div1{
+	width:30%;
+	float:left;
+
+}
+
+#div2{
+	width:30%;
+	float:left;
+}
+
+input{
+	border-radius: 5px;
+}
+
+input:focus{
+	background-color: turquoise;
+}
+
+a:visited{
+	color: turquoise;
+}
