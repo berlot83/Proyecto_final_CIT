@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.comunidadIT.proyecto.accesoDatos.AutenticarUsuario;
 import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
 import org.comunidadIT.proyecto.entidades.Administrador;
@@ -40,7 +41,8 @@ public class Empleados {
 		//falta crear un jsp y prbarlo
 		@POST
 		@Path("/insertarEmpleado")
-		@Produces(MediaType.TEXT_HTML)
+		@Produces(MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		public String insertarEmpleado(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("direccion") String direccion, @FormParam("cargo") String cargo, @FormParam("sueldo_cargo") float sueldo_cargo, @FormParam("cargas_sociales") float cargas_sociales, @FormParam("vacaciones") float vacaciones,  @FormParam("sueldo_neto") float sueldo_neto){
 			
 			try
@@ -64,16 +66,15 @@ public class Empleados {
 								st.setFloat(7, vacaciones);
 								st.setFloat(8, sueldo_neto);
 								st.executeUpdate();
-								
 								st.close();
+								
 								System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB empleados_"+usuario);
 					
-							MetodosResponse.CREADO();	//ResponseBuilder 200
 						} 
 				else
 						{
+							
 							System.out.println("Algo Salió mal no se pudo insertar los datos");
-							MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
 							return "Algo Salió mal no se pudo insertar los datos a la base de datos";
 						}
 				}
@@ -236,15 +237,12 @@ public class Empleados {
 									
 									//Actualizamos el String del Json sin crearlo nuevamente.
 									stringJson= gson.toJson(listado);
-									
-									MetodosResponse.ACCEPTED();	//ResponseBuilder 200
 								}
 								
 							} 
 					else
 							{
 								System.out.println("Algo Salió mal no se pueden ver los datos de la consulta.");
-								MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
 								return "Algo Salió mal no se pueden ver los datos de la consulta.";
 							}
 					}
@@ -260,7 +258,8 @@ public class Empleados {
 			//barrar empleado de la base de datos
 			@POST
 			@Path("/deleteEmpleado")
-			@Produces(MediaType.TEXT_HTML)
+			@Produces(MediaType.APPLICATION_JSON)
+			@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 			public String deleteEmpleado(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("borrarNombre") String borrarNombre, @FormParam("borrarApellido") String borrarApellido){
 				
 				try
@@ -276,13 +275,12 @@ public class Empleados {
 								st.close();
 								
 								System.out.println("Funciona el try and catch, admin: revisar la DB si se eleminó");
-								MetodosResponse.CREADO();	//ResponseBuilder 200
 							
 							} 
 					else
 							{
 								System.out.println("Algo Salió mal no se pueden ver los datos, pue que el registro a borrar no exista o que no tenga acceso");
-								MetodosResponse.UNAUTHORIZED();	  //ResponseBuilder 401
+							
 								return "No se pudo borrar el registro seleccionado";
 							}
 					}
@@ -290,14 +288,15 @@ public class Empleados {
 				
 							{
 								e.printStackTrace();
-								
 							}
 				
 				Gson gson= new Gson();
-				String index= "http://localhost:8091/Proyecto_Final_AAB/index.jsp";
+				String index= "Se borraron los datos";
 				String toJson= gson.toJson(index);
 				
-				return "Se borró el registro: "+ borrarNombre+ " "+ borrarApellido +" se borró exitosamente."+" Array= "+ toJson;
+				return toJson;
+				
+				//return "Se borró el registro: "+ borrarNombre+ " "+ borrarApellido +" se borró exitosamente."+" Array= "+ toJson;
 				
 				}
 			

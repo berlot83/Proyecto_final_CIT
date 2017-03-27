@@ -3,10 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8/ISO-8859-1">
 		<title>Página de registro de Administrador de Aeropuertos 1.0</title>
 		<link rel="stylesheet" type="text/css" href="src/css/registro.css">
-		<script type="text/javascript" src="src/js/javascript.js"></script>
+		<script type="text/javascript" src="src/js/administradores.js"></script>
 </head>
 <body>
 
@@ -14,101 +14,85 @@
 		<br>
 		<br>
 		<div id="div1">
-	
-		<form action="http://localhost:8091/Proyecto_Final_AAB/rest/administradores/addAdministrador" method="post" >
 			<table>
 				<tr>
 					<td>	
-						<label id="labelNombre" name="nombre">Nombre:</label>
+						<label id="lnombre" name="nombre">Nombre:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input id="inputNombre" name="nombre" type="text"><br/>
+						<input id="nombre" name="nombre" type="text"><br/>
 					</td>
 				</tr>
 				
 					<tr>
 					<td>	
-						<label id="labelApellido" name="apellido">Apellido:</label>
+						<label id="lapellido" name="apellido">Apellido:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input id="inputApellido" name="apellido" type="text"><br/>
-					</td>
-				</tr>
-			<!--  
-				<tr>
-					<td>	
-						<label name="genero">Género:</label>
+						<input id="apellido" name="apellido" type="text"><br/>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input name="genero" type="text"><br/>
-					</td>
-				</tr>
-			-->	
-				<tr>
-					<td>
-						<label id="labelUsuario" name="usuario">Usuario:</label>
+						<label id="lusuario" name="usuario">Usuario:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input id="inputUsuario" name="usuario" type="text"><br/>
+						<input id="usuario" name="usuario" type="text"><br/>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<label id="labelPass" name="pass">Pass:</label>
+						<label id="lpass" name="pass">Pass:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input id="inputPass" name="pass" type="text"><br/>
+						<input id="pass" name="pass" type="text"><br/>
 					</td>
 				</tr>
 				
 				<tr>
 					<td>	
-						<label id="labelEmail" name="email">E-mail:</label>
+						<label id="lemail" name="email">E-mail:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input id="inputEmail" name="email" type="text"><br/>
+						<input id="email" name="email" type="text"><br/>
 					</td>
 				</tr>
 				
 				<tr>
 					<td>	
-						<label id="labelDireccion" name="direccion">Direccion:</label>
+						<label id="ldireccion" name="direccion">Direccion:</label>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input id="inputDireccion" name="direccion" type="text"><br/>
+						<input id="direccion" name="direccion" type="text"><br/>
 					</td>
 				</tr>
 			
 				<tr>
 					<td>
-						<input type="submit" value="Enviar" onclick="captarJson()">
-					
+						<input type="button" value="Enviar" onclick="regAdminReq()">
 					</td>
 				</tr>
 			</table>
-		</form>
 		</div>
 		
 		<div id="div2">

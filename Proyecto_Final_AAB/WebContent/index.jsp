@@ -23,7 +23,7 @@
 		<br>
 					
 							
-			<form action= "http://localhost:8091/Proyecto_Final_AAB/rest/administradores/loginAdministrador" method="post" >
+			<form action= "/Proyecto_Final_AAB/rest/administradores/loginAdministrador" method="post" >
 				<table>
 					<tr>
 						<td>

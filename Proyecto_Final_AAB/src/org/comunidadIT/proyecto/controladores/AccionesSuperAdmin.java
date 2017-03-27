@@ -38,7 +38,7 @@ public class AccionesSuperAdmin {
 			ConexionAeropuerto c= new ConexionAeropuerto();
 			Connection con= c.connectarAhora();
 			
-			if(con!= null && AutenticarSuperAdministrador.autenticarSuperAdministrador(usuario, pass))
+			if(con!= null && usuario.equalsIgnoreCase("") && pass.equalsIgnoreCase("") && AutenticarSuperAdministrador.autenticarSuperAdministrador(usuario, pass))
 		
 			{
 				PreparedStatement ps;

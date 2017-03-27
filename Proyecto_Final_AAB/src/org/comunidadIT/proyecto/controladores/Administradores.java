@@ -1,5 +1,6 @@
 package org.comunidadIT.proyecto.controladores;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,14 +19,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.comunidadIT.proyecto.accesoDatos.AutenticarUsuario;
 import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
 import org.comunidadIT.proyecto.entidades.Administrador;
 import org.comunidadIT.proyecto.entidades.Empleado;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 
@@ -44,7 +43,7 @@ public class Administradores {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String insertarAdministrador(@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
-		
+	
 		try
 			{
 			//Probamos conectarnos
@@ -66,12 +65,12 @@ public class Administradores {
 						createSt.close();
 						
 						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
-						MetodosResponse.CREADO();	//ResponseBuilder 200
+						
+						
 					} 
 			else
 					{
 						System.out.println("Algo Salió mal no se pudo insertar los datos");
-						MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
 						return "Algo Salió mal no se pudo insertar los datos";
 					}
 			}
@@ -80,6 +79,7 @@ public class Administradores {
 					{
 						e.printStackTrace();
 					}
+		
 		
 		//Creamos la lista y le ponemos las variables que a su vez están conectadas al construcctor de la Case Empleados
 		List<Administrador> lista= new ArrayList<>();

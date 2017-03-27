@@ -8,12 +8,12 @@ body{
 }
 
 #div1{
-	width:50%;
+	width:30%;
 	float:left;
 
 }
 
 #div2{
-	width:50%;
-	float:right;
+	width:30%;
+	float:left;
 }
