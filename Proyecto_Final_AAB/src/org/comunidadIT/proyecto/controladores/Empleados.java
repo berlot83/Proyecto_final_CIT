@@ -1,7 +1,5 @@
 package org.comunidadIT.proyecto.controladores;
 
-import javax.ws.rs.PathParam;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,27 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.comunidadIT.proyecto.accesoDatos.AutenticarUsuario;
 import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
-import org.comunidadIT.proyecto.entidades.Administrador;
 import org.comunidadIT.proyecto.entidades.Empleado;
-
 import com.google.gson.Gson;
-
-
 
 @Path("/empleados")
 public class Empleados {
@@ -52,8 +41,20 @@ public class Empleados {
 				Connection con= c.connectarAhora();
 				
 				//Si la conexión no es nula entonces realizar dos consultaa de insercción de datos y creación de tabla
-				if(con!=null && AutenticarUsuario.autenticarUsuario(usuario, pass)==true)
-						{
+				if(con!=null && AutenticarUsuario.autenticarUsuario(usuario, pass)==true )
+						
+				{
+					
+					//Si los campos están vacíos tira error y no se ejecuta el statement
+					if(nombre.equalsIgnoreCase("") || apellido.equalsIgnoreCase("") || direccion.equalsIgnoreCase("") || cargo.equalsIgnoreCase("") || sueldo_cargo<=0 || cargas_sociales<=0 || vacaciones<=0 || sueldo_neto<=0 ) 
+						
+							{
+								System.out.println("Hay algun campo vacío.");
+							}
+					else
+							{
+						
+					
 							PreparedStatement st;
 							String sql="INSERT INTO empleados_"+usuario+"(nombre, apellido, direccion, cargo, sueldo_cargo, cargas_sociales, vacaciones, sueldo_neto) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 							st=con.prepareStatement(sql);
@@ -69,13 +70,14 @@ public class Empleados {
 								st.close();
 								
 								System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB empleados_"+usuario);
-					
+							}
 						} 
 				else
 						{
-							
+					
 							System.out.println("Algo Salió mal no se pudo insertar los datos");
 							return "Algo Salió mal no se pudo insertar los datos a la base de datos";
+							
 						}
 				}
 				catch (SQLException e) 
@@ -256,7 +258,7 @@ public class Empleados {
 			
 			
 			//barrar empleado de la base de datos
-			@POST
+			@DELETE
 			@Path("/deleteEmpleado")
 			@Produces(MediaType.APPLICATION_JSON)
 			@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -295,30 +297,58 @@ public class Empleados {
 				String toJson= gson.toJson(index);
 				
 				return toJson;
-				
-				//return "Se borró el registro: "+ borrarNombre+ " "+ borrarApellido +" se borró exitosamente."+" Array= "+ toJson;
-				
 				}
 			
-		/*	
+		
 			@POST
-			@Produces(MediaType.APPLICATION_JSON)
 			@Path("/modificarEmpleado")
+			@Produces(MediaType.APPLICATION_JSON)
+			@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 			public String modificarEmpleado(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("usuario") String usuarioAdmin, @FormParam("nombre")String nombre, @FormParam("apellido") String apellido, @FormParam("direccion") String direccion, @FormParam("cargo") String cargo, @FormParam("sueldo_cargo") float sueldo_cargo, @FormParam("cargas_sociales") float cargas_sociales, @FormParam("vacaciones") float vacaciones, @FormParam("sueldo_neto") float sueldo_neto, @FormParam("nombreRegistro") String nombreRegistro){
 				
-				if(AutenticarUsuario.autenticarUsuario(usuario, pass)==true)
+				Gson gson= new Gson();
+				List<Empleado> listado= new ArrayList<>();
+				String toJson= null;
+				
+				ConexionAeropuerto c= new ConexionAeropuerto();
+				Connection con= c.connectarAhora();
+				
+				try{
+					
+					if(con!=null && AutenticarUsuario.autenticarUsuario(usuario, pass)==true)
 						{
-							ModificarRegistros.modificarRegistros(usuarioAdmin, nombre, apellido, direccion, cargo, sueldo_cargo, cargas_sociales, vacaciones, sueldo_neto, nombreRegistro);
+						PreparedStatement ps;
+						String sql= "update empleados_"+ usuarioAdmin +" set nombre=?, apellido=?, cargo=?, direccion=?, sueldo_cargo=?, cargas_sociales=?, vacaciones=?, sueldo_neto=? where personaId=?)";
+						ps= con.prepareStatement(sql);
+						
+						ps.setString(1, nombre);
+						ps.setString(2, apellido);
+						ps.setString(3, direccion);
+						ps.setString(4, cargo);
+						ps.setFloat(5, sueldo_cargo);
+						ps.setFloat(6, cargas_sociales);
+						ps.setFloat(7, vacaciones);
+						ps.setFloat(8, sueldo_neto);
+						ps.setString(9, nombreRegistro);
+						
+						listado.add(new Empleado(nombre, apellido, direccion, cargo, sueldo_cargo, cargas_sociales, vacaciones, sueldo_neto));
+						toJson= gson.toJson(listado);
 						}
-				else
+					else
+						{
+							System.out.println("No se pudieron ingresar los datos requeridos");
+						}
+					
+				}
+				
+				catch(Exception e)
 				{
-					System.out.println("No se pudieron ingresar los datos requeridos");
+					System.out.println("No fue posible la conexión o las credenciales no son correctas.");
+					return toJson= "No fue posible la conexión o las credenciales no son correctas";
 				}
+				
+			return toJson;
+			}
 			
-			
-			return "Datos moficados al registro "+nombreRegistro+" : "+ nombre + ", "+ apellido+ ", "+  direccion +", "+ cargo +", "+ sueldo_cargo +", "+ cargas_sociales + ", " + vacaciones + ", "+ sueldo_neto;
-			
-				}
-				*/
 		
 }

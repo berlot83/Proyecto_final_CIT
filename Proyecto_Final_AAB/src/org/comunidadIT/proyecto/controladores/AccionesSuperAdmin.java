@@ -2,23 +2,16 @@ package org.comunidadIT.proyecto.controladores;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.comunidadIT.proyecto.accesoDatos.AutenticarSuperAdministrador;
 import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
-/*import org.comunidadIT.proyecto.accesoDatos.SeguridadToken;*/
-import org.comunidadIT.proyecto.entidades.Administrador;
 import org.comunidadIT.proyecto.entidades.SuperAdministrador;
-
 import com.google.gson.Gson;
 
 @Path("/superAdministrador")

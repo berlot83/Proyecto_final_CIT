@@ -1,17 +1,13 @@
 package org.comunidadIT.proyecto.controladores;
 
-import java.io.File;
+
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -19,12 +15,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
 import org.comunidadIT.proyecto.accesoDatos.ConexionAeropuerto;
 import org.comunidadIT.proyecto.entidades.Administrador;
-import org.comunidadIT.proyecto.entidades.Empleado;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 
@@ -51,7 +43,14 @@ public class Administradores {
 			Connection con= c.connectarAhora();
 			
 			//Si la conexión no es nula entonces realizar dos consultaa de insercción de datos y creación de tabla
-			if(con!=null)
+			if(con==null || nombre.equalsIgnoreCase("") || apellido.equalsIgnoreCase("") || usuario.equalsIgnoreCase("") || pass.equalsIgnoreCase("") || email.equalsIgnoreCase("") || direccion.equalsIgnoreCase(""))
+					{
+				
+						System.out.println("Algo Salió mal no se pudo insertar los datos");
+						return "Algo Salió mal no se pudo insertar los datos";
+						
+					} 
+			else
 					{
 						Statement st;
 						st=con.createStatement();
@@ -65,13 +64,6 @@ public class Administradores {
 						createSt.close();
 						
 						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
-						
-						
-					} 
-			else
-					{
-						System.out.println("Algo Salió mal no se pudo insertar los datos");
-						return "Algo Salió mal no se pudo insertar los datos";
 					}
 			}
 			catch (SQLException e) 

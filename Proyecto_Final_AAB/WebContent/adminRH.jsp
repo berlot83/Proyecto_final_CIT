@@ -142,7 +142,7 @@
 			<table>
 				<tr>
 					<td>
-						<input type="button" value="Ver empleados" onclick="verEmpleados()">
+						<input type="button" value="Ver empleados" onclick="verEmpleados()" onmouseover="ocultarBotonesVerEmpleados()">
 					</td>
 				
 					<td>
@@ -151,6 +151,10 @@
 					
 					<td>
 						<input type="button" value="Borrar empleado" onclick="borrarEmpleado()" onmouseover="mostrarBotonesBorrarEmpleado()">
+					</td>
+					
+					<td>
+						<input type="button" value="Modificar empleado" onclick="modificarEmpleado()" onmouseover="mostrarBotonesModificarEmpleado()">
 					</td>
 				</tr>
 			</table>
@@ -174,6 +178,92 @@
 				
 					<td>
 						<input id="borrarApellido" name="borrarApellido" type="text"><br/>
+					</td>
+				</tr>
+			</table>
+			
+			<table id="tablaModificarEmpleado" style='display:none;'>
+				<tr>
+					<td>	
+						<label name="modificarNombre">Nombre:</label>
+					</td>
+					
+					<td>	
+						<label name="modificarApellido">Apellido:</label>
+					</td>
+					
+					<td>	
+						<label name="modificarDireccion">Direccion:</label>
+					</td>
+				</tr>
+			
+				<tr>
+					<td>
+						<input id="modificarNombre" name="nombre" type="text"><br/>
+					</td>
+					
+					<td>
+						<input id="modificarApellido" name="apellido" type="text"><br/>
+					</td>
+					
+					<td>
+						<input id="modificarDireccion" name="direccion" type="text"><br/>
+					</td>
+					
+				<tr>
+					<td>
+						<label name="modificarCargo">Cargo en la Empresa:</label>
+					</td>
+					
+					<td>
+						<label name="modificarSueldo_cargo">Sueldo bruto:</label>
+					</td>
+					
+					<td>	
+						<label name="modificarCargas_sociales">Cargas sociales:</label>
+					</td>
+					
+				</tr>
+			
+				<tr>
+					<td>
+						<input id="modificarCargo" name="cargo" type="text"><br/>
+					</td>
+				
+					<td>
+						<input id="modificarSueldo_cargo" name="sueldo_cargo" type="number" step="0.01""><br/>
+					</td>
+					
+					<td>
+						<input id="modificarCargas_sociales" name="cargas_sociales" type="number" step="0.01"><br/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>	
+						<label name="modificarVacaciones">Vacaciones:</label>
+					</td>
+					
+					<td>	
+						<label name="modificarSueldo_neto">Sueldo neto:</label>
+					</td>
+					
+					<td>	
+						<label name="modificarRegistro">Registro a modificar:</label>
+					</td>
+				</tr>
+			
+				<tr>
+					<td>
+						<input id="modificarVacaciones" name="vacaciones" type="number" step="0.01"><br/>
+					</td>
+					
+					<td>
+						<input id="modificarSueldo_neto" name="sueldo_neto" type="number" step="0.01"><br/>
+					</td>
+					
+					<td>
+						<input id="modificarRegistro" name="registro" type="text"><br/>
 					</td>
 				</tr>
 			</table>
