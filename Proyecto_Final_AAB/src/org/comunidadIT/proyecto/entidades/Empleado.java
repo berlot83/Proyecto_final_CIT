@@ -1,7 +1,8 @@
 package org.comunidadIT.proyecto.entidades;
 
 public class Empleado {
-
+	
+	protected int personaId;
 	protected String nombre; //Para llamarlo desde la instancia Empleado
 	protected String apellido;	//Para llamarlo desde la instancia Empleado
 	protected String direccion;	
@@ -11,8 +12,9 @@ public class Empleado {
 	protected float vacaciones;
 	protected float sueldo_neto;
 	
-	public Empleado	(String nombre, String apellido, String direccion, String cargo, float sueldo_cargo, float cargas_sociales, float vacaciones, float sueldo_neto){
+	public Empleado	(int personaId,String nombre, String apellido, String direccion, String cargo, float sueldo_cargo, float cargas_sociales, float vacaciones, float sueldo_neto){
 		
+		this.personaId= personaId;
 		this.nombre=nombre;
 		this.apellido=apellido;
 		this.direccion=direccion;

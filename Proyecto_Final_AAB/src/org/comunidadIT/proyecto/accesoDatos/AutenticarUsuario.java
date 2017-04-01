@@ -18,7 +18,7 @@ import org.comunidadIT.proyecto.entidades.Administrador;
 
 import com.sun.research.ws.wadl.Request;
 
-@Path("/validacion")
+@Path("/validacionAdminRH")
 public class AutenticarUsuario {
 
 		//Esta clase debería ser estática y ser llamada antes del pedido de token.
@@ -42,7 +42,7 @@ public class AutenticarUsuario {
 					{
 						Statement st;
 						st=con.createStatement();
-						ResultSet rs= st.executeQuery("select usuario, pass from administradores where usuario= '" + usuario + "' and pass= '" + pass + "' ");
+						ResultSet rs= st.executeQuery("select usuario, pass from adminrh where usuario= '" + usuario + "' and pass= '" + pass + "' ");
 						
 						while(rs.next())
 						{

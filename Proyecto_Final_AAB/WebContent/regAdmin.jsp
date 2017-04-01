@@ -17,6 +17,16 @@
 		<br>
 		<div id="div1">
 			<table>
+			<tr>
+				<td>
+					<select id="tablas">
+						<option value="adminrh">Administrador de R.H</option>
+						<option value="adminseg">Adnministrador de Seguridad</option>
+						<option value="adminvuelos">Administror de vuelos</option> 
+					</select>
+				</td>
+			</tr>
+			
 				<tr>
 					<td>	
 						<label id="lnombre" name="nombre">Nombre:</label>
@@ -83,7 +93,7 @@
 					</td>
 				</tr>
 			</table>
-		<a href="adminRH.jsp">Ya tengo cuenta pasemos al panel de control RH >></a>
+		<a href="index.jsp">Ya tengo cuenta de administrador >></a>
 	</div>
 		
 		<div id="div2">

@@ -33,7 +33,7 @@ public class Administradores {
 	@Path("/addAdministrador")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String insertarAdministrador(@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
+	public String insertarAdministrador(@FormParam("tablas") String tablas,@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
 	
 		try
@@ -54,15 +54,16 @@ public class Administradores {
 					{
 						Statement st;
 						st=con.createStatement();
-						st.executeUpdate("INSERT INTO administradores(nombre,apellido,usuario,pass,email,direccion) VALUES('"+nombre.trim().replaceAll(soloLetras, "")+"','"+apellido.trim().replaceAll(soloLetras, "")+"','"+usuario.trim().replaceAll(numerosLetras, "")+"','"+pass.trim().replaceAll(numerosLetras, "")+"','"+email.trim().replaceAll(soloEmail, "")+"','"+direccion.trim().replaceAll(numerosLetras, "")+"')");
+						st.executeUpdate("INSERT INTO "+tablas+"(nombre,apellido,usuario,pass,email,direccion) VALUES('"+nombre.trim().replaceAll(soloLetras, "")+"','"+apellido.trim().replaceAll(soloLetras, "")+"','"+usuario.trim().replaceAll(numerosLetras, "")+"','"+pass.trim().replaceAll(numerosLetras, "")+"','"+email.trim().replaceAll(soloEmail, "")+"','"+direccion.trim().replaceAll(numerosLetras, "")+"')");
 						st.close();
 						System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB 'administradores'");
 						
+						/*
 						Statement createSt;
 						createSt=con.createStatement();
 						createSt.executeUpdate("CREATE TABLE IF NOT EXISTS empleados_"+usuario+"(personaId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre text(11) NOT NULL, apellido text(11) NOT NULL, direccion text(20) NOT NULL, cargo text(20) NOT NULL, sueldo_cargo float NOT NULL, cargas_sociales float NOT NULL, vacaciones float NOT NULL, sueldo_neto float NOT NULL)");
 						createSt.close();
-						
+						*/
 						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
 					}
 			}
@@ -87,71 +88,5 @@ public class Administradores {
 				return JsonToString;
 		}
 	
-	
-	//Consulta de todos los administradores de la DB
-	@GET
-	@Path("/consultaAdministrador")
-	@Produces(MediaType.TEXT_HTML)
-	public String loginAdministrador(@QueryParam("usuario") String usuario, @QueryParam("pass") String pass){
-		
-		//Este grupo de variables transforman a JSON y con el while de abajo itera a todos los elementos del ArrayList
-		Gson gson= new Gson();
-		List<Administrador> listado= new ArrayList<>();
-		String stringJson= gson.toJson(listado);
-		
-		
-		try
-			{
-		
-			ConexionAeropuerto c= new ConexionAeropuerto();
-			Connection con= c.connectarAhora();
-			
-			if(con!=null && usuario.equals("admin") && pass.equals("admin"))
-					{
-						System.out.println("Funciona el try and catch");
-						
-						String sql="select * from administradores";
-						
-						Statement st= con.createStatement();
-						
-						ResultSet rs= st.executeQuery(sql);
-						
-						
-						while(rs.next())
-						{
-							String nombre= rs.getString("nombre");
-							String apellido= rs.getString("apellido");
-							String usuario1= rs.getString("usuario");
-							String pass1= rs.getString("pass");
-							String email= rs.getString("email");
-							String direccion= rs.getString("direccion");
-							
-							//Esta línea es sólo demostrativa de que funcionan las variables que toman datos de la DB
-							System.out.println(nombre+" "+apellido+" "+usuario1+" "+pass1+" "+email+" "+direccion);
-							
-							//Adherimos a la lista una fila nueva con una columna nueva.
-							listado.add(new Administrador(nombre,apellido,usuario1,pass1,email,direccion));
-							
-							//Actualizamos el String del Json sin crearlo nuevamente.
-							stringJson= gson.toJson(listado);
-							
-							MetodosResponse.ACCEPTED();	//ResponseBuilder 200
-						}
-						
-					} 
-			else
-					{
-						System.out.println("Algo Salió mal no se pueden ver los datos o no tiene acceso a ellos");
-						MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
-						return "Algo Salió mal no se pueden ver los datos o no tiene acceso a ellos";
-					}
-			}
-			catch (Exception e) 
-		
-					{
-						e.printStackTrace();
-					}
-		return stringJson;
-		}
 	
 }

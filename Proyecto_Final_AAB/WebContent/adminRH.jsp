@@ -7,12 +7,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="src/css/adminHR.css">
 		<script type="text/javascript" src="src/js/administradores.js"></script>
-<title>Agregar Empleados a la BD</title>
+<title>Administrador de R.H.</title>
 </head>
 <body>
 
 <a href="index.jsp">Inicio</a>
-
 	<div id="div1"></div>
 		<h3>Valide sus datos como admin:</h3>
 		
@@ -39,6 +38,30 @@
 			</table>
 				
 				<hr>
+				
+		
+			<h3>Elija la accion a seguir:</h3>
+			<table id="selector">
+			<tr>
+				<td>
+					<select id="menu" onchange="acciones(this.value)">
+					  <option value="seleccione">Seleccione una acción</option>
+					  <option value="consultas">Consultas</option>
+					  <option value="ingresar">Ingresar empleado</option>
+					  <option value="borrar">Borrar empleado</option>
+					  <option value="modificar">Modificar empleado</option>
+					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+						<input id="botonVerEmpleados" type="button" value="Ver Todos los empleados" onclick="verEmpleados()" style='display:none;'>
+				</td>
+			</tr>
+				
+			</table>
+			
 				
 			<table id="botones" style='display:none;'>
 				<tr>
@@ -137,47 +160,30 @@
 						<input id="sueldo_neto" name="sueldo_neto" type="number" step="0.01"><br/>
 					</td>
 				</tr>
-			</table>
-			
-			<table>
+				
 				<tr>
 					<td>
-						<input type="button" value="Ver empleados" onclick="verEmpleados()" onmouseover="ocultarBotonesVerEmpleados()">
-					</td>
-				
-					<td>
-						<input type="button" value="Agregar empleado" onclick="insertarEmpleado()" onmouseover="mostrarBotonesAgregarEmpleados()">
-					</td>
-					
-					<td>
-						<input type="button" value="Borrar empleado" onclick="borrarEmpleado()" onmouseover="mostrarBotonesBorrarEmpleado()">
-					</td>
-					
-					<td>
-						<input type="button" value="Modificar empleado" onclick="modificarEmpleado()" onmouseover="mostrarBotonesModificarEmpleado()">
+						<input type="button" value="Agregar empleado" onclick="insertarEmpleado()">
 					</td>
 				</tr>
 			</table>
-			<br>
-			
+	
 			<table id="tablaBorrarEmpleado" style='display:none;'>
 				<tr>
 					<td>	
-						<label name="bNombre">Nombre del empleado a borrar:</label>
+						<label name="deleteId">Indique el 'ID' del registro a borrar:</label>
 					</td>
-				
+				</tr>
+					
+				<tr>
 					<td>
-						<input id="borrarNombre" name="borrarNombre" type="text"><br/>
+						<input id="deleteId" name="deleteId" type="number"><br/>
 					</td>
 				</tr>
 				
 				<tr>
-					<td>	
-						<label name="bApellido">Apellido del empleado a borrar::</label>
-					</td>
-				
 					<td>
-						<input id="borrarApellido" name="borrarApellido" type="text"><br/>
+						<input type="button" value="Borrar empleado" onclick="borrarEmpleado()">
 					</td>
 				</tr>
 			</table>
@@ -263,7 +269,13 @@
 					</td>
 					
 					<td>
-						<input id="modificarRegistro" name="registro" type="text"><br/>
+						<input id="personaId" name="personaId" type="number"><br/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<input type="button" value="Modificar empleado" onclick="modificarEmpleado()">
 					</td>
 				</tr>
 			</table>

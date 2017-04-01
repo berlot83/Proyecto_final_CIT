@@ -7,6 +7,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Administrador de Aeropuertos</title>
 		<link rel="stylesheet" type="text/css" href="src/css/index.css">
+		<script type="text/javascript" src="src/js/index.js"></script>
 		
 </head>
 	<body>
@@ -15,10 +16,8 @@
 	<h2>Administre los recursos eficazmente con las siguientes utilidades.</h2>
 	<h3>Alcances:</h3>
 				<li>Administración de personal</li>
-				<li>Administración de existencias</li>
-				<li>Administración de entradas y salidas de personal ajeno al aeropuerto</li>
-				<li>Administración de arribos y partidas de vuelos</li>
-				<li>Registro de emergencias</li>
+				<li>Administración de vuelos</li>
+				<li>Administración de seguridad</li>
 				
 		<br>
 		<br>
@@ -27,166 +26,155 @@
 					
 		<div id="super">
 			<h3>Soy SuperAdministrador</h3>
-			<form action= "/Proyecto_Final_AAB/rest/administradores/loginAdministrador" method="post" >
-				<table>
+				<table id="soySuperadmin">
 					<tr>
 						<td>
-							<label name="usuario">Usuario:</label>
+							<label name="usuarioSuperAdmin">Usuario:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="usuario" type="text"><br/>
+							<input id="usuarioSuperAdmin" name="usuarioSuperAdmin" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<label name="pass">Pass:</label>
+							<label name="passSuperAdmin">Pass:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="pass" type="text"><br/>
+							<input id="passSuperAdmin" name="passSuperAdmin" type="text"><br/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<input id="token" name="token" type="text" placeholder="- - - TOKEN - - - - - - - -" style='background-color:pink;'><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input type="submit" value="Entrar">
-						
-						<a href="regAdmin.jsp">No está registrado?</a>
+							<input type="button" value="Entrar" onclick="loginSuperAdmin()">
+							<a href="regAdmin.jsp">No está registrado?</a>
 						</td>
 					</tr>
 					
 				
 				</table>
-			</form>
+	
 		</div>
 		
 		<div id="adminRH">
 			<h3>Soy Admin R.H.</h3>
-			<form action= "/Proyecto_Final_AAB/rest/administradores/loginAdministrador" method="post" >
-				<table>
+				<table id="soyAdminRH">
 					<tr>
 						<td>
-							<label name="usuario">Usuario:</label>
+							<label name="usuarioAdminRH">Usuario:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="usuario" type="text"><br/>
+							<input id="usuarioAdminRH" name="usuarioAdminRH" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<label name="pass">Pass:</label>
+							<label name="passAdminRH">Pass:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="pass" type="text"><br/>
+							<input id="passAdminRH" name="passAdminRH" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input type="submit" value="Entrar">
-						
-						<a href="regAdmin.jsp">No está registrado?</a>
+							<input type="button" value="Entrar" onclick="loginAdminRH()">
+							<a href="regAdmin.jsp">No está registrado?</a>
 						</td>
 					</tr>
-					
-				
-				</table>
-			</form>
+			</table>
 		</div>
 		
 		<div id="adminVuelos">
 			<h3>Soy Admin de vuelos.</h3>
-			<form action= "/Proyecto_Final_AAB/rest/administradores/loginAdministrador" method="post" >
-				<table>
+				<table id="soyAdminVuelos">
 					<tr>
 						<td>
-							<label name="usuario">Usuario:</label>
+							<label name="usuarioAdminVuelos">Usuario:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="usuario" type="text"><br/>
+							<input id="usuarioAdminVuelos" name="usuarioAdminVuelos" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<label name="pass">Pass:</label>
+							<label name="passAdminVuelos">Pass:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="pass" type="text"><br/>
+							<input id="passAdminVuelos" name="passAdminVuelos" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input type="submit" value="Entrar">
-						
-						<a href="regAdmin.jsp">No está registrado?</a>
+							<input type="button" value="Entrar" onclick="loginAdminVuelos()">
+							<a href="regAdmin.jsp">No está registrado?</a>
 						</td>
 					</tr>
-					
-				
 				</table>
-			</form>
-		</div>
+			</div>
 		
 		<div id="adminSeg">
 			<h3>Soy Admin de seguridad</h3>
-			<form action= "/Proyecto_Final_AAB/rest/administradores/loginAdministrador" method="post" >
-				<table>
+				<table id="soyAdminSeg">
 					<tr>
 						<td>
-							<label name="usuario">Usuario:</label>
+							<label name="usuarioAdminSeg">Usuario:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="usuario" type="text"><br/>
+							<input id="usuarioAdminSeg" name="usuarioAdminSeg" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<label name="pass">Pass:</label>
+							<label name="passAdminSeg">Pass:</label>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input name="pass" type="text"><br/>
+							<input id="passAdminSeg" name="passAdminSeg" type="text"><br/>
 						</td>
 					</tr>
 				
 					<tr>
 						<td>
-							<input type="submit" value="Entrar">
-						
-						<a href="regAdmin.jsp">No está registrado?</a>
+							<input type="button" value="Entrar" onclick="loginAdminSeg()">
+							<a href="regAdmin.jsp">No está registrado?</a>
 						</td>
 					</tr>
-					
-				
 				</table>
-			</form>
-		</div>
+			</div>
 	</body>
 </html>

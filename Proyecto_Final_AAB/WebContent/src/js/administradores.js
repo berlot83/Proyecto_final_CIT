@@ -3,6 +3,7 @@
 
 function regAdminReq(){
 
+	var tablas= document.getElementById("tablas").value;
 	var nombre= document.getElementById("nombre").value;
 	var apellido= document.getElementById("apellido").value;
 	var usuario= document.getElementById("usuario").value;
@@ -24,7 +25,6 @@ function regAdminReq(){
 	
 	else
 			
-	
 		{
 	
 			xmlhttp.onreadystatechange = function() {
@@ -39,7 +39,7 @@ function regAdminReq(){
 				
 				var datos= xmlhttp.responseText;
 				
-				newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href= 'adminRH.jsp'>Insertar Empleados</a>";
+				newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href='adminRH.jsp'>Panel de control</a>";
 				
 			    	}
 			
@@ -49,7 +49,7 @@ function regAdminReq(){
 
 	xmlhttp.open("POST", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send("nombre="+nombre+"&apellido="+apellido+"&usuario="+usuario+"&pass="+pass+"&email="+email+"&direccion="+direccion);
+	xmlhttp.send("tablas="+tablas+"&nombre="+nombre+"&apellido="+apellido+"&usuario="+usuario+"&pass="+pass+"&email="+email+"&direccion="+direccion);
 }
 
 
@@ -91,17 +91,7 @@ function insertarEmpleado(){
 						alert("Un nuevo empleado fue agregado a la DB:  "+ j[i].nombre +" "+ j[i].apellido);
 						
 					}
-				//No andan
-				usuario= document.getElementById("usuario").value="";
-				pass= document.getElementById("pass").value="";
-				nombre= document.getElementById("nombre").value="";
-				apellido= document.getElementById("apellido").value="";
-				direccion= document.getElementById("direccion").value="";
-				cargo= document.getElementById("cargo").value="";
-				sueldo_cargo= document.getElementById("sueldo_cargo").value="";
-				cargas_sociales= document.getElementById("cargas_sociales").value="";
-				vacaciones= document.getElementById("vacaciones").value="";
-				sueldo_neto= document.getElementById("sueldo_neto").value="";
+			
 				
 				}
 				
@@ -112,49 +102,6 @@ function insertarEmpleado(){
 	xmlhttp.open("POST", url, false);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send("usuario="+usuario+"&pass="+pass+"&nombre="+nombre+"&apellido="+apellido+"&direccion="+direccion+"&cargo="+cargo+"&sueldo_cargo="+sueldo_cargo+"&cargas_sociales="+cargas_sociales+"&vacaciones="+vacaciones+"&sueldo_neto="+sueldo_neto);
-}
-
-
-function consultaEmpleados(){
-	var usuario= document.getElementById("usuario").value;
-	var	pass= document.getElementById("pass").value;
-	
-	var xhr= new XMLHttpRequest();
-	url= "/Proyecto_Final_AAB/rest/empleados/consultaTodosEmpleados";
-	
-	xhr.onreadystatechange= function(){
-	if(this.readyState==4 && this.status==200){
-		alert(xhr.responseText);
-		
-		
-		for(var i=0; i < xhr.responseText.length; i++){
-		
-				var datos= xhr.responseText;
-		
-				var parseDatos= JSON.parse(datos);
-		
-				var	ulElegido= document.getElementById("ulTabla");
-				
-				var newol= document.createElement("ol");
-				
-				ulElegido.appendChild(newol);
-				
-				var texto= document.createTextNode(parseDatos[i].nombre+ "  "+ parseDatos[i].apellido +"  "+ parseDatos[i].direccion );
-				
-				newol.appendChild(texto);
-				
-				document.getElementById("usuario").value="";
-				document.getElementById("pass").value="";
-				
-			}
-		}
-	}
-	
-	//Captamos el endpoint lo declaramos asincrono le decimos que se fije en los parametros que requiera y por último lo enviamos
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("usuario="+usuario+"&pass="+pass);
-	
 }
 
 
@@ -184,7 +131,7 @@ function verEmpleados(){
 		//Elegimos el elemento donde Totos los 'td' van a ser adheridos
 		var	ulElegido= document.getElementById("ulTabla");
 		
-		var cabecera = ["Nombre", "apellido", "direccion", "Cargo", "sueldo cargo", "Cargas sociales", "vacaciones", "Sueldo neto"];
+		var cabecera = ["-ID-", "Nombre", "apellido", "direccion", "Cargo", "sueldo cargo", "Cargas sociales", "vacaciones", "Sueldo neto"];
 		
 		for( var i=0; i < cabecera.length; i++)
 		{
@@ -216,6 +163,21 @@ function verEmpleados(){
 						var	tablaElegida= document.getElementById("ulTabla");
 							tablaElegida.appendChild(hilera);
 				
+							
+					//personaId
+						//Creamos los td  que contendrán los resultados
+						var newtdpersonaId= document.createElement("td");
+							
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdpersonaId).style.border = "thin solid white";
+							
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoPersonaId= document.createTextNode(parseDatos[i].personaId);
+							
+						//Adherimos el texto ya creado a los td
+						newtdpersonaId.appendChild(textoPersonaId);
+							
+							
 							
 					//Nombre
 						//Creamos los td  que contendrán los resultados
@@ -418,63 +380,13 @@ function calculosTotal(){
 }
 
 
-//Muestran los botones para agregar empleados.
-function mostrarBotonesAgregarEmpleados(){
-	
-	var tablaAgregarEmpleados= document.getElementById("botones");
-		tablaAgregarEmpleados.style.display= 'block';
-		
-	var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
-		tablaBorrarEmpleado.style.display= 'none';
-}
-
-
-//Muestra los botones de borrar empleado.
-function mostrarBotonesBorrarEmpleado(){
-	
-	var tablaAgregarEmpleados= document.getElementById("botones");
-		tablaAgregarEmpleados.style.display= 'none';
-	
-	var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
-		tablaBorrarEmpleado.style.display= 'block';
-		
-	var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
-		tablaModificarEmpleado.style.display='none';
-}
-
-function ocultarBotonesVerEmpleados(){
-	
-	var tablaAgregarEmpleados= document.getElementById("botones");
-		tablaAgregarEmpleados.style.display= 'none';
-
-	var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
-		tablaBorrarEmpleado.style.display= 'none';
-		
-	var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
-		tablaModificarEmpleado.style.display='none';
-}
-
-function mostrarBotonesModificarEmpleado(){
-	
-	var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
-		tablaModificarEmpleado.style.display='block';
-		
-	var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
-		tablaBorrarEmpleado.style.display= 'none';
-		
-	var tablaAgregarEmpleados= document.getElementById("botones");
-		tablaAgregarEmpleados.style.display= 'none';
-	
-}
-
-
 //Borrar empleados de la Base de datos.
 function borrarEmpleado(){
 	
 	var usuario= document.getElementById("usuario").value;
 	var pass= document.getElementById("pass").value;
-	var borrarNombre= document.getElementById("borrarNombre").value;
-	var borrarApellido= document.getElementById("borrarApellido").value;
+	var personaId= document.getElementById("deleteId").value;
+	
 	
 						var xhr= new XMLHttpRequest();
 						var url= "/Proyecto_Final_AAB/rest/empleados/deleteEmpleado";
@@ -487,7 +399,7 @@ function borrarEmpleado(){
 						
 						xhr.open("DELETE", url, false);
 						xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-						xhr.send("usuario="+usuario+"&pass="+pass+"&borrarNombre="+borrarNombre+"&borrarApellido="+borrarApellido);
+						xhr.send("usuario="+usuario+"&pass="+pass+"&personaId="+personaId);
 				
 		}
 
@@ -504,7 +416,7 @@ function modificarEmpleado(){
 	var cargas_sociales= document.getElementById("modificarCargas_sociales").value;
 	var vacaciones= document.getElementById("modificarVacaciones").value;
 	var sueldo_neto= document.getElementById("modificarSueldo_neto").value;
-	var nombreRegistro= document.getElementById("modificarRegistro").value;
+	var personaId= document.getElementById("personaId").value;
 	
 	var xhr= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/empleados/modificarEmpleado";
@@ -516,13 +428,81 @@ function modificarEmpleado(){
 		}
 	}
 	
-	xhr.open("POST", url, false);
+	xhr.open("PUT", url, false);
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("usuario="+usuario+"&pass="+pass+"&nombre="+nombre+"&apellido="+apellido+"&direccion="+direccion+"&cargo="+cargo+"&sueldo_cargo="+sueldo_cargo+"&cargas_sociales="+cargas_sociales+"&vacaciones="+vacaciones+"&sueldo_neto="+sueldo_neto+"&nombreRegistro="+nombreRegistro);
+	xhr.send("usuario="+usuario+"&pass="+pass+"&nombre="+nombre+"&apellido="+apellido+"&direccion="+direccion+"&cargo="+cargo+"&sueldo_cargo="+sueldo_cargo+"&cargas_sociales="+cargas_sociales+"&vacaciones="+vacaciones+"&sueldo_neto="+sueldo_neto+"&personaId="+personaId);
 	
 }
 
 
+function acciones(){
+
+	var menu= document.getElementById("menu");
+	
+	if(menu.value=="seleccione"){
+	//Este contenido está vacío, no pretende mostrarse nada.
+	}
+	
+	if(menu.value=="consultas"){
+				
+			var botonVerEmpleados= document.getElementById("botonVerEmpleados");
+				botonVerEmpleados.style.display= 'block';
+				
+			var tablaAgregarEmpleados= document.getElementById("botones");
+				tablaAgregarEmpleados.style.display= 'none';
+		
+			var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
+				tablaBorrarEmpleado.style.display= 'none';
+				
+			var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
+				tablaModificarEmpleado.style.display='none';
+				
+	}
+	
+	
+	if(menu.value=="ingresar"){
+		
+			var botonVerEmpleados= document.getElementById("botonVerEmpleados");
+				botonVerEmpleados.style.display= 'none';
+				
+			var tablaAgregarEmpleados= document.getElementById("botones");
+				tablaAgregarEmpleados.style.display= 'block';
+				
+			var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
+				tablaBorrarEmpleado.style.display= 'none';
+		
+	}
+	
+	
+	if(menu.value=="borrar"){
+		
+			var tablaAgregarEmpleados= document.getElementById("botones");
+				tablaAgregarEmpleados.style.display= 'none';
+			
+			var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
+				tablaBorrarEmpleado.style.display= 'block';
+				
+			var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
+				tablaModificarEmpleado.style.display='none';
+		
+	}
+	
+	
+	if(menu.value=="modificar"){
+		
+			var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
+				tablaModificarEmpleado.style.display='block';
+				
+			var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
+				tablaBorrarEmpleado.style.display= 'none';
+				
+			var tablaAgregarEmpleados= document.getElementById("botones");
+				tablaAgregarEmpleados.style.display= 'none';
+		
+	}
+	
+	
+}
 
 
 
