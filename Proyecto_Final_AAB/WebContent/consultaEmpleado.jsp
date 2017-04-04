@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="src/js/administradores.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-
-			<form action= "/Proyecto_Final_AAB/rest/empleados/consultaNombreEmpleado" method="post" >
-				<table>
+				<table id="tablaConsultaEmpleado">
 					<tr>
 						<td>
 							<label name="usuario">Usuario:</label>
@@ -18,7 +17,7 @@
 				
 					<tr>
 						<td>
-							<input name="usuario" type="text"><br/>
+							<input id="usuario" name="usuario" type="text"><br/>
 						</td>
 					</tr>
 				
@@ -30,20 +29,7 @@
 				
 					<tr>
 						<td>
-							<input name="pass" type="text"><br/>
-						</td>
-					</tr>
-					
-					
-					<tr>
-						<td>
-							<label name="nombre">Nombre del empleado:</label>
-						</td>
-					</tr>
-				
-					<tr>
-						<td>
-							<input name="nombre" type="text"><br/>
+							<input id="pass" name="pass" type="text"><br/>
 						</td>
 					</tr>
 					
@@ -55,14 +41,14 @@
 				
 					<tr>
 						<td>
-							<input name="apellido" type="text"><br/>
+							<input id="apellido" name="apellido" type="text" oninput="consultaNombreEmpleado(this.value)"><br/>
 						</td>
 					</tr>
 					
 				
 					<tr>
 						<td>
-							<input type="submit" value="consultar">
+						
 							
 						<a href="registro.jsp">No está registrado?</a>
 						</td>

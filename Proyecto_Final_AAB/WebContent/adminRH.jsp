@@ -66,6 +66,37 @@
 			<table id="botones" style='display:none;'>
 				<tr>
 					<td>	
+						<label name="dni">D.N.I:</label>
+					</td>
+					
+					<td>	
+						<label name="cuit">CUIT:</label>
+					</td>
+					
+					<td>	
+						<label name="nacimiento">Fecha de nac.:</label>
+					</td>
+					
+				</tr>
+				
+				<tr>
+					<td>
+						<input id="dni" name="dni" type="number" min=0 maxlength=11><br/>
+					</td>
+					
+					<td>
+						<input id="cuit" name="cuit" type="number" min=0 maxlength=11><br/>
+					</td>
+					
+					<td>
+						<input id="nacimiento" name="nacimiento" type="date"><br/>
+					</td>
+				
+				</tr>
+				
+				
+				<tr>
+					<td>	
 						<label name="nombre">Nombre:</label>
 					</td>
 					
@@ -79,6 +110,7 @@
 				</tr>
 			
 				<tr>
+				
 					<td>
 						<input id="nombre" name="nombre" type="text"><br/>
 					</td>
@@ -189,6 +221,7 @@
 			</table>
 			
 			<table id="tablaModificarEmpleado" style='display:none;'>
+			
 				<tr>
 					<td>	
 						<label name="modificarNombre">Nombre:</label>

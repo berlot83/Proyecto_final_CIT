@@ -53,18 +53,45 @@ function regAdminReq(){
 }
 
 
+function consultaNombreEmpleado(){
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	var apellido= document.getElementById("apellido");
+	
+	var xmlhttp = new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/empleados/consultaNombreEmpleado";
+	
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			 
+			alert(xmlhttp.responseText);
+			alert(xmlhttp.status);
+		}
+		
+	}
+	
+	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("?usuario="+usuario.value+"&pass="+pass.value+"&apellido="+apellido.value);
+}
+
+
+
 function insertarEmpleado(){
 	
-	var usuario= document.getElementById("usuario").value;
-	var pass= document.getElementById("pass").value;
-	var nombre= document.getElementById("nombre").value;
-	var apellido= document.getElementById("apellido").value;
-	var direccion= document.getElementById("direccion").value;
-	var cargo= document.getElementById("cargo").value;
-	var sueldo_cargo= document.getElementById("sueldo_cargo").value;
-	var cargas_sociales= document.getElementById("cargas_sociales").value;
-	var vacaciones= document.getElementById("vacaciones").value;
-	var sueldo_neto= document.getElementById("sueldo_neto").value;
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	var dni= document.getElementById("dni");
+	var cuit= document.getElementById("cuit");
+	var nacimiento= document.getElementById("nacimiento");
+	var nombre= document.getElementById("nombre");
+	var apellido= document.getElementById("apellido");
+	var direccion= document.getElementById("direccion");
+	var cargo= document.getElementById("cargo");
+	var sueldo_cargo= document.getElementById("sueldo_cargo");
+	var cargas_sociales= document.getElementById("cargas_sociales");
+	var vacaciones= document.getElementById("vacaciones");
+	var sueldo_neto= document.getElementById("sueldo_neto");
 	
 	var xmlhttp= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/empleados/insertarEmpleado";
@@ -74,14 +101,17 @@ function insertarEmpleado(){
 		
 		if(this.readyState == 4 && this.status == 200){
 			
-			if(usuario=="" || pass=="" || nombre=="" || apellido=="" || direccion=="" || cargo=="" || sueldo_cargo=="" || cargas_sociales=="" || vacaciones=="" || sueldo_neto==""){
+			if(usuario.value=="" || pass.value=="" || dni.value=="" || cuit.value=="" || nacimiento.value=="" || nombre.value=="" || apellido.value=="" || direccion.value=="" || cargo.value=="" || sueldo_cargo.value=="" || cargas_sociales.value=="" || vacaciones.value=="" || sueldo_neto.value==""){
 				
 					alert("Ningun campo puede quedar en blanco.")
 				
 				}
 			else
 				{
+				
+				alert(xmlhttp.responseText);
 
+					/*
 				//Recorremos el JSON de rspuesta del servidor
 				for(var i=0; i < xmlhttp.responseText.length; i++){
 						
@@ -90,7 +120,7 @@ function insertarEmpleado(){
 						
 						alert("Un nuevo empleado fue agregado a la DB:  "+ j[i].nombre +" "+ j[i].apellido);
 						
-					}
+					}*/
 			
 				
 				}
@@ -99,9 +129,9 @@ function insertarEmpleado(){
 		
 	}
 	
-	xmlhttp.open("POST", url, false);
+	xmlhttp.open("POST", url, true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send("usuario="+usuario+"&pass="+pass+"&nombre="+nombre+"&apellido="+apellido+"&direccion="+direccion+"&cargo="+cargo+"&sueldo_cargo="+sueldo_cargo+"&cargas_sociales="+cargas_sociales+"&vacaciones="+vacaciones+"&sueldo_neto="+sueldo_neto);
+	xmlhttp.send("usuario="+usuario.value+"&pass="+pass.value+"&dni="+dni.value+"&cuit="+cuit.value+"&nacimiento="+nacimiento.value+"&nombre="+nombre.value+"&apellido="+apellido.value+"&direccion="+direccion.value+"&cargo="+cargo.value+"&sueldo_cargo="+sueldo_cargo.value+"&cargas_sociales="+cargas_sociales.value+"&vacaciones="+vacaciones.value+"&sueldo_neto="+sueldo_neto.value);
 }
 
 
@@ -131,7 +161,7 @@ function verEmpleados(){
 		//Elegimos el elemento donde Totos los 'td' van a ser adheridos
 		var	ulElegido= document.getElementById("ulTabla");
 		
-		var cabecera = ["-ID-", "Nombre", "apellido", "direccion", "Cargo", "sueldo cargo", "Cargas sociales", "vacaciones", "Sueldo neto"];
+		var cabecera = ["-ID-", "Dni", "CUIT", "Fecha nac.", "Nombre", "apellido", "direccion", "Cargo", "sueldo cargo", "Cargas sociales", "vacaciones", "Sueldo neto"];
 		
 		for( var i=0; i < cabecera.length; i++)
 		{
@@ -177,7 +207,47 @@ function verEmpleados(){
 						//Adherimos el texto ya creado a los td
 						newtdpersonaId.appendChild(textoPersonaId);
 							
-							
+					
+					//Dni
+						//Creamos los td  que contendrán los resultados
+						var newtdDni= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdDni).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoDni= document.createTextNode(parseDatos[i].dni);
+						
+						//Adherimos el texto ya creado a los td
+						newtdDni.appendChild(textoDni);	
+						
+						
+					//Cuit
+						//Creamos los td  que contendrán los resultados
+						var newtdCuit= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdCuit).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoCuit= document.createTextNode(parseDatos[i].cuit);
+						
+						//Adherimos el texto ya creado a los td
+						newtdCuit.appendChild(textoCuit);
+						
+					//Nacimiento
+						//Creamos los td  que contendrán los resultados
+						var newtdNacimiento= document.createElement("td");
+						
+						//Adherimos los td a la tabla ya existente
+						ulElegido.appendChild(newtdNacimiento).style.border = "thin solid white";
+						
+						//Creamos el texto y aherimos las columnas parseadas
+						var textoNacimiento= document.createTextNode(parseDatos[i].nacimiento);
+						
+						//Adherimos el texto ya creado a los td
+						newtdNacimiento.appendChild(textoNacimiento);
+						
 							
 					//Nombre
 						//Creamos los td  que contendrán los resultados
@@ -470,6 +540,9 @@ function acciones(){
 				
 			var tablaBorrarEmpleado= document.getElementById("tablaBorrarEmpleado");
 				tablaBorrarEmpleado.style.display= 'none';
+				
+			var tablaModificarEmpleado= document.getElementById("tablaModificarEmpleado");
+				tablaModificarEmpleado.style.display='none';
 		
 	}
 	
@@ -498,7 +571,9 @@ function acciones(){
 				
 			var tablaAgregarEmpleados= document.getElementById("botones");
 				tablaAgregarEmpleados.style.display= 'none';
-		
+				
+				alert("Los campos:\n\n ' ID ' , ' Dni ' , ' Cuit '\n\nNo puede ser modificados, si es necesario elimine el registro y vuelva a agregarlo.")
+		;
 	}
 	
 	
