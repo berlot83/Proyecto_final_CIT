@@ -4,6 +4,7 @@ function loginSuperAdmin(){
 	
 	var usuario= document.getElementById("usuarioSuperAdmin").value;
 	var pass= document.getElementById("passSuperAdmin").value;
+	var token= document.getElementById("token").value;
 	
 	
 	var xhr= new XMLHttpRequest();
@@ -20,7 +21,7 @@ function loginSuperAdmin(){
 					
 				var div= document.getElementById("super");
 				
-				var link2= document.getElementById("super").innerHTML= "Bienvenido siga el siguiente enlace:<br><a href='adminrh.jsp'>Panel de Control</a>";
+				var link2= document.getElementById("super").innerHTML= "Bienvenido siga el siguiente enlace:<br><a href='superAdmin.jsp'>Panel de Control</a>";
 				
 				div.appendChild(link2);
 			}
@@ -34,7 +35,7 @@ function loginSuperAdmin(){
 	
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("usuario="+usuario+"&pass="+pass)
+	xhr.send("usuario="+usuario+"&pass="+pass+"&token="+token);
 }
 
 

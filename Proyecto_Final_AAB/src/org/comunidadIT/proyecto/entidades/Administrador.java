@@ -5,8 +5,8 @@ public class Administrador {
 	// Sobrecarga de constructores para insercción a DB de todos los datos y para validación de datos usuario y pass
 	//protected int id;
 	
-	protected String nombre;	//Para llamarlo desde la instancia Empleado
-	protected String apellido;	//Para llamarlo desde la instancia Empleado
+	protected String nombre;
+	protected String apellido;
 	protected String usuario;
 	protected String pass;
 	protected String email;

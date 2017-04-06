@@ -3,30 +3,26 @@ package org.comunidadIT.proyecto.accesoDatos;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
-import org.comunidadIT.proyecto.entidades.Administrador;
 
 @Path("/validacionSuperAdmin")
 public class AutenticarSuperAdministrador {
 	
-	//Esta clase debería ser estática y ser llamada antes del pedido de token.
-	//En este caso será necesario un .html o .jsp con formulario>, si no se tiene cambiar anotación a @GET
+	
+	//El 'token' debería funcionar con un algoritmo que la reproduzca aleatoriamente.
     @POST
     @Produces("application/json")
     @Consumes("application/x-www-form-urlencoded")
-    public static boolean autenticarSuperAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass){
+    public static boolean autenticarSuperAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token){
     	
-    	//Response resp= null;
     	String str_usuario= null;
     	String str_pass= null;
+    	int int_token=0;
     	boolean autorizado= false;
     	
 	    	try{
@@ -34,24 +30,31 @@ public class AutenticarSuperAdministrador {
 	    		ConexionAeropuerto c= new ConexionAeropuerto();
 				Connection con= c.connectarAhora();
 				
-				if(con != null )
+				if(con != null)
 				{
 					Statement st;
 					st=con.createStatement();
-					ResultSet rs= st.executeQuery("select usuario, pass from superadministradores where usuario= '" + usuario + "' and pass= '" + pass + "' ");
+					ResultSet rs= st.executeQuery("SELECT * FROM super_administradores WHERE usuario= '" + usuario + "' and pass= '" + pass + "' ");
 					
 					while(rs.next())
 					{
 						str_usuario= rs.getString("usuario"); 
 						str_pass= rs.getString("pass");
+						int_token= rs.getInt("token");
 								
 					}
 					
-							if(usuario.equals(str_usuario) && pass.equals(str_pass))
+							if(usuario.equals(str_usuario) && pass.equals(str_pass) && token==int_token)
 							{
 								System.out.println("Usuario: " + usuario + " Correcto.");
 								System.out.println("Password: " + pass + " Correcta.");
+								System.out.println("Token: " + token + " correcto.");
 								autorizado= true;
+							}
+							
+							else
+							{
+								System.out.println("no hay coincidencias");
 							}
 				 }
 	    		
@@ -59,14 +62,12 @@ public class AutenticarSuperAdministrador {
 	    		//Acá falta código
 	    		//Falta un métedo para autenticar usuario y contraseña
 	    		//Falta código de Token
-	    		//Falta código de retorno Response.builter del Token
 	    		
-					Response.status(200).build();
+	    		
 	    	}
 	    	catch(Exception e)
 	    	{
 	    		System.out.println("No tiene autorización para ingresar.");
-	    		Response.status(401).build();
 	    	}
     	
     	return autorizado;

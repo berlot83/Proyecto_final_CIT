@@ -1,0 +1,26 @@
+body
+{
+	background-image: url("../img/aeropuerto4.jpg");
+	background-opacy:0.20;
+	background-repeat:no-repeat;
+	background-attachment: fixed;	
+	color: white;
+	text-shadow: 0px 0px 2px black;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+input{
+	border-radius: 5px;
+}
+
+input:focus{
+	background-color: turquoise;
+}
+
+a:visited{
+	color: turquoise;
+}
+
+#inputId{
+	background-color:pink;
+}

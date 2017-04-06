@@ -2,15 +2,15 @@ package org.comunidadIT.proyecto.entidades;
 
 public class SuperAdministrador {
 	
-	private String usuarioAdmin;
+	private int id;
 	private String redireccion;
 
 	public SuperAdministrador(){
 	
 	}
 	
-	public SuperAdministrador(String usuarioAdmin, String redireccion){
-		this.usuarioAdmin=usuarioAdmin;
+	public SuperAdministrador(int id, String redireccion){
+		this.id=id;
 		this.redireccion=redireccion;
 	}
 	

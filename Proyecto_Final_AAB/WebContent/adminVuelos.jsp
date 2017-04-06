@@ -31,7 +31,7 @@
 			</td>
 		
 			<td>
-				<input id="pass" type="pass">
+				<input id="pass" type="password">
 			</td>
 		</tr>
 	</table>

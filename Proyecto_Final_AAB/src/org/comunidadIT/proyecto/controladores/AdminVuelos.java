@@ -1,11 +1,14 @@
 package org.comunidadIT.proyecto.controladores;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -54,7 +57,7 @@ public class AdminVuelos {
 					{
 				
 						PreparedStatement ps;
-						String sql="INSERT INTO vuelos(empresa, destino, escalas, pasajes, fechaSalida, horarioSalida, fechaArribo, horarioArribo, pago, precio) values(?,?,?,?,?,?,?,?,?,?)";
+						String sql="INSERT INTO vuelos(empresa, destino, escalas, pasajes, fechaSalida, horarioSalida, fechaArribo, horarioArribo, pago, precio, id_administradores) values(?,?,?,?,?,?,?,?,?,?,?)";
 						ps= con.prepareStatement(sql);
 						
 						ps.setString(1, empresa);
@@ -67,6 +70,7 @@ public class AdminVuelos {
 						ps.setString(8, horarioArribo);
 						ps.setString(9, pago);
 						ps.setInt(10, precio);
+						ps.setString(11, usuario);
 						
 						ps.executeUpdate();
 						ps.close();
@@ -107,7 +111,7 @@ public class AdminVuelos {
 			ConexionAeropuerto c= new ConexionAeropuerto();
 			Connection con= c.connectarAhora();
 			
-			if(con != null &&AutenticarAdministradorVuelo.autenticarAdministradorVuelo(usuario, pass)==true){
+			if(con != null && AutenticarAdministradorVuelo.autenticarAdministradorVuelo(usuario, pass)==true){
 				
 				
 				if(usuario.equalsIgnoreCase("")||pass.equalsIgnoreCase("")||empresa.equalsIgnoreCase("")||destino.equalsIgnoreCase("")||pasajes<0||fechaSalida.equalsIgnoreCase("")||horarioSalida.equalsIgnoreCase("")||fechaArribo.equalsIgnoreCase("")||horarioArribo.equalsIgnoreCase("")||pago.equalsIgnoreCase("")||precio<0||id<0)
@@ -156,6 +160,48 @@ public class AdminVuelos {
 		}
 		
 		return jsonToString;
+	}
+	
+	
+	@DELETE
+	@Path("/deleteVuelo")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String deleteVuelo(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("id") int id){
+		
+		Gson gson= new Gson();
+		ArrayList<Vuelo> listado= new ArrayList<>();
+		String RespuestaToJson;
+		
+		
+		try{
+			ConexionAeropuerto c= new ConexionAeropuerto();
+			Connection con= c.connectarAhora();
+			
+			if(con != null && AutenticarAdministradorVuelo.autenticarAdministradorVuelo(usuario, pass)==true)
+			{
+				Statement st;
+				st= con.createStatement();			
+				st.executeUpdate("DELETE FROM vuelos WHERE id="+id);
+				st.close();
+				
+				
+				listado.add(new Vuelo(id));
+				RespuestaToJson= gson.toJson(listado);
+				return "El vuelo "+ RespuestaToJson +" fue borrado de la DB.";
+			}
+			else
+			{
+				return "Controle su usuario y pass\nSi los mismos están bien puede que un error interno haya ocurrido.";
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("La conexión no fue posible.");
+		}
+		
+		RespuestaToJson= gson.toJson(listado);
+		return RespuestaToJson;
 	}
 	
 

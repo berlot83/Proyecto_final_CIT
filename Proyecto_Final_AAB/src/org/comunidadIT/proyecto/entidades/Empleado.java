@@ -6,8 +6,8 @@ public class Empleado {
 	protected String dni;
 	protected String cuit;
 	protected String nacimiento;
-	protected String nombre; //Para llamarlo desde la instancia Empleado
-	protected String apellido;	//Para llamarlo desde la instancia Empleado
+	protected String nombre;
+	protected String apellido;
 	protected String direccion;	
 	protected String cargo;
 	protected float sueldo_cargo;

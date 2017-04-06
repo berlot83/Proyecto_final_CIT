@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8/ISO-8859-1">
 		<title>Página de registro de Administrador de Aeropuertos 1.0</title>
 		<link rel="stylesheet" type="text/css" href="src/css/regAdmin.css">
-		<script type="text/javascript" src="src/js/administradores.js"></script>
+		<script type="text/javascript" src="src/js/regAdmin.js"></script>
 </head>
 <body>
 
@@ -20,9 +20,9 @@
 			<tr>
 				<td>
 					<select id="tablas">
-						<option value="adminrh">Administrador de R.H</option>
-						<option value="adminseg">Adnministrador de Seguridad</option>
-						<option value="adminvuelos">Administror de vuelos</option> 
+						<option value="adminRH">Administrador de R.H</option>
+						<option value="adminSeg">Adnministrador de Seguridad</option>
+						<option value="adminVuelos">Administror de vuelos</option> 
 					</select>
 				</td>
 			</tr>
@@ -63,7 +63,7 @@
 					</td>
 					
 					<td>
-						<input id="pass" name="pass" type="text"><br/>
+						<input id="pass" name="pass" type="password"><br/>
 					</td>
 				</tr>
 				

@@ -2,6 +2,7 @@ package org.comunidadIT.proyecto.controladores;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,6 +21,7 @@ import org.comunidadIT.proyecto.entidades.Administrador;
 import com.google.gson.Gson;
 
 
+
 @Path("/administradores")
 public class Administradores {
 	
@@ -35,6 +37,15 @@ public class Administradores {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public String insertarAdministrador(@FormParam("tablas") String tablas,@FormParam("nombre") String nombre , @FormParam("apellido") String apellido, @FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
+		//Creamos la lista y le ponemos las variables que a su vez están conectadas al construcctor de la Case Empleados
+		List<Administrador> lista= new ArrayList<>();
+			lista.add(new Administrador(nombre.trim().replaceAll(soloLetras, ""), apellido.trim().replaceAll(soloLetras, ""), usuario.trim().replaceAll(numerosLetras, ""), pass.trim().replaceAll(numerosLetras, ""), email.trim().replaceAll(soloEmail, ""), direccion.trim().replaceAll(numerosLetras, "") ));
+			
+				//Creamos un object Gson() que nos permite usar el toJson()
+				Gson gson = new Gson();
+			
+				//Creamos un String y al mismo le aplicamos el toJson(objeto list)
+				String JsonToString= gson.toJson(lista);
 	
 		try
 			{
@@ -52,19 +63,21 @@ public class Administradores {
 					} 
 			else
 					{
-						Statement st;
-						st=con.createStatement();
-						st.executeUpdate("INSERT INTO "+tablas+"(nombre,apellido,usuario,pass,email,direccion) VALUES('"+nombre.trim().replaceAll(soloLetras, "")+"','"+apellido.trim().replaceAll(soloLetras, "")+"','"+usuario.trim().replaceAll(numerosLetras, "")+"','"+pass.trim().replaceAll(numerosLetras, "")+"','"+email.trim().replaceAll(soloEmail, "")+"','"+direccion.trim().replaceAll(numerosLetras, "")+"')");
-						st.close();
-						System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB 'administradores'");
+						PreparedStatement ps;
+						String sql="INSERT INTO administradores(tipo_admin, nombre, apellido, usuario, pass, email, direccion) VALUES(?, ?, ?, ?, ?, ?, ?)";
+						ps= con.prepareStatement(sql);
 						
-						/*
-						Statement createSt;
-						createSt=con.createStatement();
-						createSt.executeUpdate("CREATE TABLE IF NOT EXISTS empleados_"+usuario+"(personaId int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, nombre text(11) NOT NULL, apellido text(11) NOT NULL, direccion text(20) NOT NULL, cargo text(20) NOT NULL, sueldo_cargo float NOT NULL, cargas_sociales float NOT NULL, vacaciones float NOT NULL, sueldo_neto float NOT NULL)");
-						createSt.close();
-						*/
-						System.out.println("Funciona el try and catch y debería haberse creado una tabla nueva");
+						ps.setString(1, tablas);
+						ps.setString(2, nombre.trim().replaceAll(soloLetras, ""));
+						ps.setString(3, apellido.trim().replaceAll(soloLetras, ""));
+						ps.setString(4, usuario.trim().replaceAll(numerosLetras, ""));
+						ps.setString(5, pass.trim().replaceAll(numerosLetras, ""));
+						ps.setString(6, email.trim().replaceAll(soloEmail, ""));
+						ps.setString(7, direccion.trim().replaceAll(numerosLetras, ""));
+						ps.executeUpdate();
+						ps.close();
+						System.out.println("Funciona el try and catch, los deberían haberse ingresado a la DB 'administradores'");
+						return "Los datos del nuevo admin son:\n"+JsonToString;
 					}
 			}
 			catch (SQLException e) 
@@ -73,17 +86,6 @@ public class Administradores {
 						e.printStackTrace();
 					}
 		
-		
-		//Creamos la lista y le ponemos las variables que a su vez están conectadas al construcctor de la Case Empleados
-		List<Administrador> lista= new ArrayList<>();
-			lista.add(new Administrador(nombre.trim().replaceAll(soloLetras, ""), apellido.trim().replaceAll(soloLetras, ""), usuario.trim().replaceAll(numerosLetras, ""), pass.trim().replaceAll(numerosLetras, ""), email.trim().replaceAll(soloEmail, ""), direccion.trim().replaceAll(numerosLetras, "") ));
-			
-				//Creamos un object Gson() que nos permite usar el toJson()
-				Gson gson = new Gson();
-			
-				//Creamos un String y al mismo le aplicamos el toJson(objeto list)
-				String JsonToString= gson.toJson(lista);
-				
 				//Retornamos el String anterior
 				return JsonToString;
 		}

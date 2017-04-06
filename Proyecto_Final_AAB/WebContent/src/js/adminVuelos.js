@@ -81,6 +81,32 @@ function modificarVuelo(){
 	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&empresa="+empresa.value+"&destino="+destino.value+"&pasajes="+pasajes.value+"&escalas="+escalas.value+"&fechaSalida="+fechaSalida.value+"&horarioSalida="+horarioSalida.value+"&fechaArribo="+fechaArribo.value+"&horarioArribo="+horarioArribo.value+"&pago="+pago.value+"&precio="+precio.value+"&id="+id.value);
 }
 
+function eliminarVuelo(){
+	
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	var id= document.getElementById("eliminarId");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/deleteVuelo";
+	
+	if(id.value=="")
+		{
+			alert("Ningún campo debe quedar vacío.");
+		}
+	else
+		{
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					alert(xhr.responseText);
+				}
+			}
+		}
+	xhr.open("DELETE", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&id="+id.value);
+}
+
 
 function acciones(){
 	

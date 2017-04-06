@@ -63,7 +63,7 @@ public class Empleados {
 							{
 						
 							PreparedStatement st;
-							String sql="INSERT INTO empleados_"+usuario+"(dni, cuit, nacimiento, nombre, apellido, direccion, cargo, sueldo_cargo, cargas_sociales, vacaciones, sueldo_neto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+							String sql="INSERT INTO empleados(dni, cuit, nacimiento, nombre, apellido, direccion, cargo, sueldo_cargo, cargas_sociales, vacaciones, sueldo_neto, tipo_administrador, id_administradores) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 							st=con.prepareStatement(sql);
 								st.setString(1, dni);
 								st.setString(2, cuit);
@@ -76,6 +76,8 @@ public class Empleados {
 								st.setFloat(9, cargas_sociales);
 								st.setFloat(10, vacaciones);
 								st.setFloat(11, sueldo_neto);
+								st.setString(12, "adminRH");
+								st.setString(13, usuario);
 								st.executeUpdate();
 								st.close();
 								
@@ -86,7 +88,7 @@ public class Empleados {
 				else
 						{
 							//System.out.println("No se pudo insertar los datos, controle que el cuit debe tener 11 caracteres y el Dni 8");
-							return JsonToString="No se pudo insertar los datos a la base de datos, controle que el cuit debe tener 11 caracteres y el Dni 8";
+							return JsonToString="No se pudo insertar los datos a la base de datos.\n\n• Controle que el cuit debe tener 11 caracteres\n• El Dni debe tener 8 caracteres\n• Si lo anterior se cumple puede ser que las credenciales no sean correctas.";
 							
 						}
 				}
@@ -178,15 +180,12 @@ public class Empleados {
 								
 								//Actualizamos el String del Json sin crearlo nuevamente.
 								stringJson= gson.toJson(listado);
-								
-								MetodosResponse.ACCEPTED();	//ResponseBuilder 200
 							}
 							
 						} 
 				else
 						{
 							System.out.println("Algo Salió mal no se pueden ver los datos de la consulta.");
-							MetodosResponse.UNAUTHORIZED();	//ResponseBuilder 401
 							return "Algo Salió mal no se pueden ver los datos de la consulta.";
 						}
 				}
@@ -236,7 +235,7 @@ public class Empleados {
 							{
 								System.out.println("Funciona el try and catch");
 								
-								String sql="select * from empleados_"+usuario;
+								String sql="select * from empleados where id_administradores='"+usuario+"' ";
 								
 								Statement st= con.createStatement();
 								
@@ -302,7 +301,7 @@ public class Empleados {
 							{
 								Statement st;
 								st=con.createStatement();
-								st.executeUpdate("DELETE FROM empleados_"+usuario+" WHERE personaId="+personaId);
+								st.executeUpdate("DELETE FROM empleados WHERE personaId="+personaId);
 								st.close();
 								
 								System.out.println("Funciona el try and catch, admin: revisar la DB si se eleminó");
@@ -345,7 +344,7 @@ public class Empleados {
 					if(con!=null && AutenticarUsuario.autenticarUsuario(usuario, pass)==true)
 						{
 						PreparedStatement ps;
-						String sql= "update empleados_"+ usuario +" set nombre=?, apellido=?, cargo=?, direccion=?, sueldo_cargo=?, cargas_sociales=?, vacaciones=?, sueldo_neto=? where personaId=?";
+						String sql= "update empleados set nombre=?, apellido=?, cargo=?, direccion=?, sueldo_cargo=?, cargas_sociales=?, vacaciones=?, sueldo_neto=? where personaId=?";
 						ps= con.prepareStatement(sql);
 						
 						ps.setString(1, nombre);

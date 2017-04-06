@@ -6,7 +6,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="src/css/adminHR.css">
-		<script type="text/javascript" src="src/js/administradores.js"></script>
+		<script type="text/javascript" src="src/js/adminRH.js"></script>
 <title>Administrador de R.H.</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
 					</td>
 				
 					<td>
-						<input id="pass" name="pass" type="text"><br/>
+						<input id="pass" name="pass" type="password"><br/>
 					</td>
 				</tr>
 			</table>

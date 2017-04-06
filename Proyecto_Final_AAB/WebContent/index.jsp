@@ -25,7 +25,7 @@
 	<hr>				
 					
 		<div id="super">
-			<h3>Soy SuperAdministrador</h3>
+			<h3>Acceso SuperAdministrador</h3>
 				<table id="soySuperadmin">
 					<tr>
 						<td>
@@ -47,7 +47,7 @@
 				
 					<tr>
 						<td>
-							<input id="passSuperAdmin" name="passSuperAdmin" type="text"><br/>
+							<input id="passSuperAdmin" name="passSuperAdmin" type="password"><br/>
 						</td>
 					</tr>
 					
@@ -92,7 +92,7 @@
 				
 					<tr>
 						<td>
-							<input id="passAdminRH" name="passAdminRH" type="text"><br/>
+							<input id="passAdminRH" name="passAdminRH" type="password"><br/>
 						</td>
 					</tr>
 				
@@ -128,7 +128,7 @@
 				
 					<tr>
 						<td>
-							<input id="passAdminVuelos" name="passAdminVuelos" type="text"><br/>
+							<input id="passAdminVuelos" name="passAdminVuelos" type="password"><br/>
 						</td>
 					</tr>
 				
@@ -164,7 +164,7 @@
 				
 					<tr>
 						<td>
-							<input id="passAdminSeg" name="passAdminSeg" type="text"><br/>
+							<input id="passAdminSeg" name="passAdminSeg" type="password"><br/>
 						</td>
 					</tr>
 				

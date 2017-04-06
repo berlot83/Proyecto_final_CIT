@@ -42,7 +42,7 @@ public class AutenticarUsuario {
 					{
 						Statement st;
 						st=con.createStatement();
-						ResultSet rs= st.executeQuery("select usuario, pass from adminrh where usuario= '" + usuario + "' and pass= '" + pass + "' ");
+						ResultSet rs= st.executeQuery("select usuario, pass from administradores where usuario= '" + usuario + "' and pass= '" + pass + "' and tipo_admin= 'adminRH' ");
 						
 						while(rs.next())
 						{
