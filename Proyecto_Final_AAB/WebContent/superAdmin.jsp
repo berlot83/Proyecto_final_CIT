@@ -12,7 +12,7 @@
 </head>
 	
 <body>
-	
+	<div id="menus">
 	<a href="index.jsp">Inicio</a>
 	
 	<h2>Super Administrador</h2>
@@ -72,18 +72,31 @@
 		</tr>
 	</table>
 	<!-- Final de tabla menu -->
-	
+	<br>
 	<!-- Inicio tabla ver administradores -->
 	<table id="verAdministradores" style='display:none;'>
 	<tr>
 		<td>
-			<label>Ver todos los administradores:</label>
+			<label>Ver todos:</label>
+		</td>
+		
+		<td>
+			<label>Ver por tipo:</label>
 		</td>
 	</tr>
 	
 	<tr>
 		<td>
 			<input type="button" value="Ver todos los administradores" onclick="verAdministradores()">
+		</td>
+		
+		<td>
+			<select id="tipoAdmin" onchange="verTipoAdministradores()">
+				<option value="sinSeleccion">Seleccione un tipo de Admin.</option>
+				<option value="adminRH">Administrador R.H.</option>
+				<option value="adminVuelos">Administrador de Vuelos</option>
+				<option value="adminSeg">Administrador de Seguridad</option>
+			</select>
 		</td>
 	</tr>
 	</table>
@@ -179,7 +192,31 @@
 	<table id="eliminarAdmin" style='display:none;'>
 	<tr>
 		<td>
-			<label>Seleccione el id del registro a eliminar:</label>
+			<label>Id de Admin origen</label>
+		</td>
+
+		<td>
+			<label>Id de Admin destino</label>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<input id="idAdminOrigen" type="number" min=0 max=200>
+		</td>
+
+		<td>
+			<input id="idAdminDestino" type="number" min=0 max=200>
+		</td>
+		
+		<td>
+			<input type="button" value="Transferir empleados" onclick="reasignarAdmin()">
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<label>ID del admin a eliminar:</label>
 		</td>
 	</tr>
 	
@@ -198,6 +235,13 @@
 	<!-- Final tabla elimiminar administrador -->
 	
 	<a href="regAdmin.jsp">No está registrado?</a>
+	</div>
+	
+	<div id="resultSet">
+		<table id="tablaResultSet">
+		
+		</table>
+	</div>
 </body>
 	
 </html>

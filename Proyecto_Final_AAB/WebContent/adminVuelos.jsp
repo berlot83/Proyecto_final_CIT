@@ -9,7 +9,8 @@
 		<script type="text/javascript" src="src/js/adminVuelos.js"></script>
 		<title>Administrador de Vuelos</title>
 </head>
-	<body>
+
+<body onload="selectAvionesDisponibles()">
 <a href="index.jsp">Inicio</a>
 		<h3>Administración de vuelos: </h3>
 		
@@ -44,14 +45,101 @@
 			<td>
 				<select id="menu" onchange="acciones(this.value)">
 					<option value="sinSeleccion">Seleccione una acción</option>
-					<option value="consultas">Consultas</option>
+					<option value="consultas">Consultar vuelos</option>
 					<option value="agregar">Agregar un vuelo</option>
 					<option value="modificar">Modificar vuelo</option>
-					<option value="eliminar">Eliminar vuelo</option>
+					<option value="eliminar">Eliminar un vuelo</option>
+					<option value="disponibilidad">Ver aviones disponibles</option>
+					<option value="avion">Agregar un avión</option>
 				</select>
 			</td>
 		</tr>
 	</table>
+	
+<br>	
+	
+<div id="menus">
+<!-- Inicio tabla ver vuelos -->
+	<table id="tablaVerVuelos" style='display:none;'>
+		<tr>
+			<td>
+				<label>Ver vuelos activos:</label>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<input type="button" value="Ver Vuelos" onclick="verVuelos()">
+			</td>
+		</tr>
+	</table>
+<!-- Final tabla ver vuelos -->
+	
+<!-- Inicio tabla agregar aviones -->
+	<table id="tablaAgregarAvion" style='display:none;'>
+		<tr>
+			<td>
+				<label>Tipo de avión:</label>
+			</td>
+
+			<td>
+				<label>Matrícula:</label>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<input type="text" id="tipo_avion">
+			</td>
+
+			<td>
+				<input type="text" id="matricula">
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<label>Cantidad de pasajeros:</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<input type="number" id="cantidad_pasajeros" min=0 max=600>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<input type="button" value="Agregar Avión" onclick="agregarAvion()">
+			</td>
+		</tr>
+	</table>
+<!-- Final tabla agregar aviones -->
+
+<!-- Inicio tabla ver aviones -->
+<table id="tablaVerAviones" style='display:none;'>
+	<tr>
+		<td>
+			<label>Ver todos-------</label>
+		</td>
+		
+		<td>
+			<label>Ver disponibles</label>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<input type="button" value="Ver todos" onclick="verTodosAviones()">
+		</td>
+		
+		<td>
+			<input type="button" value="Solo disponibles">
+		</td>
+	</tr>
+</table>
+<!-- Final tabla ver aviones -->
 	
 <!-- Inicio tabla agregar vuelos -->
 <table id="tablaAgregarVuelo" style='display:none;'>
@@ -64,6 +152,9 @@
 			<label name="destino">Destino del Vuelo:</label>
 		</td>
 		
+		<td>
+			<label>Aviones disponibles</label>
+		</td>
 	</tr>
 	
 	<tr>
@@ -317,6 +408,12 @@
 				<option value="YU">Yugoslavia</option>
 				<option value="ZM">Zambia</option>
 				<option value="ZW">Zimbabue</option>
+			</select>
+		</td>
+		
+		<td>
+			<select id="selectAvionesDisponibles">
+				<!-- Acá sólo va texto creado dinamicamente desde la base de datos por medio de Javascript -->
 			</select>
 		</td>
 	</tr>
@@ -832,6 +929,16 @@
 		</tr>
 	</table>
 <!-- Final de tabla eliminar vuelo -->
+
+</div>
+
+<div id="resultados">
+
+<table id="tablaVerVuelos">
+
+</table>
+
+</div>
 
 	</body>		
 </html>

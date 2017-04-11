@@ -37,7 +37,19 @@ function regAdminReq(){
 				
 				var datos= xmlhttp.responseText;
 				
-				newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href='adminRH.jsp'>Panel de control</a>";
+						if(tablas.value=="adminVuelos")
+								{
+									newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href='adminVuelos.jsp'>Panel de control</a>";
+								}
+						if(tablas.value=="adminSeg")
+								{
+									newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href='adminSeg.jsp'>Panel de control</a>";
+								}
+						
+						if(tablas.value=="adminRH")
+								{
+									newul.innerHTML="Los datos fueron ingresados con exito para realizar insercciones a su base de datos ingrese a: <br> <a href='adminRH.jsp'>Panel de control</a>";
+								}
 				
 			    	}
 			

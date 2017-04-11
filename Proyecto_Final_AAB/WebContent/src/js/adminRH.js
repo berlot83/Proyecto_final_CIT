@@ -322,62 +322,13 @@ function verEmpleados(){
 	
 }
 
-//Calcula las vacaciones, cargas sociales, del número ingresado en 'sueldo_bruto' las suma y luego las resta al bruto, resultando el sueldo neto
-function calculosAutomaticos(){
-	
-
-	var sueldo_bruto= document.getElementById("sueldo_cargo");
-	var cargas_sociales= document.getElementById("cargas_sociales");
-	var vacaciones= document.getElementById("vacaciones");
-	var sueldo_neto= document.getElementById("sueldo_neto");
-
-	
-	
-	var resCs= sueldo_bruto.value * 0.17;
-		cargas_sociales.value= resCs;
-		
-		var resVacas= sueldo_bruto.value / 25;
-		vacaciones.value= resVacas;
-		
-	var resNeto= (sueldo_bruto.value - (resCs + resVacas));
-		sueldo_neto.value= resNeto;
-		
-
-}
-
-//Calcula las vacaciones customizadas, las cargas sociales customizadas y el sueldo neto por la diferencia con el sueldo bruto. 
-function calculosTotal(){
-	
-	var sueldo_bruto= document.getElementById("sueldo_cargo");
-	var dias= document.getElementById("dias");
-	var sueldo_neto= document.getElementById("sueldo_neto");
-	var cargas_sociales= document.getElementById("cargas_sociales");
-	var tasaCs= document.getElementById("tasa_cs");
-	var vacaciones= document.getElementById("vacaciones");
-
-	//Calculamos la división del bruto por la cantidad de días trabajados y la asignamos a una variable temporal
-	var resDias= sueldo_bruto.value / dias.value;
-		vacaciones.value= resDias;
-		
-		
-	//Calculamos la multiplicación de un número entre 0 y 1 y la asignamos a una variable temporal	
-	var resCs= sueldo_bruto.value * tasaCs.value;
-		cargas_sociales.value= resCs;
-		
-
-	//Sumamos las dos variables temporales y al resultado lo restamos al sueldo bruto
-	var sueldoTotal= sueldo_bruto.value - (resDias + resCs);
-		sueldo_neto.value= sueldoTotal;
-	
-}
-
 
 //Borrar empleados de la Base de datos.
 function borrarEmpleado(){
 	
 	var usuario= document.getElementById("usuario").value;
 	var pass= document.getElementById("pass").value;
-	var personaId= document.getElementById("deleteId").value;
+	var id_empleado= document.getElementById("deleteId").value;
 	
 	
 						var xhr= new XMLHttpRequest();
@@ -391,7 +342,7 @@ function borrarEmpleado(){
 						
 						xhr.open("DELETE", url, false);
 						xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-						xhr.send("usuario="+usuario+"&pass="+pass+"&personaId="+personaId);
+						xhr.send("usuario="+usuario+"&pass="+pass+"&id_empleado="+id_empleado);
 				
 		}
 
@@ -408,7 +359,7 @@ function modificarEmpleado(){
 	var cargas_sociales= document.getElementById("modificarCargas_sociales").value;
 	var vacaciones= document.getElementById("modificarVacaciones").value;
 	var sueldo_neto= document.getElementById("modificarSueldo_neto").value;
-	var personaId= document.getElementById("personaId").value;
+	var id_empleado= document.getElementById("personaId").value;
 	
 	var xhr= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/empleados/modificarEmpleado";
@@ -422,7 +373,7 @@ function modificarEmpleado(){
 	
 	xhr.open("PUT", url, false);
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	xhr.send("usuario="+usuario+"&pass="+pass+"&nombre="+nombre+"&apellido="+apellido+"&direccion="+direccion+"&cargo="+cargo+"&sueldo_cargo="+sueldo_cargo+"&cargas_sociales="+cargas_sociales+"&vacaciones="+vacaciones+"&sueldo_neto="+sueldo_neto+"&personaId="+personaId);
+	xhr.send("usuario="+usuario+"&pass="+pass+"&nombre="+nombre+"&apellido="+apellido+"&direccion="+direccion+"&cargo="+cargo+"&sueldo_cargo="+sueldo_cargo+"&cargas_sociales="+cargas_sociales+"&vacaciones="+vacaciones+"&sueldo_neto="+sueldo_neto+"&id_empleado="+id_empleado);
 	
 }
 
@@ -502,6 +453,54 @@ function acciones(){
 }
 
 
+//Calcula las vacaciones, cargas sociales, del número ingresado en 'sueldo_bruto' las suma y luego las resta al bruto, resultando el sueldo neto
+function calculosAutomaticos(){
+	
+
+	var sueldo_bruto= document.getElementById("sueldo_cargo");
+	var cargas_sociales= document.getElementById("cargas_sociales");
+	var vacaciones= document.getElementById("vacaciones");
+	var sueldo_neto= document.getElementById("sueldo_neto");
+
+	
+	
+	var resCs= sueldo_bruto.value * 0.17;
+		cargas_sociales.value= resCs;
+		
+		var resVacas= sueldo_bruto.value / 25;
+		vacaciones.value= resVacas;
+		
+	var resNeto= (sueldo_bruto.value - (resCs + resVacas));
+		sueldo_neto.value= resNeto;
+		
+
+}
+
+//Calcula las vacaciones customizadas, las cargas sociales customizadas y el sueldo neto por la diferencia con el sueldo bruto. 
+function calculosTotal(){
+	
+	var sueldo_bruto= document.getElementById("sueldo_cargo");
+	var dias= document.getElementById("dias");
+	var sueldo_neto= document.getElementById("sueldo_neto");
+	var cargas_sociales= document.getElementById("cargas_sociales");
+	var tasaCs= document.getElementById("tasa_cs");
+	var vacaciones= document.getElementById("vacaciones");
+
+	//Calculamos la división del bruto por la cantidad de días trabajados y la asignamos a una variable temporal
+	var resDias= sueldo_bruto.value / dias.value;
+		vacaciones.value= resDias;
+		
+		
+	//Calculamos la multiplicación de un número entre 0 y 1 y la asignamos a una variable temporal	
+	var resCs= sueldo_bruto.value * tasaCs.value;
+		cargas_sociales.value= resCs;
+		
+
+	//Sumamos las dos variables temporales y al resultado lo restamos al sueldo bruto
+	var sueldoTotal= sueldo_bruto.value - (resDias + resCs);
+		sueldo_neto.value= sueldoTotal;
+	
+}
 
 
 	

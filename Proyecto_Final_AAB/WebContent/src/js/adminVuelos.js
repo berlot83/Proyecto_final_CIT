@@ -1,4 +1,25 @@
 
+function verVuelos(){
+
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	
+	var xhr= new XMLHttpRequest();
+	url= "/Proyecto_Final_AAB/rest/adminVuelos/verVuelos";
+	
+	xhr.onreadystatechange= function(){
+		if(this.readyState == 4 && this.status== 200 ){
+			alert(xhr.responseText);
+			
+		}
+	}
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value);
+}
+
+
+
 function agregarVuelo(){
 	
 	var usuario= document.getElementById("usuario");
@@ -108,30 +129,147 @@ function eliminarVuelo(){
 }
 
 
+function verTodosAviones(){
+	
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/verTodosAviones";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					alert(xhr.responseText);
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value);
+}
+
+
+
+function agregarAvion(){
+	
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	var tipo_avion= document.getElementById("tipo_avion");
+	var matricula= document.getElementById("matricula");
+	var cantidad_pasajeros= document.getElementById("cantidad_pasajeros");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/agregarAvion";
+	
+	if(tipo_avion.value=="" || matricula.value=="" || cantidad_pasajeros=="")
+		{
+			alert("Ningun campo debe quedar vacio.");
+		}
+	else
+		{
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					alert(xhr.responseText);
+				}
+			}
+		}
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&tipo_avion="+tipo_avion.value+"&matricula="+matricula.value+"&cantidad_pasajeros="+cantidad_pasajeros.value);
+	
+}
+
+
 function acciones(){
 	
 	var menu= document.getElementById("menu");
 	var tablaAgregarVuelo= document.getElementById("tablaAgregarVuelo");
 	var tablaModificarVuelo= document.getElementById("tablaModificarVuelo");
 	var tablaEliminarVuelo= document.getElementById("tablaEliminarVuelo");
+	var tablaAgregarAvion= document.getElementById("tablaAgregarAvion");
+	var tablaVerVuelos= document.getElementById("tablaVerVuelos");
+	var tablaVerAviones= document.getElementById("tablaVerAviones");
 	
 	if(menu.value=="agregar"){
 		tablaAgregarVuelo.style.display= 'block';
 		tablaModificarVuelo.style.display= 'none';
 		tablaEliminarVuelo.style.display= 'none';
+		tablaAgregarAvion.style.display= 'none';
+		tablaVerVuelos.style.display= 'none';
+		tablaVerAviones.style.display='none';
 	}
 	
 	if(menu.value=="modificar"){
 		tablaModificarVuelo.style.display='block';
 		tablaAgregarVuelo.style.display= 'none';
 		tablaEliminarVuelo.style.display= 'none';
+		tablaAgregarAvion.style.display= 'none';
+		tablaVerVuelos.style.display= 'none';
+		tablaVerAviones.style.display='none';
 	}
 	
 	if(menu.value=="eliminar"){
 		tablaModificarVuelo.style.display='none';
 		tablaAgregarVuelo.style.display= 'none';
 		tablaEliminarVuelo.style.display= 'block';
+		tablaAgregarAvion.style.display= 'none';
+		tablaVerVuelos.style.display= 'none';
+		tablaVerAviones.style.display='none';
 	}
 	
+	if(menu.value=="avion"){
+		tablaAgregarAvion.style.display= 'block';
+		tablaModificarVuelo.style.display='none';
+		tablaAgregarVuelo.style.display= 'none';
+		tablaEliminarVuelo.style.display= 'none';
+		tablaVerVuelos.style.display= 'none';
+		tablaVerAviones.style.display='none';
+	}
+	
+	if(menu.value=="consultas"){
+		tablaAgregarAvion.style.display= 'none';
+		tablaModificarVuelo.style.display='none';
+		tablaAgregarVuelo.style.display= 'none';
+		tablaEliminarVuelo.style.display= 'none';
+		tablaVerVuelos.style.display= 'block';
+		tablaVerAviones.style.display='none';
+	}	
+	
+	if(menu.value=="disponibilidad"){
+		tablaVerAviones.style.display='block';
+		tablaAgregarAvion.style.display= 'none';
+		tablaModificarVuelo.style.display='none';
+		tablaAgregarVuelo.style.display= 'none';
+		tablaEliminarVuelo.style.display= 'none';
+		tablaVerVuelos.style.display= 'none';
+	}
+	
+}
+
+//Revisar, el browser marca error en la linea del add value.
+function selectAvionesDisponibles(){
+	var selectRellenar= document.getElementById("selectAvionesDisponibles");
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/rellenoSelectAviones";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					var datos= xhr.responseText;
+					
+					parseJson= JSON.parse(xhr.responseText);
+					
+					for(var i=0; i< xhr.responseText.length; i++){
+						
+						var option = document.createElement("option");
+							option.setAttribute("value", parseJson[i].matricula);
+							option.appendChild(document.createTextNode(parseJson[i].matricula));
+							selectRellenar.appendChild(option);
+					}
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(null);
 	
 }

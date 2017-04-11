@@ -29,6 +29,8 @@ public class Vuelo {
 		this.precio=precio;
 	}
 	
+	
+	
 	public Vuelo(int id){
 		
 		this.id=id;

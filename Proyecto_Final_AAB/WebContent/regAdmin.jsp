@@ -22,7 +22,7 @@
 					<select id="tablas">
 						<option value="adminRH">Administrador de R.H</option>
 						<option value="adminSeg">Adnministrador de Seguridad</option>
-						<option value="adminVuelos">Administror de vuelos</option> 
+						<option value="adminVuelos">Administrador de vuelos</option> 
 					</select>
 				</td>
 			</tr>

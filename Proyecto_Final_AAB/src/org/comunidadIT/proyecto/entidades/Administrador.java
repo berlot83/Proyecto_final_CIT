@@ -5,6 +5,7 @@ public class Administrador {
 	// Sobrecarga de constructores para insercción a DB de todos los datos y para validación de datos usuario y pass
 	//protected int id;
 	
+	protected int id;
 	protected String nombre;
 	protected String apellido;
 	protected String usuario;
@@ -15,6 +16,17 @@ public class Administrador {
 	
 			public Administrador(String nombre, String apellido, String usuario, String pass, String email, String direccion){
 			
+				this.nombre=nombre;
+				this.apellido=apellido;
+				this.usuario=usuario;
+				this.pass=pass;
+				this.email=email;
+				this.direccion=direccion;
+			}
+			
+			public Administrador(int id, String nombre, String apellido, String usuario, String pass, String email, String direccion){
+				
+				this.id=id;
 				this.nombre=nombre;
 				this.apellido=apellido;
 				this.usuario=usuario;

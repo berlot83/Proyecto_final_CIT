@@ -60,7 +60,6 @@
 					<tr>
 						<td>
 							<input type="button" value="Entrar" onclick="loginSuperAdmin()">
-							<a href="regAdmin.jsp">No está registrado?</a>
 						</td>
 					</tr>
 					
