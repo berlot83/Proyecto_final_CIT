@@ -248,12 +248,16 @@ function acciones(){
 
 //Revisar, el browser marca error en la linea del add value.
 function selectAvionesDisponibles(){
+	
 	var selectRellenar= document.getElementById("selectAvionesDisponibles");
+	
 	var xhr= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/adminVuelos/rellenoSelectAviones";
 
 			xhr.onreadystatechange= function(){
 				if(this.readyState==4 && this.status== 200){
+				
+					//Resultado en forma de Json
 					var datos= xhr.responseText;
 					
 					parseJson= JSON.parse(xhr.responseText);
@@ -261,10 +265,14 @@ function selectAvionesDisponibles(){
 					for(var i=0; i< xhr.responseText.length; i++){
 						
 						var option = document.createElement("option");
-							option.setAttribute("value", parseJson[i].matricula);
+							//option.setAttribute("value", parseJson[i].matricula);
+							option.value= parseJson[i].matricula;
 							option.appendChild(document.createTextNode(parseJson[i].matricula));
 							selectRellenar.appendChild(option);
+					
 					}
+					
+					
 				}
 			}
 			

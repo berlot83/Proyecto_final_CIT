@@ -42,6 +42,11 @@ public class Administrador {
 				this.pass= pass;
 			}
 			
+			public Administrador(int id){
+				
+				this.id= id;
+			}
+			
 		
 			public String getNombre() {
 				return nombre;

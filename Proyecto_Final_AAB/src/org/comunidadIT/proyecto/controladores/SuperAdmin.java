@@ -284,4 +284,57 @@ public class SuperAdmin {
 	}
 	
 	
+	@POST
+	@Path("/verIdAdmin")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String verIdAdmin(){
+		
+		List<Administrador> listado= new ArrayList<>();
+		Gson gson= new Gson();
+		String respuesta_json= gson.toJson(listado);
+		
+		String respuesta= null;
+		int int_id_administrador= 0;
+		
+		
+		try
+				{
+					ConexionAeropuerto c= new ConexionAeropuerto();
+					Connection con= c.connectarAhora();
+					
+					if(con != null)
+						{
+							Statement stmt;
+							String sql= "SELECT id_administrador FROM administradores WHERE tipo_admin='adminRH' ";
+							stmt= con.createStatement();
+							ResultSet rs= stmt.executeQuery(sql);
+							
+							while(rs.next())
+								{
+									int_id_administrador= rs.getInt("id_administrador");
+									
+									listado.add(new Administrador(int_id_administrador));
+									
+									respuesta=  gson.toJson(listado);
+								}
+							return respuesta;
+						
+						}
+					else
+					{
+						return respuesta="no se realizó la consulta.";
+					}
+				}
+		catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+		
+		return respuesta;
+		
+	}
+	
+	
+	
 }

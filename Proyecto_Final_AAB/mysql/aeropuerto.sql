@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-04-2017 a las 01:31:24
+-- Tiempo de generación: 12-04-2017 a las 03:12:04
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `administradores` (
-  `id` int(11) NOT NULL,
+  `id_administrador` int(11) NOT NULL,
   `tipo_admin` varchar(100) NOT NULL,
   `nombre` text NOT NULL,
   `apellido` text NOT NULL,
@@ -41,8 +41,33 @@ CREATE TABLE `administradores` (
 -- Volcado de datos para la tabla `administradores`
 --
 
-INSERT INTO `administradores` (`id`, `tipo_admin`, `nombre`, `apellido`, `usuario`, `pass`, `email`, `direccion`) VALUES
-(2, 'adminRH', 'Axel', 'Berlot', 'user', '1234', 'berlot83@yahoo.com.ar', 'Pinzon');
+INSERT INTO `administradores` (`id_administrador`, `tipo_admin`, `nombre`, `apellido`, `usuario`, `pass`, `email`, `direccion`) VALUES
+(24, 'adminRH', 'Axel', 'Berlot', 'user', '1234', 'asd', 'asd'),
+(37, 'adminVuelos', 'pepe', 'argento', 'pepe', '1234', 'asd', 'asd'),
+(38, 'adminRH', 'Dana', 'Berlot', 'dana', '1234', 'asd', 'asd');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `aviones`
+--
+
+CREATE TABLE `aviones` (
+  `id` int(11) NOT NULL,
+  `tipo_avion` varchar(50) NOT NULL,
+  `matricula` varchar(50) NOT NULL,
+  `cantidad_pasajeros` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `aviones`
+--
+
+INSERT INTO `aviones` (`id`, `tipo_avion`, `matricula`, `cantidad_pasajeros`) VALUES
+(2, 'Jumbo 747', 'LM-505', 0),
+(3, 'Jumbo 747', 'LM-505', 0),
+(4, 'MD5', 'MD-605', 250),
+(5, 'Boing 777-700', 'LV-205', 320);
 
 -- --------------------------------------------------------
 
@@ -51,7 +76,7 @@ INSERT INTO `administradores` (`id`, `tipo_admin`, `nombre`, `apellido`, `usuari
 --
 
 CREATE TABLE `empleados` (
-  `personaId` int(11) NOT NULL,
+  `id_empleado` int(11) NOT NULL,
   `dni` int(8) NOT NULL,
   `cuit` bigint(11) NOT NULL,
   `nacimiento` date NOT NULL,
@@ -63,21 +88,17 @@ CREATE TABLE `empleados` (
   `cargas_sociales` float NOT NULL,
   `vacaciones` float NOT NULL,
   `sueldo_neto` float NOT NULL,
+  `id_administrador` int(11) NOT NULL,
   `tipo_administrador` varchar(100) NOT NULL,
-  `id_administradores` varchar(100) NOT NULL
+  `usuario_administrador` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`personaId`, `dni`, `cuit`, `nacimiento`, `nombre`, `apellido`, `direccion`, `cargo`, `sueldo_cargo`, `cargas_sociales`, `vacaciones`, `sueldo_neto`, `tipo_administrador`, `id_administradores`) VALUES
-(111, 47350168, 40356189302, '2017-04-19', 'Javier', 'Polanco', 'Penia', 'Piloto', 25000, 4250, 1000, 19750, 'adminRH', 'user'),
-(112, 67350168, 30356189301, '2017-04-12', 'Marcos', 'Garca', 'Uruguay', 'Piloto', 27000, 4590, 1080, 21330, 'adminRH', 'user'),
-(113, 27350168, 20376189300, '2017-04-26', 'Daniel', 'Marsan', 'Paraguay', 'CoPiloto', 22000, 3740, 880, 17380, 'adminRH', 'user'),
-(114, 21301253, 30253163693, '2017-04-09', 'Adelina', 'Velez', 'CoronelDaz', 'Azafata', 16000, 2720, 640, 12640, 'adminRH', 'user'),
-(115, 30158619, 20301586192, '2017-04-19', 'Carlos', 'Tomada', 'Peron', 'Cadete', 12300, 2091, 492, 9717, 'adminRH', 'marce'),
-(116, 30145619, 20301159192, '2017-04-19', 'Carlos', 'Tomada', 'Peron', 'Cadete', 12300, 2091, 492, 9717, 'adminRH', 'marce');
+INSERT INTO `empleados` (`id_empleado`, `dni`, `cuit`, `nacimiento`, `nombre`, `apellido`, `direccion`, `cargo`, `sueldo_cargo`, `cargas_sociales`, `vacaciones`, `sueldo_neto`, `id_administrador`, `tipo_administrador`, `usuario_administrador`) VALUES
+(140, 30158619, 20301586192, '2017-04-11', 'asd', 'asd', 'asd', 'asd', 123, 20.91, 4.92, 97.17, 24, 'adminRH', 'user');
 
 -- --------------------------------------------------------
 
@@ -136,19 +157,26 @@ INSERT INTO `vuelos` (`id`, `empresa`, `destino`, `escalas`, `pasajes`, `fechaSa
 -- Indices de la tabla `administradores`
 --
 ALTER TABLE `administradores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_admin` (`tipo_admin`),
-  ADD KEY `usuario` (`usuario`);
+  ADD PRIMARY KEY (`id_administrador`),
+  ADD KEY `usuario` (`usuario`),
+  ADD KEY `tipo_admin` (`tipo_admin`) USING BTREE;
+
+--
+-- Indices de la tabla `aviones`
+--
+ALTER TABLE `aviones`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  ADD PRIMARY KEY (`personaId`),
+  ADD PRIMARY KEY (`id_empleado`),
   ADD UNIQUE KEY `dni` (`dni`),
   ADD UNIQUE KEY `cuit` (`cuit`),
-  ADD KEY `id_administrador` (`tipo_administrador`),
-  ADD KEY `id_administradores` (`id_administradores`);
+  ADD KEY `usuario_administrador` (`usuario_administrador`) USING BTREE,
+  ADD KEY `tipo_administrador` (`tipo_administrador`) USING BTREE,
+  ADD KEY `admin` (`id_administrador`);
 
 --
 -- Indices de la tabla `super_administradores`
@@ -171,12 +199,17 @@ ALTER TABLE `vuelos`
 -- AUTO_INCREMENT de la tabla `administradores`
 --
 ALTER TABLE `administradores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_administrador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+--
+-- AUTO_INCREMENT de la tabla `aviones`
+--
+ALTER TABLE `aviones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `personaId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 --
 -- AUTO_INCREMENT de la tabla `super_administradores`
 --
@@ -187,6 +220,16 @@ ALTER TABLE `super_administradores`
 --
 ALTER TABLE `vuelos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  ADD CONSTRAINT `admin` FOREIGN KEY (`id_administrador`) REFERENCES `administradores` (`id_administrador`) ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

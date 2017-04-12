@@ -244,6 +244,39 @@ function reasignarAdmin(){
 	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&token="+token.value+"&id_administrador="+id_administrador.value+"&id_administrador_cambiar="+id_administrador_cambiar.value);
 }
 
+//Funciona excelente pero debería mostrar tmb el Usuario Admin
+function selectIdAdmin(){
+	
+	var selectIdAdmin= document.getElementById("selectIdAdmin");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/superAdministrador/verIdAdmin";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					
+					//Resultado en forma de Json
+					var datos= xhr.responseText;
+					
+					parseJson= JSON.parse(xhr.responseText);
+					
+					for(var i=0; i< xhr.responseText.length; i++){
+						
+						var option = document.createElement("option");
+							//option.setAttribute("value", parseJson[i].id_administrador);
+							option.value= parseJson[i].id;
+							option.appendChild(document.createTextNode(parseJson[i].id));
+							selectIdAdmin.appendChild(option);
+					}
+					
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(null);	
+}
+
 
 function acciones(){
 	

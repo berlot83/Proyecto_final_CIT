@@ -11,7 +11,7 @@
 
 </head>
 	
-<body>
+<body onload="selectIdAdmin()">
 	<div id="menus">
 	<a href="index.jsp">Inicio</a>
 	
@@ -45,7 +45,7 @@
 			</td>
 		
 			<td>
-				<input id="token" name="token" type="text" placeholder="- - - TOKEN - - - - - - - -" style='background-color:pink;'><br/>
+				<input id="token" name="token" type="text" placeholder=" - - - TOKEN - - - - - - - -" style='background-color:pink;'><br/>
 			</td>
 		</tr>
 	</table>
@@ -207,6 +207,12 @@
 
 		<td>
 			<input id="idAdminDestino" type="number" min=0 max=200>
+		</td>
+		
+		<td>
+			<select id="selectIdAdmin">
+			
+			</select>
 		</td>
 		
 		<td>

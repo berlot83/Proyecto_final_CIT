@@ -391,7 +391,6 @@ public class AdminVuelos {
 	
 	String str_matricula= null;
 	
-
 	try
 	{
 		ConexionAeropuerto c= new ConexionAeropuerto();
@@ -402,15 +401,15 @@ public class AdminVuelos {
 			String sql= "SELECT matricula FROM aviones";
 			st= con.createStatement();
 			ResultSet rs= st.executeQuery(sql);
+			//st.close();
 			
 			while(rs.next())
-			{
-
-				str_matricula= rs.getString("matricula");
-				
-				listado.add(new Avion(str_matricula));
-				respuesta_Json= gson.toJson(listado);
-			}
+				{
+					str_matricula= rs.getString("matricula");
+							
+					listado.add(new Avion(str_matricula));
+					respuesta_Json= gson.toJson(listado);
+				}
 			return respuesta_Json;
 		}
 		else
