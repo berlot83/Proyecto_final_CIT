@@ -284,6 +284,49 @@ public class SuperAdmin {
 	}
 	
 	
+	@PUT
+	@Path("/reasignarAdminVuelos")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String reasignarAdminVuelos(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token, @FormParam("id_administrador") int id_administrador, @FormParam("id_administrador_cambiar") int id_administrador_cambiar){
+		
+		String respuesta= null;
+		
+		try{
+			
+			ConexionAeropuerto c= new ConexionAeropuerto();
+			Connection con= c.connectarAhora();
+			
+			if(con!=null && AutenticarSuperAdministrador.autenticarSuperAdministrador(usuario, pass, token)==true)
+				
+			{
+				//String sql= "UPDATE vuelos SET id_administrador=? WHERE id_administrador=? and tipo_administrador='adminVuelos' ";
+				PreparedStatement ps;
+				String sql= "UPDATE vuelos SET id_administrador=? WHERE id_administrador=? and tipo_administrador='adminVuelos' ";
+				ps= con.prepareStatement(sql);
+				ps.setInt(1, id_administrador_cambiar);
+				ps.setInt(2, id_administrador);
+				ps.executeUpdate();
+				ps.close();
+				
+				return respuesta="La modificacion fue realizada con éxito.";
+			}
+			
+			else
+			{
+				return respuesta= "Las credenciales no son correctas";
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return respuesta;
+	}
+	
+	
 	@POST
 	@Path("/verIdAdmin")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -296,7 +339,7 @@ public class SuperAdmin {
 		
 		String respuesta= null;
 		int int_id_administrador= 0;
-		
+		String str_usuario= null;
 		
 		try
 				{
@@ -306,15 +349,69 @@ public class SuperAdmin {
 					if(con != null)
 						{
 							Statement stmt;
-							String sql= "SELECT id_administrador FROM administradores WHERE tipo_admin='adminRH' ";
+							String sql= "SELECT id_administrador, usuario FROM administradores WHERE tipo_admin='adminRH' ";
 							stmt= con.createStatement();
 							ResultSet rs= stmt.executeQuery(sql);
 							
 							while(rs.next())
 								{
 									int_id_administrador= rs.getInt("id_administrador");
+									str_usuario= rs.getString("usuario");
 									
-									listado.add(new Administrador(int_id_administrador));
+									listado.add(new Administrador(int_id_administrador, str_usuario));
+									
+									respuesta=  gson.toJson(listado);
+								}
+							return respuesta;
+						
+						}
+					else
+					{
+						return respuesta="no se realizó la consulta.";
+					}
+				}
+		catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+		
+		return respuesta;
+		
+	}
+	
+	
+	@POST
+	@Path("/verIdAdminVuelos")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public String verIdAdminVuelos(){
+		
+		List<Administrador> listado= new ArrayList<>();
+		Gson gson= new Gson();
+		String respuesta_json= gson.toJson(listado);
+		
+		String respuesta= null;
+		int int_id_administrador= 0;
+		String str_usuario= null;
+		
+		try
+				{
+					ConexionAeropuerto c= new ConexionAeropuerto();
+					Connection con= c.connectarAhora();
+					
+					if(con != null)
+						{
+							Statement stmt;
+							String sql= "SELECT id_administrador, usuario FROM administradores WHERE tipo_admin='adminVuelos' ";
+							stmt= con.createStatement();
+							ResultSet rs= stmt.executeQuery(sql);
+							
+							while(rs.next())
+								{
+									int_id_administrador= rs.getInt("id_administrador");
+									str_usuario= rs.getString("usuario");
+									
+									listado.add(new Administrador(int_id_administrador, str_usuario));
 									
 									respuesta=  gson.toJson(listado);
 								}

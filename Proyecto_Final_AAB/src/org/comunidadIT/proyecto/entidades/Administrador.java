@@ -42,6 +42,12 @@ public class Administrador {
 				this.pass= pass;
 			}
 			
+			public Administrador(int id, String usuario){
+				
+				this.id=id;
+				this.usuario=usuario;
+			}
+			
 			public Administrador(int id){
 				
 				this.id= id;

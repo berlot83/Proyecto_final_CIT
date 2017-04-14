@@ -22,6 +22,13 @@ public class Avion {
 		this.cantidad_pasajeros=cantidad_pasajeros;
 	}
 	
+	public Avion(int id, String matricula, int cantidad_pasajeros){
+		
+		this.id=id;
+		this.matricula=matricula;
+		this.cantidad_pasajeros=cantidad_pasajeros;
+	}
+	
 	public Avion( String matricula, int cantidad_pasajeros){
 		
 		this.matricula=matricula;

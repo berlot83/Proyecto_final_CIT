@@ -11,7 +11,7 @@
 
 </head>
 	
-<body onload="selectIdAdmin()">
+<body onload="selectIdAdminRH(), selectIdAdminVuelos()">
 	<div id="menus">
 	<a href="index.jsp">Inicio</a>
 	
@@ -192,11 +192,11 @@
 	<table id="eliminarAdmin" style='display:none;'>
 	<tr>
 		<td>
-			<label>Id de Admin origen</label>
+			<label>Id de AdminRH origen</label>
 		</td>
 
 		<td>
-			<label>Id de Admin destino</label>
+			<label>Id de AdminRH destino</label>
 		</td>
 	</tr>
 	
@@ -204,19 +204,42 @@
 		<td>
 			<input id="idAdminOrigen" type="number" min=0 max=200>
 		</td>
-
-		<td>
-			<input id="idAdminDestino" type="number" min=0 max=200>
-		</td>
 		
 		<td>
 			<select id="selectIdAdmin">
-			
+				<!-- Acá se va a generar texto dinamicamente por Javascript -->
 			</select>
 		</td>
 		
 		<td>
-			<input type="button" value="Transferir empleados" onclick="reasignarAdmin()">
+			<input type="button" value="Transferir empleados" onclick="reasignarAdminRH()">
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td>
+			<label>Id de AdminVuelos origen</label>
+		</td>
+
+		<td>
+			<label>Id de AdminVuelos destino</label>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<input id="idAdminOrigenVuelos" type="number" min=0 max=200>
+		</td>
+		
+		<td>
+			<select id="selectIdAdminVuelos">
+				<!-- Acá se va a generar texto dinamicamente por Javascript -->
+			</select>
+		</td>
+		
+		<td>
+			<input type="button" value="Transferir vuelos" onclick="reasignarAdminVuelos()">
 		</td>
 	</tr>
 	

@@ -10,7 +10,7 @@
 		<title>Administrador de Vuelos</title>
 </head>
 
-<body onload="selectAvionesDisponibles()">
+<body onload="selectAvionesDisponibles(), selectVuelosDisponibles(), selectAvionesDisponiblesModificar(), selectEliminarVuelosDisponibles()">
 <a href="index.jsp">Inicio</a>
 		<h3>Administración de vuelos: </h3>
 		
@@ -433,7 +433,7 @@
 		<td>
 			<input id="fechaSalida" type="date">
 		</td>
-		
+	
 		<td>
 		 	<input id="horarioSalida" type="time" name="horarioSalida">
 		</td>
@@ -450,6 +450,7 @@
 	</tr>
 
 	<tr>
+	
 		<td>
 			<input id="fechaArribo" type="date">
 		</td>
@@ -890,13 +891,25 @@
 	
 	<tr>
 		<td>
-			<label name="modificarId">Ingrese el id del vuelo a modficar:</label>
+			<label>Aviones disponibles:</label>
+		</td>
+	
+		<td>
+			<label name="modificarId">Seleccione el vuelo a modficar:</label>
 		</td>
 	</tr>
 	
 	<tr>
 		<td>
-			<input id="modificarId" type="number" min=1 max=300>
+			<select id="modificarSelectAvionesDisponibles">
+				<!-- Acá sólo va texto creado dinamicamente desde la base de datos por medio de Javascript -->
+			</select>
+		</td>
+	
+		<td>
+			<select id="selectVuelosDisponibles">
+				<!-- Acá se llena dinamicamente con un llamado de AJAX con evento body 'onload' -->
+			</select>
 		</td>
 	</tr>
 	
@@ -918,7 +931,9 @@
 		
 		<tr>
 			<td>
-				<input type="text" id="eliminarId" name="eliminarId" style='background-color:pink;'>
+				<select id="selectEliminarId">
+					<!-- Acá se va a crear texto dinamicamente por Javascript -->
+				</select>
 			</td>
 		</tr>
 		

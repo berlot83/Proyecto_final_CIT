@@ -224,12 +224,12 @@ function eliminarAdministrador(){
 	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&token="+token.value+"&id="+id.value);
 }
 
-function reasignarAdmin(){
+function reasignarAdminRH(){
 	var usuario= document.getElementById("usuario");
 	var pass= document.getElementById("pass");
 	var token= document.getElementById("token");
 	var id_administrador= document.getElementById("idAdminOrigen");
-	var id_administrador_cambiar= document.getElementById("idAdminDestino");
+	var id_administrador_cambiar= document.getElementById("selectIdAdmin");
 	
 	var xhr= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/superAdministrador/reasignarAdmin";
@@ -244,8 +244,29 @@ function reasignarAdmin(){
 	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&token="+token.value+"&id_administrador="+id_administrador.value+"&id_administrador_cambiar="+id_administrador_cambiar.value);
 }
 
-//Funciona excelente pero debería mostrar tmb el Usuario Admin
-function selectIdAdmin(){
+
+function reasignarAdminVuelos(){
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	var token= document.getElementById("token");
+	var id_administrador= document.getElementById("idAdminOrigenVuelos");
+	var id_administrador_cambiar= document.getElementById("selectIdAdminVuelos");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/superAdministrador/reasignarAdminVuelos";
+	
+	xhr.onreadystatechange= function(){
+	if(this.readyState==4 && this.status==200){
+	alert(xhr.responseText);	
+		}	
+	}
+	xhr.open("PUT", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&token="+token.value+"&id_administrador="+id_administrador.value+"&id_administrador_cambiar="+id_administrador_cambiar.value);
+}
+
+
+function selectIdAdminRH(){
 	
 	var selectIdAdmin= document.getElementById("selectIdAdmin");
 	
@@ -265,7 +286,39 @@ function selectIdAdmin(){
 						var option = document.createElement("option");
 							//option.setAttribute("value", parseJson[i].id_administrador);
 							option.value= parseJson[i].id;
-							option.appendChild(document.createTextNode(parseJson[i].id));
+							option.appendChild(document.createTextNode(parseJson[i].id+", "+parseJson[i].usuario));
+							selectIdAdmin.appendChild(option);
+					}
+					
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(null);	
+}
+
+function selectIdAdminVuelos(){
+	
+	var selectIdAdmin= document.getElementById("selectIdAdminVuelos");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/superAdministrador/verIdAdminVuelos";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					
+					//Resultado en forma de Json
+					var datos= xhr.responseText;
+					
+					parseJson= JSON.parse(xhr.responseText);
+					
+					for(var i=0; i< xhr.responseText.length; i++){
+						
+						var option = document.createElement("option");
+							//option.setAttribute("value", parseJson[i].id_administrador);
+							option.value= parseJson[i].id;
+							option.appendChild(document.createTextNode(parseJson[i].id+", "+parseJson[i].usuario));
 							selectIdAdmin.appendChild(option);
 					}
 					
@@ -325,7 +378,7 @@ function acciones(){
 			var tablaEliminarAdministrador= document.getElementById("eliminarAdmin");
 				tablaEliminarAdministrador.style.display= 'block';
 				
-				alert("Antes de eliminar un registro debe transferir los empleados de un admin a otro existente, sino la operacion no podrá realizarse.")
+				alert("Antes de eliminar un registro debe transferir:\n\nLos empleados de un adminRH a otro existente.\nLos vuelos de un adminVuelos a otro existente.\nLas zonas de cobertura de un adminSeg a otro existente.\n\nSi alguno de los registros no son transferidos la operacion no podrá realizarse, ya que para ser eliminados no tienen que tener registros a su cargo.")
 			
 		}	
 }

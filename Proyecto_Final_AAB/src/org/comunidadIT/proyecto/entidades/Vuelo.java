@@ -29,6 +29,16 @@ public class Vuelo {
 		this.precio=precio;
 	}
 	
+	public Vuelo(int id, String empresa, String destino, int escalas, int pasajes, String salida, String arribo){
+		
+		this.id=id;
+		this.empresa=empresa;
+		this.destino=destino;
+		this.escalas=escalas;
+		this.pasajes=pasajes;
+		this.salida=salida;
+		this.arribo=arribo;
+	}
 	
 	
 	public Vuelo(int id){

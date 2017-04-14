@@ -34,6 +34,7 @@ function agregarVuelo(){
 	var horarioArribo= document.getElementById("horarioArribo");
 	var pago= document.getElementById("pago");
 	var precio= document.getElementById("precio");
+	var id_avion= document.getElementById("selectAvionesDisponibles");
 	
 	var xhr= new XMLHttpRequest();
 	url= "/Proyecto_Final_AAB/rest/adminVuelos/agregarVuelo";
@@ -41,7 +42,8 @@ function agregarVuelo(){
 	xhr.onreadystatechange= function(){
 		if(this.readyState == 4 && this.status== 200 ){
 			alert(xhr.responseText);
-			
+			/*
+			-------Anulado temporalmente-------
 			empresa.value="";
 			destino.value="";
 			escalas.value="";
@@ -51,12 +53,14 @@ function agregarVuelo(){
 			fechaArribo.value="";
 			horarioArribo.value="";
 			pago.value="";
-			precio.value="";	
+			precio.value="";
+			-------Anulado temporalmente-------
+				*/
 		}
 	}
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&empresa="+empresa.value+"&destino="+destino.value+"&pasajes="+pasajes.value+"&escalas="+escalas.value+"&fechaSalida="+fechaSalida.value+"&horarioSalida="+horarioSalida.value+"&fechaArribo="+fechaArribo.value+"&horarioArribo="+horarioArribo.value+"&pago="+pago.value+"&precio="+precio.value);
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&empresa="+empresa.value+"&destino="+destino.value+"&pasajes="+pasajes.value+"&escalas="+escalas.value+"&fechaSalida="+fechaSalida.value+"&horarioSalida="+horarioSalida.value+"&fechaArribo="+fechaArribo.value+"&horarioArribo="+horarioArribo.value+"&pago="+pago.value+"&precio="+precio.value+"&id_avion="+id_avion.value);
 	
 }
 
@@ -75,7 +79,8 @@ function modificarVuelo(){
 	var horarioArribo= document.getElementById("modificarHorarioArribo");
 	var pago= document.getElementById("modificarPago");
 	var precio= document.getElementById("modificarPrecio");
-	var id= document.getElementById("modificarId");
+	var id_avion= document.getElementById("modificarSelectAvionesDisponibles");
+	var id= document.getElementById("selectVuelosDisponibles");
 	
 	var xhr= new XMLHttpRequest();
 	url= "/Proyecto_Final_AAB/rest/adminVuelos/modificarVuelo";
@@ -84,6 +89,8 @@ function modificarVuelo(){
 		if(this.readyState == 4 && this.status== 200 ){
 			alert(xhr.responseText);
 			
+			/*
+			-------Anulado temporalmente-------
 			empresa.value="";
 			destino.value="";
 			escalas.value="";
@@ -95,18 +102,20 @@ function modificarVuelo(){
 			pago.value="";
 			precio.value="";
 			id.value="";
+			-------Anulado temporalmente-------
+			*/
 		}
 	}
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&empresa="+empresa.value+"&destino="+destino.value+"&pasajes="+pasajes.value+"&escalas="+escalas.value+"&fechaSalida="+fechaSalida.value+"&horarioSalida="+horarioSalida.value+"&fechaArribo="+fechaArribo.value+"&horarioArribo="+horarioArribo.value+"&pago="+pago.value+"&precio="+precio.value+"&id="+id.value);
+	xhr.send("usuario="+usuario.value+"&pass="+pass.value+"&id_avion="+id_avion.value+"&empresa="+empresa.value+"&destino="+destino.value+"&pasajes="+pasajes.value+"&escalas="+escalas.value+"&fechaSalida="+fechaSalida.value+"&horarioSalida="+horarioSalida.value+"&fechaArribo="+fechaArribo.value+"&horarioArribo="+horarioArribo.value+"&pago="+pago.value+"&precio="+precio.value+"&id="+id.value);
 }
 
 function eliminarVuelo(){
 	
 	var usuario= document.getElementById("usuario");
 	var pass= document.getElementById("pass");
-	var id= document.getElementById("eliminarId");
+	var id= document.getElementById("selectEliminarId");
 	
 	var xhr= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/adminVuelos/deleteVuelo";
@@ -250,28 +259,28 @@ function acciones(){
 function selectAvionesDisponibles(){
 	
 	var selectRellenar= document.getElementById("selectAvionesDisponibles");
+	var modificarSelectAvionesDisponibles= document.getElementById("modificarSelectAvionesDisponibles");
 	
 	var xhr= new XMLHttpRequest();
 	var url= "/Proyecto_Final_AAB/rest/adminVuelos/rellenoSelectAviones";
 
 			xhr.onreadystatechange= function(){
 				if(this.readyState==4 && this.status== 200){
-				
+					
+					
 					//Resultado en forma de Json
 					var datos= xhr.responseText;
 					
 					parseJson= JSON.parse(xhr.responseText);
+					parseJsonModificar= JSON.parse(xhr.responseText);
 					
 					for(var i=0; i< xhr.responseText.length; i++){
 						
 						var option = document.createElement("option");
-							//option.setAttribute("value", parseJson[i].matricula);
-							option.value= parseJson[i].matricula;
-							option.appendChild(document.createTextNode(parseJson[i].matricula));
+							option.value= parseJson[i].id;
+							option.appendChild(document.createTextNode(parseJson[i].matricula+", Capacidad pasajeros:  "+parseJson[i].cantidad_pasajeros));
 							selectRellenar.appendChild(option);
-					
 					}
-					
 					
 				}
 			}
@@ -281,3 +290,110 @@ function selectAvionesDisponibles(){
 	xhr.send(null);
 	
 }
+
+function selectAvionesDisponiblesModificar(){
+	
+	var selectRellenar= document.getElementById("modificarSelectAvionesDisponibles");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/rellenoSelectAviones";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					
+					
+					//Resultado en forma de Json
+					var datos= xhr.responseText;
+					
+					parseJson= JSON.parse(xhr.responseText);
+					
+					for(var i=0; i< xhr.responseText.length; i++){
+						
+						var option = document.createElement("option");
+							option.value= parseJson[i].id;
+							option.appendChild(document.createTextNode(parseJson[i].matricula+", Capacidad pasajeros:  "+parseJson[i].cantidad_pasajeros));
+							selectRellenar.appendChild(option);
+					}
+					
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(null);
+	
+}
+
+
+
+function selectVuelosDisponibles(){
+	
+	var selectRellenar= document.getElementById("selectVuelosDisponibles");
+	
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/rellenoSelectVuelos";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					
+					
+					//Resultado en forma de Json
+					var datos= xhr.responseText;
+					
+					parseJson= JSON.parse(xhr.responseText);
+					
+					for(var i=0; i< xhr.responseText.length; i++){
+						
+						var option = document.createElement("option");
+							option.value= parseJson[i].id;
+							option.appendChild(document.createTextNode(parseJson[i].id+", "+parseJson[i].empresa+", "+parseJson[i].destino+", "+parseJson[i].escalas+", "+parseJson[i].pasajes+", "+parseJson[i].salida+", "+parseJson[i].arribo ));
+							selectRellenar.appendChild(option);
+							
+					
+					}
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(null);
+	
+}
+
+function selectEliminarVuelosDisponibles(){
+	
+	var selectRellenar= document.getElementById("selectEliminarId");
+	
+	var xhr= new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminVuelos/rellenoSelectVuelos";
+
+			xhr.onreadystatechange= function(){
+				if(this.readyState==4 && this.status== 200){
+					
+					
+					//Resultado en forma de Json
+					var datos= xhr.responseText;
+					
+					parseJson= JSON.parse(xhr.responseText);
+					
+					for(var i=0; i< xhr.responseText.length; i++){
+						
+						var option = document.createElement("option");
+							option.value= parseJson[i].id;
+							option.appendChild(document.createTextNode(parseJson[i].id+", "+parseJson[i].empresa+", "+parseJson[i].destino+", "+parseJson[i].escalas+", "+parseJson[i].pasajes+", "+parseJson[i].salida+", "+parseJson[i].arribo ));
+							selectRellenar.appendChild(option);
+							
+					
+					}
+				}
+			}
+			
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(null);
+	
+}
+
+
+
