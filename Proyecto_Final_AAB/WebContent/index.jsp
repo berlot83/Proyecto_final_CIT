@@ -29,7 +29,7 @@
 				<table id="soySuperadmin">
 					<tr>
 						<td>
-							<label name="usuarioSuperAdmin">Usuario:</label>
+							<label>Usuario:</label>
 						</td>
 					</tr>
 				
@@ -41,7 +41,7 @@
 				
 					<tr>
 						<td>
-							<label name="passSuperAdmin">Pass:</label>
+							<label>Pass:</label>
 						</td>
 					</tr>
 				
@@ -53,7 +53,7 @@
 					
 					<tr>
 						<td>
-							<input id="token" name="token" type="text" placeholder="- - - TOKEN - - - - - - - -" style='background-color:pink;'><br/>
+							<input id="token" type="text" placeholder="- - - TOKEN - - - - - - - -" style='background-color:pink;'><br/>
 						</td>
 					</tr>
 				
@@ -73,7 +73,7 @@
 				<table id="soyAdminRH">
 					<tr>
 						<td>
-							<label name="usuarioAdminRH">Usuario:</label>
+							<label>Usuario:</label>
 						</td>
 					</tr>
 				
@@ -85,7 +85,7 @@
 				
 					<tr>
 						<td>
-							<label name="passAdminRH">Pass:</label>
+							<label>Pass:</label>
 						</td>
 					</tr>
 				
@@ -109,7 +109,7 @@
 				<table id="soyAdminVuelos">
 					<tr>
 						<td>
-							<label name="usuarioAdminVuelos">Usuario:</label>
+							<label>Usuario:</label>
 						</td>
 					</tr>
 				
@@ -121,7 +121,7 @@
 				
 					<tr>
 						<td>
-							<label name="passAdminVuelos">Pass:</label>
+							<label>Pass:</label>
 						</td>
 					</tr>
 				
@@ -145,7 +145,7 @@
 				<table id="soyAdminSeg">
 					<tr>
 						<td>
-							<label name="usuarioAdminSeg">Usuario:</label>
+							<label>Usuario:</label>
 						</td>
 					</tr>
 				
@@ -157,7 +157,7 @@
 				
 					<tr>
 						<td>
-							<label name="passAdminSeg">Pass:</label>
+							<label>Pass:</label>
 						</td>
 					</tr>
 				

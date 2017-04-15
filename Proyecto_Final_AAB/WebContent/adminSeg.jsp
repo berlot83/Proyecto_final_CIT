@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="src/js/adminSeg.js"></script>
 <title>Administrador de Seguridad General</title>
 </head>
-<body>
+<body onload="selectServicio(), selectEvento()">
 <a href="index.jsp">Inicio</a>
 	<div id="div1">
 		<h3>Valide sus datos como admin:</h3>
@@ -77,8 +77,8 @@
 					<input type="text" id="nombreServicio">
 				</td>
 				
-				<td id="tdCheckbox">
-					<input type="checkbox" id="estadoServicio" value=1 onchange="textoEstado()">
+				<td id="tdCheckboxServicio">
+					<input type="checkbox" id="estadoServicio" value=1 onchange="textoEstadoServicio()">
 				</td>
 			</tr>
 			
@@ -177,7 +177,7 @@
 				</td>
 				
 				<td>
-					<label>Estado:</label>
+					<label>Estado de la zona:</label>
 				</td>
 			</tr>
 			
@@ -186,8 +186,8 @@
 					<input type="text" id="nombreZona">
 				</td>
 				
-				<td>
-					<input type="checkbox" id="estadoZona">
+				<td id="tdCheckboxZona">
+					<input type="checkbox" id="estadoZona" value=1 onchange="textoEstadoZona()">
 				</td>
 			</tr>
 			</table>
