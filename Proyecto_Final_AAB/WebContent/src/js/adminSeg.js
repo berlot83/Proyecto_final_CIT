@@ -1,98 +1,102 @@
 
+function agregarServicio(){
+	var usuario= document.getElementById("usuario");
+	var pass= document.getElementById("pass");
+	var nombre= document.getElementById("nombreServicio");
+	var estadoServicio= document.getElementById("estadoServicio");
+	var checkbox= document.getElementById("estadoServicio");
+	
+
+	
+	if(checkbox.checked) {
+		checkbox.value= 1;
+		
+	}
+	else
+		{
+		checkbox.value=0;
+		}
+	
+	
+
+	
+	var xmlhttp = new XMLHttpRequest();
+	var url= "/Proyecto_Final_AAB/rest/adminSeg/agregarServicio";
+	
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+
+			alert(xmlhttp.responseText);
+			
+			
+		}
+		
+	}
+	
+	xmlhttp.open("POST", url, true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send("usuario="+usuario.value+"&pass="+pass.value+"&nombre="+nombre.value+"&estadoServicio="+estadoServicio.value);
+
+}
+//TODO removeChild activo inactivo
+function textoEstado(){
+	var checkbox= document.getElementById("estadoServicio");
+	
+	var parrafo= document.createElement("p");
+	var tdCheckbox= document.getElementById("tdCheckbox");
+	var activo= document.createTextNode("Activo");
+	var inactivo= document.createTextNode("Inactivo");
+	
+	if(checkbox.checked){
+		
+		tdCheckbox.appendChild(parrafo).style.color= 'green';
+		parrafo.appendChild(activo);
+
+		
+	}
+	else
+		{
+			tdCheckbox.appendChild(parrafo).style.color= 'red';
+			parrafo.appendChild(inactivo);
+	
+	}
+}
+
 function acciones(){
 	
 	var menu= document.getElementById("menu");
-	var servicios= document.getElementById("serviciosSeg");
-	var eventos= document.getElementById("eventosSeg");
-	var zonas= document.getElementById("zonasSeg");
+	var divServicios= document.getElementById("divServicios");
+	var divEventos= document.getElementById("divEventos");
+	var divZonas= document.getElementById("divZonas");
+	
+	
 	
 	if(menu.value=="seleccione"){
 		//Esconde todas las tablas.
-		servicios.style.display= 'none';
-		eventos.style.display= 'none';
-		zonas.style.display= 'none';
+		divServicios.style.display= 'none';
+		divEventos.style.display= 'none';
+		divZonas.style.display= 'none';
+		
 	}
 	
 	if(menu.value=="servicios"){
-		servicios.style.display= 'block';
-		eventos.style.display= 'none';
-		zonas.style.display= 'none';
+		divServicios.style.display= 'block';
+		divEventos.style.display= 'none';
+		divZonas.style.display= 'none';
 	}
 	
 	if(menu.value=="eventos"){
-		servicios.style.display= 'none';
-		eventos.style.display= 'block';
-		zonas.style.display= 'none';
+		divServicios.style.display= 'none';
+		divEventos.style.display= 'block';
+		divZonas.style.display= 'none';
 	}
 	
 	if(menu.value=="zonas"){
-		servicios.style.display= 'none';
-		eventos.style.display= 'none';
-		zonas.style.display= 'block';
+		divServicios.style.display= 'none';
+		divEventos.style.display= 'none';
+		divZonas.style.display= 'block';
 	}
 	
 	
 }
 
-
-function selectServicios(){
-	
-	var selectServicios= document.getElementById("selectServicios");
-	var agregarServicio= document.getElementById("agregarServicio");
-	var eliminarServicio= document.getElementById("eliminarServicio");
-	
-	
-	if(selectServicios.value=="seleccione"){
-		//No se debería ver nada.
-		agregarServicio.style.display= 'none';
-		eliminarServicio.style.display= 'none';
-	}
-	
-	if(selectServicios.value=="todos"){
-		//Se deben ver todos los resultados de los servicios
-		agregarServicio.style.display= 'none';
-		eliminarServicio.style.display= 'none';
-	}
-	
-	if(selectServicios.value=="agregar"){
-		agregarServicio.style.display= 'block';
-		eliminarServicio.style.display= 'none';
-	}
-	
-	if(selectServicios.value=="eliminar"){
-		agregarServicio.style.display= 'none';
-		eliminarServicio.style.display= 'block';
-	}
-	
-}
-
-function selectEventos(){
-	
-	var selectEventos= document.getElementById("selectEventos");
-	var agregarEvento= document.getElementById("agregarEvento");
-	var eliminarEvento= document.getElementById("eliminarEvento");
-	
-	
-	if(selectEventos.value=="seleccione"){
-		//No se debería ver nada.
-		agregarEvento.style.display= 'none';
-		eliminarEvento.style.display= 'none';
-	}
-	
-	if(selectEventos.value=="todos"){
-		//Se deben ver todos los resultados de los servicios
-		agregarEvento.style.display= 'none';
-		eliminarEvento.style.display= 'none';
-	}
-	
-	if(selectEventos.value=="agregar"){
-		agregarEvento.style.display= 'block';
-		eliminarEvento.style.display= 'none';
-	}
-	
-	if(selectEventos.value=="eliminar"){
-		agregarEvento.style.display= 'none';
-		eliminarEvento.style.display= 'block';
-	}
-	
-}

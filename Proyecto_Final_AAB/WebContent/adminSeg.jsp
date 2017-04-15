@@ -54,75 +54,14 @@
 			</table>
 		</div>
 		
-		<br>
 		
-		<div id="div2">
-			<table id="serviciosSeg" style='display:none;'>
-			<tr>
-				<td>
-					<label>Seleccione una acción para servicios:</label>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<select id="selectServicios" onchange="selectServicios(this.value)">
-					  <option value="seleccione">Seleccione una acción</option>
-					  <option value="todos">Ver todos los servicios</option>
-					  <option value="agregar">Agregar servicio</option>
-					  <option value="eliminar">Eliminar servicio</option>
-					</select>
-				</td>
-			</tr>
-			</table>
-			
-			<table id="eventosSeg" style='display:none;'>
-			
-			<tr>
-				<td>
-					<label>Seleccione una acción para eventos:</label>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<select id="selectEventos" onchange="selectEventos(this.value)">
-					  <option value="seleccione">Seleccione una acción</option>
-					  <option value="todos">Ver todos los eventos</option>
-					  <option value="agregar">Agregar evento</option>
-					  <option value="eliminar">Eliminar evento</option>
-					</select>
-				</td>
-			</tr>
-			</table>
-			
-			<table id="zonasSeg" style='display:none;'>
-			
-			<tr>
-				<td>
-					<label>Seleccione una acción para zonas:</label>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<select id="selectZonas" onchange="selectZonas(this.value)">
-					  <option value="seleccione">Seleccione una acción</option>
-					  <option value="todos">Ver todas las zonas</option>
-					  <option value="agregar">Agregar zona</option>
-					  <option value="eliminar">Eliminar zona</option>
-					</select>
-				</td>
-			</tr>
-			</table>
-		</div>
-		
-		<div id="divServicios">
+	<div id="divServicios" style='display:none;'>
 		<table id="verTodosServicios">
 		
 		</table>
 		
-		<table id="agregarServicio" style='display:none;'>
+		<h3 style='color:turquoise;'>Agregar un servicio:</h3>
+		<table id="agregarServicio">
 			<tr>
 				<td>
 					<label>Descripción:</label>
@@ -138,8 +77,8 @@
 					<input type="text" id="nombreServicio">
 				</td>
 				
-				<td>
-					<input type="checkbox" id="estadoServicio">
+				<td id="tdCheckbox">
+					<input type="checkbox" id="estadoServicio" value=1 onchange="textoEstado()">
 				</td>
 			</tr>
 			
@@ -149,8 +88,10 @@
 				</td>
 			</tr>
 		</table>
-			
-		<table id="eliminarServicio" style='display:none;'>
+		
+		
+		<h3>Eliminar un servicio:</h3>
+		<table id="eliminarServicio">
 			<tr>
 				<td>
 					<label>Seleccione el servicio a eliminar:</label>
@@ -167,12 +108,14 @@
 				</td>
 			</tr>
 		</table>
-			
+	</div>
+		
+	<div id="divEventos" style='display:none;'>
 		<table id="verTodosEventos">
 		
 		</table>
-		
-		<table id="agregarEvento" style='display:none;'>
+		<h3>Ingresar un evento:</h3>
+		<table id="agregarEvento">
 			<tr>
 				<td>
 					<label>Descripcción:</label>
@@ -200,10 +143,12 @@
 			</tr>
 		</table>
 		
-		<table id="eliminarEvento" style='display:none;'>
+		
+		<h3>Eliminar un evento:</h3>
+		<table id="eliminarEvento">
 			<tr>
 				<td>
-					<label>Seleccione el servicio a eliminar:</label>
+					<label>Seleccione el evento a eliminar:</label>
 				</td>
 				
 				<td>
@@ -217,12 +162,15 @@
 				</td>
 			</tr>
 		</table>
-			
+	</div>
+		
+	<div id="divZonas" style='display:none;'>
 		<table id="verTodasZonas">
 		
 		</table>
 		
-			<table id="agregarZona" style='display:none;'>
+		<h3>Agregar una zona:</h3>
+		<table id="agregarZona">
 			<tr>
 				<td>
 					<label>Descripcción:</label>
@@ -243,11 +191,12 @@
 				</td>
 			</tr>
 			</table>
-			
-		<table id="eliminarZona" style='display:none;'>
+		
+		<h3>Eliminar una zona:</h3>	
+		<table id="eliminarZona">
 			<tr>
 				<td>
-					<label>Seleccione el servicio a eliminar:</label>
+					<label>Seleccione la zona a eliminar:</label>
 				</td>
 				
 				<td>
@@ -260,9 +209,7 @@
 					<input type="button" value="Eliminar Zona" onclick="eliminarZona()">
 				</td>
 			</tr>
-			</table>
-			
-			
-		</div>
+		</table>
+	</div>
 </body>
 </html>

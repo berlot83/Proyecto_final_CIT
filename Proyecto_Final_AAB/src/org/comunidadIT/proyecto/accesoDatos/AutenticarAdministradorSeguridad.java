@@ -36,7 +36,7 @@ public class AutenticarAdministradorSeguridad {
 				{
 					Statement st;
 					st=con.createStatement();
-					ResultSet rs= st.executeQuery("selct usuario, pass from administradores where usuario= '" + usuario + "' and pass= '" + pass + "' and tipo_admin= 'adminSeguridad'  ");
+					ResultSet rs= st.executeQuery("SELECT usuario, pass FROM administradores WHERE usuario= '" + usuario + "' AND pass= '" + pass + "' AND tipo_admin= 'adminSeg'  ");
 					
 					while(rs.next())
 					{
