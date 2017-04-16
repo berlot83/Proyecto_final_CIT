@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="src/js/adminSeg.js"></script>
 <title>Administrador de Seguridad General</title>
 </head>
-<body onload="selectServicio(), selectEvento()">
+<body onload="selectServicio(), selectEvento(), selectZona()">
 <a href="index.jsp">Inicio</a>
 	<div id="div1">
 		<h3>Valide sus datos como admin:</h3>
@@ -56,8 +56,13 @@
 		
 		
 	<div id="divServicios" style='display:none;'>
+		<h3 style='color:green;'>Ver servicios:</h3>
 		<table id="verTodosServicios">
-		
+			<tr>
+				<td>
+					<input type="button" value="Ver servicios" onclick="verServicios()">
+				</td>
+			</tr>
 		</table>
 		
 		<h3 style='color:turquoise;'>Agregar un servicio:</h3>
@@ -90,7 +95,7 @@
 		</table>
 		
 		
-		<h3>Eliminar un servicio:</h3>
+		<h3 style='color:red;'>Eliminar un servicio:</h3>
 		<table id="eliminarServicio">
 			<tr>
 				<td>
@@ -111,10 +116,16 @@
 	</div>
 		
 	<div id="divEventos" style='display:none;'>
+		<h3 style='color:green;'>Ver eventos:</h3>
 		<table id="verTodosEventos">
-		
+			<tr>
+				<td>
+					<input type="button" value="Ver eventos" onclick="verEventos()">
+				</td>
+			</tr>
 		</table>
-		<h3>Ingresar un evento:</h3>
+		
+		<h3 style='color:turquoise;'>Ingresar un evento:</h3>
 		<table id="agregarEvento">
 			<tr>
 				<td>
@@ -144,7 +155,7 @@
 		</table>
 		
 		
-		<h3>Eliminar un evento:</h3>
+		<h3 style='color:red;'>Eliminar un evento:</h3>
 		<table id="eliminarEvento">
 			<tr>
 				<td>
@@ -165,11 +176,16 @@
 	</div>
 		
 	<div id="divZonas" style='display:none;'>
+		<h3 style='color:green;'>Ver Zonas:</h3>
 		<table id="verTodasZonas">
-		
+			<tr>
+				<td>
+					<input type="button" value="Ver zonas" onclick="verZonas()">
+				</td>
+			</tr>
 		</table>
 		
-		<h3>Agregar una zona:</h3>
+		<h3 style='color:turquoise;'>Agregar una zona:</h3>
 		<table id="agregarZona">
 			<tr>
 				<td>
@@ -190,9 +206,15 @@
 					<input type="checkbox" id="estadoZona" value=1 onchange="textoEstadoZona()">
 				</td>
 			</tr>
+			
+			<tr>
+				<td>
+					<input type="button" value="Agregar zona" onclick="agregarZona()">
+				</td>
+			</tr>
 			</table>
 		
-		<h3>Eliminar una zona:</h3>	
+		<h3 style='color:red;'>Eliminar una zona:</h3>	
 		<table id="eliminarZona">
 			<tr>
 				<td>
@@ -210,6 +232,13 @@
 				</td>
 			</tr>
 		</table>
+	</div>
+	
+	<div id="resultados">
+			<ul id="ulElegido">
+				<table id="tablaElegida"></table>
+			</ul>
+	
 	</div>
 </body>
 </html>

@@ -77,7 +77,7 @@ function verEmpleados(){
 	
 	if(usuario=="" && pass==""){
 		
-			alert("Los campos 'usuario' y 'pass' no pueden quedar en blacnco.")
+			alert("Los campos 'usuario' y 'pass' no pueden quedar en blanco.")
 	
 		}
 	else
