@@ -28,7 +28,7 @@ public class SuperAdmin {
 	@Path("/verAdministradores")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String verAdministradores(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token){
+	public String verAdministradores(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") String token){
 	
 	List<Administrador> listado= new ArrayList<>();
 	Gson gson= new Gson();
@@ -85,7 +85,7 @@ public class SuperAdmin {
 	@Path("/verTipoAdministradores")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String verTipoAdministradores(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token, @FormParam("tipoAdmin") String tipoAdmin){
+	public String verTipoAdministradores(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") String token, @FormParam("tipoAdmin") String tipoAdmin){
 	
 	List<Administrador> listado= new ArrayList<>();
 	Gson gson= new Gson();
@@ -143,7 +143,7 @@ public class SuperAdmin {
 	@Path("/deleteAdministrador")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String deleteAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token, @FormParam("id") int id){
+	public String deleteAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") String token, @FormParam("id") int id){
 		
 		String respuestaServidor=null;
 		
@@ -191,7 +191,7 @@ public class SuperAdmin {
 	@Path("/agregarAdministrador")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String agregarAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token, @FormParam("tipoAdministrador") String tipoAdministrador, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("usuarioNuevoAdmin") String usuarioNuevoAdmin, @FormParam("passNuevoAdmin") String passNuevoAdmin, @FormParam("email") String email, @FormParam("direccion") String direccion){
+	public String agregarAdministrador(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") String token, @FormParam("tipoAdministrador") String tipoAdministrador, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("usuarioNuevoAdmin") String usuarioNuevoAdmin, @FormParam("passNuevoAdmin") String passNuevoAdmin, @FormParam("email") String email, @FormParam("direccion") String direccion){
 		
 		String respuestaServidor=null;
 		
@@ -245,7 +245,7 @@ public class SuperAdmin {
 	@Path("/reasignarAdmin")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String reasignarAdmin(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token, @FormParam("id_administrador") int id_administrador, @FormParam("id_administrador_cambiar") int id_administrador_cambiar){
+	public String reasignarAdmin(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") String token, @FormParam("id_administrador") int id_administrador, @FormParam("id_administrador_cambiar") int id_administrador_cambiar){
 		
 		String respuesta= null;
 		
@@ -288,7 +288,7 @@ public class SuperAdmin {
 	@Path("/reasignarAdminVuelos")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String reasignarAdminVuelos(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") int token, @FormParam("id_administrador") int id_administrador, @FormParam("id_administrador_cambiar") int id_administrador_cambiar){
+	public String reasignarAdminVuelos(@FormParam("usuario") String usuario, @FormParam("pass") String pass, @FormParam("token") String token, @FormParam("id_administrador") int id_administrador, @FormParam("id_administrador_cambiar") int id_administrador_cambiar){
 		
 		String respuesta= null;
 		

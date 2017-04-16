@@ -100,7 +100,7 @@ function loginAdminSeg(){
 				
 			var div= document.getElementById("adminSeg");
 			
-			var link= document.getElementById("adminSeg").innerHTML= "Bienvenido siga el siguiente enlace:<br><a href='adminVuelos.jsp'>Panel de Control</a>";
+			var link= document.getElementById("adminSeg").innerHTML= "Bienvenido siga el siguiente enlace:<br><a href='adminSeg.jsp'>Panel de Control</a>";
 			
 			div.appendChild(link);
 		}
